@@ -15,11 +15,11 @@
             padding: 0;
             padding-top: 70px; /* Spazio per il menu */
             overflow: hidden; /* Per evitare la scrollbar */
+            text-align: center; /* Centra il testo */
         }
         h1, h2 {
             font-weight: normal;
             color: #fff;
-            text-align: center;
             margin-bottom: 10px; /* Spaziatura ridotta */
         }
         .header {
@@ -60,15 +60,15 @@
             color: white;
             margin-left: 30px;
         }
-        .container, .contatori-container, .switch-container {
+        .container {
             display: flex;
-            justify-content: space-between;
-            align-items: center; /* Allineamento verticale */
+            justify-content: center; /* Centra gli elementi */
+            align-items: flex-end; /* Allinea le cisterne in basso */
             width: 100%;
+            margin-bottom: 20px; /* Spazio sotto le cisterne */
         }
-        .cisterna-container, .contatore-container {
+        .cisterna-container {
             text-align: center;
-            flex: 1; /* Per occupare spazio uguale */
             margin: 0 10px; /* Margine ridotto */
         }
         .separator {
@@ -76,12 +76,6 @@
             background-color: #444;
             width: 80%;
             margin: 10px auto; /* Margine ridotto */
-        }
-        .cisterna, .contatore-box, .switch-box {
-            background-color: #333;
-            border-radius: 12px;
-            border: 1px solid #ccc;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
         .cisterna {
             width: 80px; /* Dimensione ridotta */
@@ -105,12 +99,16 @@
             color: white;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
         }
-        .quantita, .max, .contatore-valore, .switch-title {
+        .quantita, .max {
             font-weight: bold;
             font-size: 12px; /* Dimensione ridotta */
             margin-top: 5px;
             color: white;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+        }
+        .contatore-container {
+            text-align: center;
+            margin: 0 10px; /* Margine ridotto */
         }
         .contatore-box {
             width: 80px; /* Dimensione ridotta */
@@ -122,15 +120,24 @@
             font-size: 14px; /* Dimensione ridotta */
             color: white;
         }
+        .switch-container {
+            display: flex;
+            justify-content: center; /* Centra gli switch */
+            align-items: center; /* Allineamento verticale */
+            width: 100%;
+        }
         .switch-box {
             width: 80px; /* Dimensione ridotta */
             height: 50px; /* Dimensione ridotta */
             display: flex;
+            flex-direction: column; /* Per disporre il titolo sopra l'icona */
             justify-content: center;
-            align-items: center;
+            align-items: center; /* Allineamento verticale */
+            margin: 0 10px; /* Margine per gli switch */
         }
         .switch {
             cursor: pointer;
+            font-size: 24px; /* Dimensione dell'icona aumentata per una migliore visibilità */
         }
     </style>
 </head>
@@ -178,7 +185,7 @@
 
     <!-- Contatori Acqua -->
     <h2>Contatori Acqua</h2>
-    <div class="contatori-container">
+    <div class="container">
         <div class="contatore-container">
             <div class="titolo">Acqua di Rete</div>
             <div class="contatore-box">
