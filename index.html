@@ -162,11 +162,10 @@
             font-size: 18px;
             color: white;
         }
-        .vertical-line {
-            width: 2px;
-            background-color: #444;
-            height: 80px; /* Altezza della linea verticale */
-            margin: 0 20px;
+        .switch-container {
+            display: flex;
+            justify-content: flex-end; /* Allineato a destra */
+            flex-wrap: wrap; /* Permette la rottura su più righe */
         }
     </style>
 </head>
@@ -233,24 +232,29 @@
                 <div class="contatore-valore">7800 m3</div>
             </div>
         </div>
-        <div class="vertical-line"></div> <!-- Linea verticale per separare gli interruttori -->
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- Interruttori Elettrovalvole -->
+    <div class="switch-container">
         <div class="switch">
             <input type="checkbox" id="valve1" onclick="toggleValve(1)">
             <span class="slider"></span>
         </div>
-        <label class="label" for="valve1">Chiamata Rete</label>
+        <label class="label" for="valve1">Elettrovalvola 1</label>
 
         <div class="switch">
             <input type="checkbox" id="valve2" onclick="toggleValve(2)">
             <span class="slider"></span>
         </div>
-        <label class="label" for="valve2">Produzione Osmosi</label>
+        <label class="label" for="valve2">Elettrovalvola 2</label>
 
         <div class="switch">
             <input type="checkbox" id="valve3" onclick="toggleValve(3)">
             <span class="slider"></span>
         </div>
-        <label class="label" for="valve3">Produzione Addolcita</label>
+        <label class="label" for="valve3">Elettrovalvola 3</label>
     </div>
 
     <script>
@@ -270,15 +274,6 @@
             const datetime = new Date();
             document.getElementById('datetime').textContent = datetime.toLocaleString('it-IT');
         }, 1000);
-            // Simula l'aggiornamento dei dati ogni 5 secondi
-        function simulaAggiornamento() {
-            const livelli = [Math.random() * 100, Math.random() * 100, Math.random() * 100];
-            const impulsi = [Math.floor(Math.random() * 10000), Math.floor(Math.random() * 10000), Math.floor(Math.random() * 10000)];
-
-            aggiornaLivelli(livelli, impulsi);
-        }
-
-        setInterval(simulaAggiornamento, 5000);
     </script>
 </body>
 </html>
