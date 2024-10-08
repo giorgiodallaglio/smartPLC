@@ -45,6 +45,7 @@
             font-size: 14px;
             cursor: pointer;
             transition: background-color 0.3s ease;
+            margin-right: 30px; /* Aumentato il margine per migliorare la visibilità */
         }
         .logout-btn:hover {
             background-color: #d94343;
@@ -55,6 +56,7 @@
         .datetime {
             font-size: 16px;
             color: white;
+            margin-left: 30px;
         }
         .container, .contatori-container {
             display: flex;
@@ -63,6 +65,12 @@
         }
         .cisterna-container, .contatore-container {
             text-align: center;
+        }
+        .separator {
+            height: 2px;
+            background-color: #444;
+            width: 80%;
+            margin: 30px auto;
         }
         .cisterna, .contatore-box {
             background-color: #333;
@@ -150,6 +158,8 @@
         </div>
     </div>
 
+    <div class="separator"></div>
+
     <!-- Contatori Acqua -->
     <h2>Contatori Acqua</h2>
     <div class="contatori-container">
@@ -215,6 +225,5 @@
 
         setInterval(simulaAggiornamento, 5000);
     </script>
-
 </body>
-</html
+</html>
