@@ -17,8 +17,8 @@
         h1, h2 {
             font-weight: normal;
             color: #fff;
-            margin: 20px 0;
             text-align: center;
+            margin-bottom: 20px;
         }
         .header {
             position: fixed;
@@ -32,27 +32,25 @@
             padding: 10px 30px;
             background-color: #333;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
-            z-index: 1000; /* Mantieni il menu in primo piano */
+            z-index: 1000;
         }
         .logout-btn {
+            display: flex;
+            align-items: center;
             background-color: #f05454;
             color: white;
             border: none;
             padding: 10px 20px;
             border-radius: 5px;
-            font-size: 16px; /* Aumentato per migliorare la visibilità */
+            font-size: 14px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin-left: 20px; /* Spazio a sinistra */
-            display: flex;
-            align-items: center; /* Allinea il testo e l'icona */
-        }
-        .logout-btn img {
-            width: 20px; /* Dimensione dell'icona aumentata */
-            margin-right: 5px; /* Spazio a destra dell'icona */
         }
         .logout-btn:hover {
             background-color: #d94343;
+        }
+        .logout-btn i {
+            margin-right: 8px;
         }
         .datetime {
             font-size: 16px;
@@ -76,7 +74,6 @@
             width: 150px;
             height: 220px;
             position: relative;
-            overflow: hidden; /* Nasconde la parte eccedente */
         }
         .livello {
             position: absolute;
@@ -84,8 +81,8 @@
             left: 0;
             right: 0;
             background-color: #007bff;
+            border-radius: 12px 12px 0 0;
             transition: height 0.5s ease;
-            border-radius: 12px 12px 0 0; /* Smussatura */
         }
         .titolo {
             font-weight: bold;
@@ -111,12 +108,6 @@
             font-size: 24px;
             color: white;
         }
-        .separator {
-            width: 100%;
-            height: 2px;
-            background-color: #444;
-            margin: 20px 0; /* Margine sopra e sotto il separatore */
-        }
     </style>
 </head>
 <body>
@@ -124,7 +115,7 @@
     <div class="header">
         <div class="datetime" id="datetime"></div>
         <button class="logout-btn" onclick="logout()">
-            <img src="https://cdn-icons-png.flaticon.com/512/1068/1068430.png" alt="Lock"> Logout
+            <i class="fas fa-lock"></i>Logout
         </button>
     </div>
 
@@ -136,7 +127,7 @@
         <div class="cisterna-container">
             <div class="titolo">Cisterna Rete</div>
             <div class="cisterna">
-                <div class="livello" style="height: 91.71%;"></div> <!-- Aggiorna in base al valore -->
+                <div class="livello" style="height: 100%;"></div>
             </div>
             <div class="quantita">Attuale: 9,171 L</div>
             <div class="max">Massima: 10,000 L</div>
@@ -158,8 +149,6 @@
             <div class="max">Massima: 10,000 L</div>
         </div>
     </div>
-
-    <div class="separator"></div> <!-- Separatore tra sezioni -->
 
     <!-- Contatori Acqua -->
     <h2>Contatori Acqua</h2>
@@ -218,12 +207,14 @@
 
         // Simula l'aggiornamento dei dati ogni 5 secondi
         function simulaAggiornamento() {
-            const nuoviLivelli = [91.71, 9, 35]; // Livelli delle cisterne in percentuale
-            const nuoviImpulsi = [9231, 5123, 7800]; // Valori dei contatori
-            aggiornaLivelli(nuoviLivelli, nuoviImpulsi);
+            const livelli = [Math.random() * 100, Math.random() * 100, Math.random() * 100];
+            const impulsi = [Math.floor(Math.random() * 10000), Math.floor(Math.random() * 10000), Math.floor(Math.random() * 10000)];
+
+            aggiornaLivelli(livelli, impulsi);
         }
 
         setInterval(simulaAggiornamento, 5000);
     </script>
+
 </body>
-</html>
+</html
