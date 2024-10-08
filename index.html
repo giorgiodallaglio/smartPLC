@@ -1,160 +1,231 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Dashboard - Monitor Cisterne e Contatori</title>
     <link href="https://fonts.googleapis.com/css2?family=San+Francisco:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: #1e1e1e; /* Sfondo scuro */
+            background-color: #1e1e1e;
             color: white;
             margin: 0;
             padding: 0;
+            padding-top: 70px; /* Spazio per il menu */
+        }
+        h1, h2 {
+            font-weight: normal;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 10px 30px;
+            background-color: #333;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+        }
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            background-color: #f05454;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 80px; /* Aumentato il margine per migliorare la visibilità */
+        }
+        .logout-btn:hover {
+            background-color: #d94343;
+        }
+        .logout-btn i {
+            margin-right: 8px;
+        }
+        .datetime {
+            font-size: 16px;
+            color: white;
+            margin-left: 30px;
+        }
+        .container, .contatori-container {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+        }
+        .cisterna-container, .contatore-container {
+            text-align: center;
+        }
+        .separator {
+            height: 2px;
+            background-color: #444;
+            width: 80%;
+            margin: 30px auto;
+        }
+        .cisterna, .contatore-box {
+            background-color: #333;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .cisterna {
+            width: 150px;
+            height: 220px;
+            position: relative;
+        }
+        .livello {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #007bff;
+            transition: height 0.5s ease;
+            border-radius: 12px; 
+        }
+        .titolo {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 5px;
+            color: white;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+        }
+        .quantita, .max, .contatore-valore {
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 5px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+        }
+        .contatore-box {
+            width: 150px;
+            height: 100px;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-        }
-        h1 {
-            font-size: 36px;
             font-weight: bold;
-            color: #fff; /* Testo bianco */
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .login-container {
-            background-color: #333; /* Box scuro simile alla dashboard */
-            border-radius: 20px;
-            padding: 40px;
-            width: 100%;
-            max-width: 400px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4); /* Ombra */
-            text-align: center;
-        }
-        input[type="text"], input[type="password"] {
-            font-size: 20px;
-            padding: 15px;
-            margin: 15px 0;
-            width: 100%;
-            max-width: 350px;
-            border: 1px solid #d1d1d6;
-            border-radius: 10px;
-            box-sizing: border-box;
-            background-color: #444; /* Campo input scuro */
+            font-size: 24px;
             color: white;
-        }
-        input[type="submit"] {
-            background-color: #007bff; /* Pulsante blu simile al riempimento delle cisterne */
-            color: white;
-            font-size: 20px;
-            border: none;
-            padding: 15px;
-            width: 100%;
-            max-width: 350px;
-            border-radius: 10px;
-            cursor: pointer;
-            margin-top: 20px;
-            font-weight: bold;
-        }
-        input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-        .popup-success, .popup-error {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 18px;
-            display: none;
-            z-index: 1000;
-        }
-        .popup-success {
-            background-color: rgba(0, 255, 0, 0.8); /* Verde con trasparenza */
-        }
-        .popup-error {
-            background-color: rgba(255, 0, 0, 0.8); /* Rosso con trasparenza */
-        }
-        @media (max-width: 768px) {
-            .login-container {
-                padding: 20px;
-                width: 90%;
-            }
-            h1 {
-                font-size: 28px;
-            }
-            input[type="text"], input[type="password"], input[type="submit"] {
-                font-size: 18px;
-            }
         }
     </style>
 </head>
 <body>
-
-    <div class="login-container">
-        <h1>Login</h1>
-        <form id="loginForm" onsubmit="return validateLogin()">
-            <input type="text" id="username" placeholder="Username" required>
-            <input type="password" id="password" placeholder="Password" required>
-            <input type="submit" value="Login">
-        </form>
+    <!-- Header con logout, data e ora -->
+    <div class="header">
+        <div class="datetime" id="datetime"></div>
+        <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-lock"></i>Logout
+        </button>
     </div>
 
-    <!-- Pop-up verde di conferma login -->
-    <div id="popup-success" class="popup-success">
-        Login effettuato con successo!
+    <h1>Overall Lavaggio</h1>
+
+    <!-- Monitor Cisterne -->
+    <h2>Monitor Cisterne</h2>
+    <div class="container">
+        <div class="cisterna-container">
+            <div class="titolo">Cisterna Rete</div>
+            <div class="cisterna">
+                <div class="livello" style="height: 100%;"></div>
+            </div>
+            <div class="quantita">Attuale: 9,171 L</div>
+            <div class="max">Massima: 10,000 L</div>
+        </div>
+        <div class="cisterna-container">
+            <div class="titolo">Cisterna Osmosi</div>
+            <div class="cisterna">
+                <div class="livello" style="height: 9%;"></div>
+            </div>
+            <div class="quantita">Attuale: 926 L</div>
+            <div class="max">Massima: 10,000 L</div>
+        </div>
+        <div class="cisterna-container">
+            <div class="titolo">Cisterna Addolcita</div>
+            <div class="cisterna">
+                <div class="livello" style="height: 35%;"></div>
+            </div>
+            <div class="quantita">Attuale: 3,503 L</div>
+            <div class="max">Massima: 10,000 L</div>
+        </div>
     </div>
 
-    <!-- Pop-up rosso di errore login -->
-    <div id="popup-error" class="popup-error">
-        Username o password errati!
+    <div class="separator"></div>
+
+    <!-- Contatori Acqua -->
+    <h2>Contatori Acqua</h2>
+    <div class="contatori-container">
+        <div class="contatore-container">
+            <div class="titolo">Acqua di Rete</div>
+            <div class="contatore-box">
+                <div class="contatore-valore">9231 m3</div>
+            </div>
+        </div>
+        <div class="contatore-container">
+            <div class="titolo">Acqua Osmosi</div>
+            <div class="contatore-box">
+                <div class="contatore-valore">5123 m3</div>
+            </div>
+        </div>
+        <div class="contatore-container">
+            <div class="titolo">Acqua Addolcita</div>
+            <div class="contatore-box">
+                <div class="contatore-valore">7800 m3</div>
+            </div>
+        </div>
     </div>
 
     <script>
-        // Lista di utenti autorizzati
-        const users = [
-            { username: 'admin', password: '25638' },
-        ];
-
-        // Funzione per validare il login
-        function validateLogin() {
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-
-            const user = users.find(u => u.username === username && u.password === password);
-
-            if (user) {
-                showSuccessPopup();
-                return false; // Impedisce il reload della pagina
-            } else {
-                showErrorPopup();
-                return false; // Impedisce il reload della pagina
-            }
+        // Funzione di logout che reindirizza alla pagina di login
+        function logout() {
+            window.location.href = 'login.html';
         }
 
-        // Funzione per mostrare il pop-up verde
-        function showSuccessPopup() {
-            const popup = document.getElementById('popup-success');
-            popup.style.display = 'block';
-            setTimeout(() => {
-                popup.style.display = 'none';
-                window.location.href = 'index.html'; // Reindirizza alla dashboard dopo 3 secondi
-            }, 3000); // Scompare dopo 3 secondi
+        // Funzione per aggiornare data e ora
+        function aggiornaDataOra() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+            document.getElementById('datetime').textContent = now.toLocaleDateString('it-IT', options);
         }
 
-        // Funzione per mostrare il pop-up rosso di errore
-        function showErrorPopup() {
-            const popup = document.getElementById('popup-error');
-            popup.style.display = 'block';
-            setTimeout(() => {
-                popup.style.display = 'none';
-            }, 3000); // Scompare dopo 3 secondi
+        // Aggiorna data e ora ogni secondo
+        setInterval(aggiornaDataOra, 1000);
+
+        // Funzione per aggiornare i livelli delle cisterne e i contatori
+        function aggiornaLivelli(livelli, impulsi) {
+            const livelliElementi = document.querySelectorAll('.livello');
+            const quantitaElementi = document.querySelectorAll('.quantita');
+            const impulsiElementi = document.querySelectorAll('.contatore-valore');
+
+            livelliElementi.forEach((elemento, index) => {
+                elemento.style.height = livelli[index] + '%';
+                quantitaElementi[index].textContent = 'Attuale: ' + (livelli[index] / 100 * 10000).toFixed(0) + ' L';
+            });
+
+            impulsiElementi.forEach((elemento, index) => {
+                elemento.textContent = impulsi[index] + ' m3';
+            });
         }
+
+        // Simula l'aggiornamento dei dati ogni 5 secondi
+        function simulaAggiornamento() {
+            const livelli = [Math.random() * 100, Math.random() * 100, Math.random() * 100];
+            const impulsi = [Math.floor(Math.random() * 10000), Math.floor(Math.random() * 10000), Math.floor(Math.random() * 10000)];
+
+            aggiornaLivelli(livelli, impulsi);
+        }
+
+        setInterval(simulaAggiornamento, 5000);
     </script>
-
 </body>
 </html>
+
