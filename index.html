@@ -153,7 +153,7 @@
             <div class="cisterna">
                 <div class="livello" style="height: 80%;"></div>
             </div>
-            <div class="quantita">Attuale: 8000 L</div>
+            <div class="quantita">Attuale: <span id="rete-quantita">8000</span> L</div>
             <div class="max">Massima: 10,000 L</div>
         </div>
         <div class="cisterna-container">
@@ -161,7 +161,7 @@
             <div class="cisterna">
                 <div class="livello" style="height: 30%;"></div>
             </div>
-            <div class="quantita">Attuale: 3000 L</div>
+            <div class="quantita">Attuale: <span id="osmosi-quantita">3000</span> L</div>
             <div class="max">Massima: 10,000 L</div>
         </div>
         <div class="cisterna-container">
@@ -169,7 +169,7 @@
             <div class="cisterna">
                 <div class="livello" style="height: 50%;"></div>
             </div>
-            <div class="quantita">Attuale: 5000 L</div>
+            <div class="quantita">Attuale: <span id="addolcita-quantita">5000</span> L</div>
             <div class="max">Massima: 10,000 L</div>
         </div>
     </div>
@@ -182,19 +182,19 @@
         <div class="contatore-container">
             <div class="titolo">Acqua di Rete</div>
             <div class="contatore-box">
-                <div class="contatore-valore">9000 m³</div>
+                <div class="contatore-valore" id="rete-contatore">9000 m³</div>
             </div>
         </div>
         <div class="contatore-container">
             <div class="titolo">Acqua Osmosi</div>
             <div class="contatore-box">
-                <div class="contatore-valore">5000 m³</div>
+                <div class="contatore-valore" id="osmosi-contatore">5000 m³</div>
             </div>
         </div>
         <div class="contatore-container">
             <div class="titolo">Acqua Addolcita</div>
             <div class="contatore-box">
-                <div class="contatore-valore">7000 m³</div>
+                <div class="contatore-valore" id="addolcita-contatore">7000 m³</div>
             </div>
         </div>
     </div>
@@ -226,44 +226,30 @@
             document.getElementById('datetime').textContent = now.toLocaleDateString('it-IT', options);
         }
 
-        // Funzione per simulare l'aggiornamento casuale dei valori
+        // Funzione per simulare l'aggiornamento dei valori
         function updateValues() {
             // Aggiorna valori cisterne
-            const cisternaRete = Math.floor(Math.random() * 10000);
-            const cisternaOsmosi = Math.floor(Math.random() * 10000);
-            const cisternaAddolcita = Math.floor(Math.random() * 10000);
+            const cisternaRete = Math.floor(Math.random() * 10001);
+            const cisternaOsmosi = Math.floor(Math.random() * 10001);
+            const cisternaAddolcita = Math.floor(Math.random() * 10001);
 
             document.querySelectorAll('.cisterna .livello')[0].style.height = (cisternaRete / 100).toString() + '%';
-            document.querySelectorAll('.cisterna .quantita')[0].textContent = 'Attuale: ' + cisternaRete + ' L';
+            document.getElementById('rete-quantita').textContent = cisternaRete;
 
             document.querySelectorAll('.cisterna .livello')[1].style.height = (cisternaOsmosi / 100).toString() + '%';
-            document.querySelectorAll('.cisterna .quantita')[1].textContent = 'Attuale: ' + cisternaOsmosi + ' L';
+            document.getElementById('osmosi-quantita').textContent = cisternaOsmosi;
 
             document.querySelectorAll('.cisterna .livello')[2].style.height = (cisternaAddolcita / 100).toString() + '%';
-            document.querySelectorAll('.cisterna .quantita')[2].textContent = 'Attuale: ' + cisternaAddolcita + ' L';
+            document.getElementById('addolcita-quantita').textContent = cisternaAddolcita;
 
             // Aggiorna valori contatori
-            const contatoreRete = Math.floor(Math.random() * 10000);
-            const contatoreOsmosi = Math.floor(Math.random() * 10000);
-            const contatoreAddolcita = Math.floor(Math.random() * 10000);
+            const contatoreRete = Math.floor(Math.random() * 10001);
+            const contatoreOsmosi = Math.floor(Math.random() * 10001);
+            const contatoreAddolcita = Math.floor(Math.random() * 10001);
 
-            document.querySelectorAll('.contatore-valore')[0].textContent = contatoreRete + ' m³';
-            document.querySelectorAll('.contatore-valore')[1].textContent = contatoreOsmosi + ' m³';
-            document.querySelectorAll('.contatore-valore')[2].textContent = contatoreAddolcita + ' m³';
-
-            // Aggiorna stato degli switch
-            for (let i = 1; i <= 3; i++) {
-                const switchElement = document.getElementById('switch' + i);
-                if (Math.random() > 0.5) {
-                    switchElement.style.color = 'green';
-                    switchElement.classList.remove('fa-toggle-off');
-                    switchElement.classList.add('fa-toggle-on');
-                } else {
-                    switchElement.style.color = 'red';
-                    switchElement.classList.remove('fa-toggle-on');
-                    switchElement.classList.add('fa-toggle-off');
-                }
-            }
+            document.getElementById('rete-contatore').textContent = contatoreRete + ' m³';
+            document.getElementById('osmosi-contatore').textContent = contatoreOsmosi + ' m³';
+            document.getElementById('addolcita-contatore').textContent = contatoreAddolcita + ' m³';
         }
 
         // Funzione per cambiare lo stato degli switch
