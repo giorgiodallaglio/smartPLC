@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Monitor Cisterne e Contatori</title>
+    <style>
+        body {
+            font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #1c1c1e;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #f2f2f7;
+        }
+        .login-container {
+            background-color: #2c2c2e;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: normal;
+            color: #f2f2f7;
+        }
+        label {
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #48484a;
+            border-radius: 8px;
+            background-color: #3a3a3c;
+            color: #f2f2f7;
+            font-size: 16px;
+            outline: none;
+        }
+        input[type="email"]:focus, input[type="password"]:focus {
+            border-color: #007aff;
+        }
+        .login-button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007aff;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .login-button:hover {
+            background-color: #005bb5;
+        }
+        .error-message {
+            color: #ff3b30;
+            margin-bottom: 10px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form id="loginForm">
+            <label for="email">Email:</label>
+            <input type="email" id="email" placeholder="Inserisci la tua email" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" placeholder="Inserisci la tua password" required>
+
+            <div class="error-message" id="errorMessage">Email o password non corretti</div>
+
+            <button type="submit" class="login-button">Login</button>
+        </form>
+    </div>
+
+    <script>
+        // Funzione di gestione del login
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Qui puoi fare un controllo delle credenziali simulato
+            if (email === 'test@apple.com' && password === 'password123') {
+                alert('Login riuscito!');
+                // Puoi ridirigere l'utente alla pagina principale o dashboard
+                window.location.href = 'dashboard.html'; // Sostituire con la tua pagina
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
