@@ -14,13 +14,12 @@
             margin: 0;
             padding: 0;
             padding-top: 70px; /* Spazio per il menu */
-            overflow: hidden; /* Per evitare la scrollbar */
-            text-align: center; /* Centra il testo */
         }
         h1, h2 {
             font-weight: normal;
             color: #fff;
-            margin-bottom: 10px; /* Spaziatura ridotta */
+            text-align: center;
+            margin-bottom: 20px;
         }
         .header {
             position: fixed;
@@ -42,12 +41,12 @@
             background-color: #f05454;
             color: white;
             border: none;
-            padding: 8px 16px; /* Dimensioni ridotte */
+            padding: 10px 20px;
             border-radius: 5px;
             font-size: 14px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin-right: 40px; /* Aumentato il margine per migliorare la visibilità */
+            margin-right: 80px; /* Aumentato il margine per migliorare la visibilità */
         }
         .logout-btn:hover {
             background-color: #d94343;
@@ -56,32 +55,34 @@
             margin-right: 8px;
         }
         .datetime {
-            font-size: 14px; /* Dimensione ridotta */
+            font-size: 16px;
             color: white;
             margin-left: 30px;
         }
-        .container {
+        .container, .contatori-container {
             display: flex;
-            justify-content: center; /* Centra gli elementi */
-            align-items: flex-end; /* Allinea le cisterne in basso */
-            width: 100%;
-            margin-bottom: 20px; /* Spazio sotto le cisterne */
+            gap: 30px;
+            justify-content: center;
         }
-        .cisterna-container {
+        .cisterna-container, .contatore-container {
             text-align: center;
-            margin: 0 10px; /* Margine ridotto */
         }
         .separator {
             height: 2px;
             background-color: #444;
             width: 80%;
-            margin: 10px auto; /* Margine ridotto */
+            margin: 30px auto;
+        }
+        .cisterna, .contatore-box {
+            background-color: #333;
+            border-radius: 12px;
+            border: 1px solid #ccc;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
         .cisterna {
-            width: 80px; /* Dimensione ridotta */
-            height: 150px; /* Dimensione ridotta */
+            width: 150px;
+            height: 220px;
             position: relative;
-            margin: 0 auto; /* Per centrare la cisterna */
         }
         .livello {
             position: absolute;
@@ -94,50 +95,27 @@
         }
         .titolo {
             font-weight: bold;
-            font-size: 14px; /* Dimensione ridotta */
+            font-size: 16px;
             margin-bottom: 5px;
             color: white;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
         }
-        .quantita, .max {
+        .quantita, .max, .contatore-valore {
             font-weight: bold;
-            font-size: 12px; /* Dimensione ridotta */
+            font-size: 16px;
             margin-top: 5px;
             color: white;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
         }
-        .contatore-container {
-            text-align: center;
-            margin: 0 10px; /* Margine ridotto */
-        }
         .contatore-box {
-            width: 80px; /* Dimensione ridotta */
-            height: 50px; /* Dimensione ridotta */
+            width: 150px;
+            height: 100px;
             display: flex;
             justify-content: center;
             align-items: center;
             font-weight: bold;
-            font-size: 14px; /* Dimensione ridotta */
+            font-size: 24px;
             color: white;
-        }
-        .switch-container {
-            display: flex;
-            justify-content: center; /* Centra gli switch */
-            align-items: center; /* Allineamento verticale */
-            width: 100%;
-        }
-        .switch-box {
-            width: 80px; /* Dimensione ridotta */
-            height: 50px; /* Dimensione ridotta */
-            display: flex;
-            flex-direction: column; /* Per disporre il titolo sopra l'icona */
-            justify-content: center;
-            align-items: center; /* Allineamento verticale */
-            margin: 0 10px; /* Margine per gli switch */
-        }
-        .switch {
-            cursor: pointer;
-            font-size: 24px; /* Dimensione dell'icona aumentata per una migliore visibilità */
         }
     </style>
 </head>
@@ -158,98 +136,113 @@
         <div class="cisterna-container">
             <div class="titolo">Cisterna Rete</div>
             <div class="cisterna">
-                <div class="livello" style="height: 80%;"></div>
+                <div class="livello" id="livello-rete" style="height: 50%;"></div>
             </div>
-            <div class="quantita">Attuale: <span id="rete-quantita">8000</span> L</div>
+            <div class="quantita" id="quantita-rete">Attuale: 5000 L</div>
             <div class="max">Massima: 10,000 L</div>
         </div>
         <div class="cisterna-container">
             <div class="titolo">Cisterna Osmosi</div>
             <div class="cisterna">
-                <div class="livello" style="height: 30%;"></div>
+                <div class="livello" id="livello-osmosi" style="height: 20%;"></div>
             </div>
-            <div class="quantita">Attuale: <span id="osmosi-quantita">3000</span> L</div>
+            <div class="quantita" id="quantita-osmosi">Attuale: 2000 L</div>
             <div class="max">Massima: 10,000 L</div>
         </div>
         <div class="cisterna-container">
             <div class="titolo">Cisterna Addolcita</div>
             <div class="cisterna">
-                <div class="livello" style="height: 50%;"></div>
+                <div class="livello" id="livello-addolcita" style="height: 35%;"></div>
             </div>
-            <div class="quantita">Attuale: <span id="addolcita-quantita">5000</span> L</div>
+            <div class="quantita" id="quantita-addolcita">Attuale: 3500 L</div>
             <div class="max">Massima: 10,000 L</div>
         </div>
     </div>
 
     <div class="separator"></div>
 
-    <!-- Monitor Contatori -->
-    <h2>Monitor Contatori</h2>
-    <div class="container">
+    <!-- Contatori Acqua -->
+    <h2>Contatori Acqua</h2>
+    <div class="contatori-container">
         <div class="contatore-container">
-            <div class="contatore-box" id="rete-contatore">0 m³</div>
+            <div class="titolo">Acqua di Rete</div>
+            <div class="contatore-box">
+                <div class="contatore-valore" id="contatore-rete">9231 m3</div>
+            </div>
         </div>
         <div class="contatore-container">
-            <div class="contatore-box" id="osmosi-contatore">0 m³</div>
+            <div class="titolo">Acqua Osmosi</div>
+            <div class="contatore-box">
+                <div class="contatore-valore" id="contatore-osmosi">5123 m3</div>
+            </div>
         </div>
         <div class="contatore-container">
-            <div class="contatore-box" id="addolcita-contatore">0 m³</div>
-        </div>
-    </div>
-
-    <div class="separator"></div>
-
-    <!-- Monitor Switch -->
-    <h2>Stato Elettrovalvole</h2>
-    <div class="switch-container">
-        <div class="switch-box">
-            <div class="titolo">Rete</div>
-            <i id="switch1" class="fas fa-toggle-off switch"></i>
-        </div>
-        <div class="switch-box">
-            <div class="titolo">Osmosi</div>
-            <i id="switch2" class="fas fa-toggle-off switch"></i>
-        </div>
-        <div class="switch-box">
-            <div class="titolo">Addolcita</div>
-            <i id="switch3" class="fas fa-toggle-off switch"></i>
+            <div class="titolo">Acqua Addolcita</div>
+            <div class="contatore-box">
+                <div class="contatore-valore" id="contatore-addolcita">7800 m3</div>
+            </div>
         </div>
     </div>
 
     <script>
+        // Funzione di logout che reindirizza alla pagina di login
         function logout() {
-            window.location.href = "login.html"; // Reindirizza a login.html
+            window.location.href = 'login.html';
         }
 
-        function updateTime() {
-            const datetimeElement = document.getElementById('datetime');
+        // Funzione per aggiornare data e ora
+        function aggiornaDataOra() {
             const now = new Date();
-            datetimeElement.innerHTML = now.toLocaleString('it-IT');
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+            document.getElementById('datetime').textContent = now.toLocaleDateString('it-IT', options);
         }
 
-        function updateValues() {
-            document.getElementById('rete-quantita').innerText = Math.floor(Math.random() * 10000);
-            document.getElementById('osmosi-quantita').innerText = Math.floor(Math.random() * 10000);
-            document.getElementById('addolcita-quantita').innerText = Math.floor(Math.random() * 10000);
+        // Aggiorna data e ora ogni secondo
+        setInterval(aggiornaDataOra, 1000);
 
-            // Aggiorna i contatori
-            document.getElementById('rete-contatore').innerText = Math.floor(Math.random() * 10000) + " m³";
-            document.getElementById('osmosi-contatore').innerText = Math.floor(Math.random() * 10000) + " m³";
-            document.getElementById('addolcita-contatore').innerText = Math.floor(Math.random() * 10000) + " m³";
+        // Funzione per aggiornare i livelli delle cisterne e i contatori
+        function aggiornaLivelli(livelli, impulsi) {
+            const livelliElementi = {
+                rete: document.getElementById('livello-rete'),
+                osmosi: document.getElementById('livello-osmosi'),
+                addolcita: document.getElementById('livello-addolcita'),
+            };
 
-            // Aggiorna lo stato degli switch
-            for (let i = 1; i <= 3; i++) {
-                const switchElement = document.getElementById(`switch${i}`);
-                const isOn = Math.random() > 0.5; // Randomicamente accende o spegne
-                switchElement.className = isOn ? "fas fa-toggle-on switch" : "fas fa-toggle-off switch";
-                switchElement.style.color = isOn ? "green" : "red";
+            const quantitaElementi = {
+                rete: document.getElementById('quantita-rete'),
+                osmosi: document.getElementById('quantita-osmosi'),
+                addolcita: document.getElementById('quantita-addolcita'),
+            };
+
+            const impulsiElementi = {
+                rete: document.getElementById('contatore-rete'),
+                osmosi: document.getElementById('contatore-osmosi'),
+                addolcita: document.getElementById('contatore-addolcita'),
+            };
+
+            // Aggiorna i valori grafici delle cisterne e dei contatori
+            for (const cisterna in livelli) {
+                const livelloPercent = (livelli[cisterna] / 10000) * 100;
+                livelliElementi[cisterna].style.height = livelloPercent + '%';
+                quantitaElementi[cisterna].textContent = `Attuale: ${livelli[cisterna]} L`;
+                impulsiElementi[cisterna].textContent = `${impulsi[cisterna]} m3`;
             }
         }
 
-        // Aggiornamento della data e ora ogni secondo
-        setInterval(updateTime, 1000);
-        // Aggiornamento dei valori ogni 5 secondi
-        setInterval(updateValues, 5000);
+        // Simulazione dell'aggiornamento dinamico
+        setInterval(() => {
+            const livelliRandom = {
+                rete: Math.floor(Math.random() * 10000),
+                osmosi: Math.floor(Math.random() * 10000),
+                addolcita: Math.floor(Math.random() * 10000),
+            };
+            const impulsiRandom = {
+                rete: Math.floor(Math.random() * 10000),
+                osmosi: Math.floor(Math.random() * 10000),
+                addolcita: Math.floor(Math.random() * 10000),
+            };
+            aggiornaLivelli(livelliRandom, impulsiRandom);
+        }, 3000);
     </script>
 </body>
 </html>
