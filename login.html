@@ -61,18 +61,23 @@
         input[type="submit"]:hover {
             background-color: #0056b3;
         }
-        .popup-success {
+        .popup-success, .popup-error {
             position: fixed;
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: rgba(0, 255, 0, 0.8); /* Verde con trasparenza */
             color: white;
             padding: 15px 30px;
             border-radius: 10px;
             font-size: 18px;
             display: none;
             z-index: 1000;
+        }
+        .popup-success {
+            background-color: rgba(0, 255, 0, 0.8); /* Verde con trasparenza */
+        }
+        .popup-error {
+            background-color: rgba(255, 0, 0, 0.8); /* Rosso con trasparenza */
         }
         @media (max-width: 768px) {
             .login-container {
@@ -104,12 +109,15 @@
         Login effettuato con successo!
     </div>
 
+    <!-- Pop-up rosso di errore login -->
+    <div id="popup-error" class="popup-error">
+        Username o password errati!
+    </div>
+
     <script>
         // Lista di utenti autorizzati
         const users = [
-            { username: 'utente1', password: 'password1' },
-            { username: 'utente2', password: 'password2' },
-            { username: 'utente3', password: 'password3' }
+            { username: 'admin', password: '25638' },
         ];
 
         // Funzione per validare il login
@@ -123,7 +131,7 @@
                 showSuccessPopup();
                 return false; // Impedisce il reload della pagina
             } else {
-                alert('Username o password errati!');
+                showErrorPopup();
                 return false; // Impedisce il reload della pagina
             }
         }
@@ -134,7 +142,16 @@
             popup.style.display = 'block';
             setTimeout(() => {
                 popup.style.display = 'none';
-                window.location.href = 'dashboard.html'; // Reindirizza alla dashboard dopo 3 secondi
+                window.location.href = 'index.html'; // Reindirizza alla dashboard dopo 3 secondi
+            }, 3000); // Scompare dopo 3 secondi
+        }
+
+        // Funzione per mostrare il pop-up rosso di errore
+        function showErrorPopup() {
+            const popup = document.getElementById('popup-error');
+            popup.style.display = 'block';
+            setTimeout(() => {
+                popup.style.display = 'none';
             }, 3000); // Scompare dopo 3 secondi
         }
     </script>
