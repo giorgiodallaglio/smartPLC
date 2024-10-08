@@ -167,9 +167,14 @@
         }
         .switch-container {
             display: flex;
-            justify-content: flex-end; /* Allineato a destra */
-            flex-wrap: wrap; /* Permette la rottura su più righe */
+            flex-direction: column; /* Imposta le elettrovalvole in colonna */
+            align-items: flex-start; /* Allinea a sinistra */
             margin-left: 20px; /* Spazio tra contatori e switch */
+        }
+        .switch-row {
+            display: flex; /* Usa il flex per allineare gli switch */
+            align-items: center; /* Allinea verticalmente */
+            margin-bottom: 10px; /* Margine tra le righe */
         }
     </style>
 </head>
@@ -234,27 +239,34 @@
             <div class="contatore-container">
                 <div class="titolo">Acqua Addolcita</div>
                 <div class="contatore-box">
-                    <div class="contatore-valore">7800 m3</div>
+                    <div class="contatore-valore">2045 m3</div>
                 </div>
             </div>
         </div>
+
         <div class="switch-container" style="flex: 1;">
             <h2>Elettrovalvole</h2>
-            <div class="switch">
-                <input type="checkbox" id="valve1" onclick="toggleValve(1)">
-                <span class="slider"></span>
+            <div class="switch-row">
+                <div class="switch">
+                    <input type="checkbox" id="valve1" onclick="toggleValve(1)">
+                    <span class="slider"></span>
+                </div>
+                <label class="label" for="valve1">Elettrovalvola 1</label>
             </div>
-            <label class="label" for="valve1">Elettrovalvola 1</label>
-            <div class="switch">
-                <input type="checkbox" id="valve2" onclick="toggleValve(2)">
-                <span class="slider"></span>
+            <div class="switch-row">
+                <div class="switch">
+                    <input type="checkbox" id="valve2" onclick="toggleValve(2)">
+                    <span class="slider"></span>
+                </div>
+                <label class="label" for="valve2">Elettrovalvola 2</label>
             </div>
-            <label class="label" for="valve2">Elettrovalvola 2</label>
-            <div class="switch">
-                <input type="checkbox" id="valve3" onclick="toggleValve(3)">
-                <span class="slider"></span>
+            <div class="switch-row">
+                <div class="switch">
+                    <input type="checkbox" id="valve3" onclick="toggleValve(3)">
+                    <span class="slider"></span>
+                </div>
+                <label class="label" for="valve3">Elettrovalvola 3</label>
             </div>
-            <label class="label" for="valve3">Elettrovalvola 3</label>
         </div>
     </div>
 
