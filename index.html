@@ -117,6 +117,51 @@
             font-size: 24px;
             color: white;
         }
+        .elettrovalvola-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .elettrovalvola {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .switch {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .switch input[type="checkbox"] {
+            display: none;
+        }
+        .switch label {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            background-color: #ccc;
+            border-radius: 34px;
+            transition: background-color 0.3s;
+        }
+        .switch label:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        .switch input[type="checkbox"]:checked + label {
+            background-color: #007bff;
+        }
+        .switch input[type="checkbox"]:checked + label:before {
+            transform: translateX(26px);
+        }
     </style>
 </head>
 <body>
@@ -184,36 +229,65 @@
         </div>
     </div>
 
+    <div class="separator"></div>
+
+    <!-- Elettrovalvole -->
+    <h2>Elettrovalvole</h2>
+    <div class="elettrovalvola-container">
+        <div class="elettrovalvola">
+            <div class="titolo">Elettrovalvola 1</div>
+            <div class="switch">
+                <input type="checkbox" id="switch1" onchange="toggleSwitch('switch1')">
+                <label for="switch1"></label>
+            </div>
+        </div>
+        <div class="elettrovalvola">
+            <div class="titolo">Elettrovalvola 2</div>
+            <div class="switch">
+                <input type="checkbox" id="switch2" onchange="toggleSwitch('switch2')">
+                <label for="switch2"></label>
+            </div>
+        </div>
+        <div class="elettrovalvola">
+            <div class="titolo">Elettrovalvola 3</div>
+            <div class="switch">
+                <input type="checkbox" id="switch3" onchange="toggleSwitch('switch3')">
+                <label for="switch3"></label>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Funzione di logout che reindirizza alla pagina di login
+        // Funzione per il logout
         function logout() {
             window.location.href = 'login.html';
         }
 
-        // Funzione per aggiornare data e ora
-        function aggiornaDataOra() {
+        // Aggiornamento data e ora
+        function updateDateTime() {
             const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
-            document.getElementById('datetime').textContent = now.toLocaleDateString('it-IT', options);
+            document.getElementById('datetime').innerText = now.toLocaleString();
+        }
+        setInterval(updateDateTime, 1000);
+
+        // Funzione per il toggle degli switch delle elettrovalvole
+        function toggleSwitch(switchId) {
+            const switchElement = document.getElementById(switchId);
+            console.log(`${switchId} è ora ${switchElement.checked ? 'acceso' : 'spento'}`);
         }
 
-        // Aggiorna data e ora ogni secondo
-        setInterval(aggiornaDataOra, 1000);
-
-        // Funzione per aggiornare i livelli delle cisterne e i contatori
+        // Aggiornamento valori delle cisterne e contatori
         function aggiornaLivelli(livelli, impulsi) {
             const livelliElementi = {
                 rete: document.getElementById('livello-rete'),
                 osmosi: document.getElementById('livello-osmosi'),
                 addolcita: document.getElementById('livello-addolcita'),
             };
-
             const quantitaElementi = {
                 rete: document.getElementById('quantita-rete'),
                 osmosi: document.getElementById('quantita-osmosi'),
                 addolcita: document.getElementById('quantita-addolcita'),
             };
-
             const impulsiElementi = {
                 rete: document.getElementById('contatore-rete'),
                 osmosi: document.getElementById('contatore-osmosi'),
