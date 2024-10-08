@@ -59,13 +59,16 @@
             color: white;
             margin-left: 30px;
         }
-        .container, .contatori-container {
+        .container {
             display: flex;
-            gap: 30px;
-            justify-content: center;
+            justify-content: space-between; /* Espande per utilizzare tutta la larghezza */
+            align-items: flex-start; /* Allinea gli elementi in alto */
+            padding: 0 20px; /* Aggiungi un padding orizzontale */
         }
         .cisterna-container, .contatore-container {
             text-align: center;
+            flex: 1; /* Permette ai contenitori di occupare spazi uguali */
+            margin: 0 10px; /* Margini per separare i contenitori */
         }
         .separator {
             height: 2px;
@@ -166,6 +169,7 @@
             display: flex;
             justify-content: flex-end; /* Allineato a destra */
             flex-wrap: wrap; /* Permette la rottura su più righe */
+            margin-left: 20px; /* Spazio tra contatori e switch */
         }
     </style>
 </head>
@@ -211,50 +215,46 @@
 
     <div class="separator"></div>
 
-    <!-- Contatori Acqua -->
+    <!-- Contatori Acqua e switch -->
     <h2>Contatori Acqua</h2>
-    <div class="contatori-container">
-        <div class="contatore-container">
-            <div class="titolo">Acqua di Rete</div>
-            <div class="contatore-box">
-                <div class="contatore-valore">9231 m3</div>
+    <div class="container">
+        <div class="contatori-container" style="flex: 2;">
+            <div class="contatore-container">
+                <div class="titolo">Acqua di Rete</div>
+                <div class="contatore-box">
+                    <div class="contatore-valore">9231 m3</div>
+                </div>
+            </div>
+            <div class="contatore-container">
+                <div class="titolo">Acqua Osmosi</div>
+                <div class="contatore-box">
+                    <div class="contatore-valore">5123 m3</div>
+                </div>
+            </div>
+            <div class="contatore-container">
+                <div class="titolo">Acqua Addolcita</div>
+                <div class="contatore-box">
+                    <div class="contatore-valore">7800 m3</div>
+                </div>
             </div>
         </div>
-        <div class="contatore-container">
-            <div class="titolo">Acqua Osmosi</div>
-            <div class="contatore-box">
-                <div class="contatore-valore">5123 m3</div>
+        <div class="switch-container" style="flex: 1;">
+            <div class="switch">
+                <input type="checkbox" id="valve1" onclick="toggleValve(1)">
+                <span class="slider"></span>
             </div>
-        </div>
-        <div class="contatore-container">
-            <div class="titolo">Acqua Addolcita</div>
-            <div class="contatore-box">
-                <div class="contatore-valore">7800 m3</div>
+            <label class="label" for="valve1">Elettrovalvola 1</label>
+            <div class="switch">
+                <input type="checkbox" id="valve2" onclick="toggleValve(2)">
+                <span class="slider"></span>
             </div>
+            <label class="label" for="valve2">Elettrovalvola 2</label>
+            <div class="switch">
+                <input type="checkbox" id="valve3" onclick="toggleValve(3)">
+                <span class="slider"></span>
+            </div>
+            <label class="label" for="valve3">Elettrovalvola 3</label>
         </div>
-    </div>
-
-    <div class="separator"></div>
-
-    <!-- Interruttori Elettrovalvole -->
-    <div class="switch-container">
-        <div class="switch">
-            <input type="checkbox" id="valve1" onclick="toggleValve(1)">
-            <span class="slider"></span>
-        </div>
-        <label class="label" for="valve1">Elettrovalvola 1</label>
-
-        <div class="switch">
-            <input type="checkbox" id="valve2" onclick="toggleValve(2)">
-            <span class="slider"></span>
-        </div>
-        <label class="label" for="valve2">Elettrovalvola 2</label>
-
-        <div class="switch">
-            <input type="checkbox" id="valve3" onclick="toggleValve(3)">
-            <span class="slider"></span>
-        </div>
-        <label class="label" for="valve3">Elettrovalvola 3</label>
     </div>
 
     <script>
