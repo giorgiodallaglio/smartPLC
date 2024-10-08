@@ -59,13 +59,15 @@
             color: white;
             margin-left: 30px;
         }
-        .container, .contatori-container {
+        .container {
             display: flex;
-            gap: 30px;
             justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
         }
-        .cisterna-container, .contatore-container {
+        .cisterna-container {
             text-align: center;
+            width: 150px; /* Larghezza fissa per tutte le cisterne */
         }
         .separator {
             height: 2px;
@@ -73,15 +75,12 @@
             width: 80%;
             margin: 30px auto;
         }
-        .cisterna, .contatore-box {
+        .cisterna {
             background-color: #333;
             border-radius: 12px;
             border: 1px solid #ccc;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-        .cisterna {
-            width: 150px;
-            height: 220px;
+            height: 220px; /* Altezza fissa per tutte le cisterne */
             position: relative;
         }
         .livello {
@@ -100,22 +99,64 @@
             color: white;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
         }
-        .quantita, .max, .contatore-valore {
+        .quantita, .max {
             font-weight: bold;
-            font-size: 16px;
+            font-size: 14px;
             margin-top: 5px;
             color: white;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
         }
-        .contatore-box {
-            width: 150px;
-            height: 100px;
+        .contatori-container, .switch-container {
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             align-items: center;
+            padding: 20px;
+            background-color: #333;
+            border-radius: 12px;
+            margin-top: 20px;
+        }
+        .contatore-box, .switch-box {
+            text-align: center;
+            width: 120px; /* Larghezza fissa per i contatori e gli switch */
+        }
+        .contatore-valore {
             font-weight: bold;
             font-size: 24px;
             color: white;
+        }
+        .switch {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .switch input {
+            display: none;
+        }
+        .switch label {
+            cursor: pointer;
+            width: 40px;
+            height: 20px;
+            background: #ccc;
+            border-radius: 20px;
+            position: relative;
+            transition: background 0.3s ease;
+        }
+        .switch label:before {
+            content: '';
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            background: white;
+            border-radius: 50%;
+            top: 1px;
+            left: 1px;
+            transition: transform 0.3s ease;
+        }
+        .switch input:checked + label {
+            background: #007bff;
+        }
+        .switch input:checked + label:before {
+            transform: translateX(20px);
         }
     </style>
 </head>
@@ -163,69 +204,64 @@
 
     <!-- Contatori Acqua -->
     <h2>Contatori Acqua</h2>
+    <div class="separator"></div>
     <div class="contatori-container">
-        <div class="contatore-container">
+        <div class="contatore-box">
             <div class="titolo">Acqua di Rete</div>
-            <div class="contatore-box">
-                <div class="contatore-valore">9231 m3</div>
-            </div>
+            <div class="contatore-valore">9231 m³</div>
         </div>
-        <div class="contatore-container">
+        <div class="contatore-box">
             <div class="titolo">Acqua Osmosi</div>
-            <div class="contatore-box">
-                <div class="contatore-valore">5123 m3</div>
+            <div class="contatore-valore">5123 m³</div>
+        </div>
+        <div class="contatore-box">
+            <div class="titolo">Acqua Addolcita</div>
+            <div class="contatore-valore">7800 m³</div>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- Elettrovalvole -->
+    <h2>Elettrovalvole</h2>
+    <div class="separator"></div>
+    <div class="switch-container">
+        <div class="switch-box">
+            <div class="titolo">Elettrovalvola 1</div>
+            <div class="switch">
+                <input type="checkbox" id="switch1">
+                <label for="switch1"></label>
             </div>
         </div>
-        <div class="contatore-container">
-            <div class="titolo">Acqua Addolcita</div>
-            <div class="contatore-box">
-                <div class="contatore-valore">7800 m3</div>
+        <div class="switch-box">
+            <div class="titolo">Elettrovalvola 2</div>
+            <div class="switch">
+                <input type="checkbox" id="switch2">
+                <label for="switch2"></label>
+            </div>
+        </div>
+        <div class="switch-box">
+            <div class="titolo">Elettrovalvola 3</div>
+            <div class="switch">
+                <input type="checkbox" id="switch3">
+                <label for="switch3"></label>
             </div>
         </div>
     </div>
 
     <script>
-        // Funzione di logout che reindirizza alla pagina di login
         function logout() {
-            window.location.href = 'login.html';
+            alert("Logout effettuato!");
         }
 
-        // Funzione per aggiornare data e ora
-        function aggiornaDataOra() {
+        function updateTime() {
             const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
-            document.getElementById('datetime').textContent = now.toLocaleDateString('it-IT', options);
+            const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+            document.getElementById('datetime').textContent = now.toLocaleString('it-IT', options);
         }
 
-        // Aggiorna data e ora ogni secondo
-        setInterval(aggiornaDataOra, 1000);
-
-        // Funzione per aggiornare i livelli delle cisterne e i contatori
-        function aggiornaLivelli(livelli, impulsi) {
-            const livelliElementi = document.querySelectorAll('.livello');
-            const quantitaElementi = document.querySelectorAll('.quantita');
-            const impulsiElementi = document.querySelectorAll('.contatore-valore');
-
-            livelliElementi.forEach((elemento, index) => {
-                elemento.style.height = livelli[index] + '%';
-                quantitaElementi[index].textContent = 'Attuale: ' + (livelli[index] / 100 * 10000).toFixed(0) + ' L';
-            });
-
-            impulsiElementi.forEach((elemento, index) => {
-                elemento.textContent = impulsi[index] + ' m3';
-            });
-        }
-
-        // Simula l'aggiornamento dei dati ogni 5 secondi
-        function simulaAggiornamento() {
-            const livelli = [Math.random() * 100, Math.random() * 100, Math.random() * 100];
-            const impulsi = [Math.floor(Math.random() * 10000), Math.floor(Math.random() * 10000), Math.floor(Math.random() * 10000)];
-
-            aggiornaLivelli(livelli, impulsi);
-        }
-
-        setInterval(simulaAggiornamento, 5000);
+        setInterval(updateTime, 1000);
+        updateTime(); // Chiamata iniziale per impostare l'orario all'apertura
     </script>
 </body>
 </html>
-
