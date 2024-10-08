@@ -183,100 +183,73 @@
 
     <div class="separator"></div>
 
-    <!-- Contatori Acqua -->
-    <h2>Contatori Acqua</h2>
+    <!-- Monitor Contatori -->
+    <h2>Monitor Contatori</h2>
     <div class="container">
         <div class="contatore-container">
-            <div class="titolo">Acqua di Rete</div>
-            <div class="contatore-box">
-                <div class="contatore-valore" id="rete-contatore">9000 m³</div>
-            </div>
+            <div class="contatore-box" id="rete-contatore">0 m³</div>
         </div>
         <div class="contatore-container">
-            <div class="titolo">Acqua Osmosi</div>
-            <div class="contatore-box">
-                <div class="contatore-valore" id="osmosi-contatore">5000 m³</div>
-            </div>
+            <div class="contatore-box" id="osmosi-contatore">0 m³</div>
         </div>
         <div class="contatore-container">
-            <div class="titolo">Acqua Addolcita</div>
-            <div class="contatore-box">
-                <div class="contatore-valore" id="addolcita-contatore">7000 m³</div>
-            </div>
+            <div class="contatore-box" id="addolcita-contatore">0 m³</div>
         </div>
     </div>
 
     <div class="separator"></div>
 
-    <!-- Elettrovalvole -->
-    <h2>Elettrovalvole</h2>
+    <!-- Monitor Switch -->
+    <h2>Stato Elettrovalvole</h2>
     <div class="switch-container">
         <div class="switch-box">
-            <div class="switch-title">Elettrovalvola 1</div>
-            <i class="fas fa-toggle-on switch" id="switch1" onclick="toggleSwitch(1)" style="color: green;"></i>
+            <div class="titolo">Rete</div>
+            <i id="switch1" class="fas fa-toggle-off switch"></i>
         </div>
         <div class="switch-box">
-            <div class="switch-title">Elettrovalvola 2</div>
-            <i class="fas fa-toggle-on switch" id="switch2" onclick="toggleSwitch(2)" style="color: green;"></i>
+            <div class="titolo">Osmosi</div>
+            <i id="switch2" class="fas fa-toggle-off switch"></i>
         </div>
         <div class="switch-box">
-            <div class="switch-title">Elettrovalvola 3</div>
-            <i class="fas fa-toggle-on switch" id="switch3" onclick="toggleSwitch(3)" style="color: green;"></i>
+            <div class="titolo">Addolcita</div>
+            <i id="switch3" class="fas fa-toggle-off switch"></i>
         </div>
     </div>
 
     <script>
-        // Funzione per aggiornare la data e l'ora
-        function updateDateTime() {
+        function logout() {
+            window.location.href = "login.html"; // Reindirizza a login.html
+        }
+
+        function updateTime() {
+            const datetimeElement = document.getElementById('datetime');
             const now = new Date();
-            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            document.getElementById('datetime').textContent = now.toLocaleDateString('it-IT', options);
+            datetimeElement.innerHTML = now.toLocaleString('it-IT');
         }
 
-        // Funzione per simulare l'aggiornamento dei valori
         function updateValues() {
-            // Aggiorna valori cisterne
-            const cisternaRete = Math.floor(Math.random() * 10001);
-            const cisternaOsmosi = Math.floor(Math.random() * 10001);
-            const cisternaAddolcita = Math.floor(Math.random() * 10001);
+            document.getElementById('rete-quantita').innerText = Math.floor(Math.random() * 10000);
+            document.getElementById('osmosi-quantita').innerText = Math.floor(Math.random() * 10000);
+            document.getElementById('addolcita-quantita').innerText = Math.floor(Math.random() * 10000);
 
-            document.querySelectorAll('.cisterna .livello')[0].style.height = (cisternaRete / 100).toString() + '%';
-            document.getElementById('rete-quantita').textContent = cisternaRete;
+            // Aggiorna i contatori
+            document.getElementById('rete-contatore').innerText = Math.floor(Math.random() * 10000) + " m³";
+            document.getElementById('osmosi-contatore').innerText = Math.floor(Math.random() * 10000) + " m³";
+            document.getElementById('addolcita-contatore').innerText = Math.floor(Math.random() * 10000) + " m³";
 
-            document.querySelectorAll('.cisterna .livello')[1].style.height = (cisternaOsmosi / 100).toString() + '%';
-            document.getElementById('osmosi-quantita').textContent = cisternaOsmosi;
-
-            document.querySelectorAll('.cisterna .livello')[2].style.height = (cisternaAddolcita / 100).toString() + '%';
-            document.getElementById('addolcita-quantita').textContent = cisternaAddolcita;
-
-            // Aggiorna valori contatori
-            const contatoreRete = Math.floor(Math.random() * 10001);
-            const contatoreOsmosi = Math.floor(Math.random() * 10001);
-            const contatoreAddolcita = Math.floor(Math.random() * 10001);
-
-            document.getElementById('rete-contatore').textContent = contatoreRete + ' m³';
-            document.getElementById('osmosi-contatore').textContent = contatoreOsmosi + ' m³';
-            document.getElementById('addolcita-contatore').textContent = contatoreAddolcita + ' m³';
-        }
-
-        // Funzione per cambiare lo stato degli switch
-        function toggleSwitch(num) {
-            const switchElement = document.getElementById('switch' + num);
-            if (switchElement.style.color === 'green') {
-                switchElement.style.color = 'red';
-                switchElement.classList.remove('fa-toggle-on');
-                switchElement.classList.add('fa-toggle-off');
-            } else {
-                switchElement.style.color = 'green';
-                switchElement.classList.remove('fa-toggle-off');
-                switchElement.classList.add('fa-toggle-on');
+            // Aggiorna lo stato degli switch
+            for (let i = 1; i <= 3; i++) {
+                const switchElement = document.getElementById(`switch${i}`);
+                const isOn = Math.random() > 0.5; // Randomicamente accende o spegne
+                switchElement.className = isOn ? "fas fa-toggle-on switch" : "fas fa-toggle-off switch";
+                switchElement.style.color = isOn ? "green" : "red";
             }
         }
 
-        // Aggiorna data e ora ogni secondo
-        setInterval(updateDateTime, 1000);
-        // Aggiorna i valori ogni 2 secondi
-        setInterval(updateValues, 2000);
+        // Aggiornamento della data e ora ogni secondo
+        setInterval(updateTime, 1000);
+        // Aggiornamento dei valori ogni 5 secondi
+        setInterval(updateValues, 5000);
     </script>
 </body>
 </html>
