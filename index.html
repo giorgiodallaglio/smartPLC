@@ -117,6 +117,51 @@
             font-size: 24px;
             color: white;
         }
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            margin: 0 10px;
+        }
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #007bff; /* Colore blu quando attivo */
+        }
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+        .label {
+            margin-left: 10px;
+            font-size: 18px;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -184,47 +229,47 @@
         </div>
     </div>
 
+    <div class="separator"></div>
+
+    <!-- Interruttori Elettrovalvole -->
+    <h2>Controllo Elettrovalvole</h2>
+    <div class="container">
+        <div class="switch">
+            <input type="checkbox" id="valve1" onclick="toggleValve(1)">
+            <span class="slider"></span>
+        </div>
+        <label class="label" for="valve1">Elettrovalvola 1</label>
+
+        <div class="switch">
+            <input type="checkbox" id="valve2" onclick="toggleValve(2)">
+            <span class="slider"></span>
+        </div>
+        <label class="label" for="valve2">Elettrovalvola 2</label>
+
+        <div class="switch">
+            <input type="checkbox" id="valve3" onclick="toggleValve(3)">
+            <span class="slider"></span>
+        </div>
+        <label class="label" for="valve3">Elettrovalvola 3</label>
+    </div>
+
     <script>
-        // Funzione di logout che reindirizza alla pagina di login
+        function toggleValve(valveNumber) {
+            const valveState = document.getElementById(`valve${valveNumber}`).checked;
+            console.log(`Elettrovalvola ${valveNumber} è ${valveState ? 'attivata' : 'disattivata'}`);
+            // Qui puoi aggiungere il codice per inviare il comando all'Arduino
+        }
+
         function logout() {
-            window.location.href = 'login.html';
+            // Implementa la logica di logout
+            alert("Logout effettuato!");
         }
 
-        // Funzione per aggiornare data e ora
-        function aggiornaDataOra() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
-            document.getElementById('datetime').textContent = now.toLocaleDateString('it-IT', options);
-        }
-
-        // Aggiorna data e ora ogni secondo
-        setInterval(aggiornaDataOra, 1000);
-
-        // Funzione per aggiornare i livelli delle cisterne e i contatori
-        function aggiornaLivelli(livelli, impulsi) {
-            const livelliElementi = document.querySelectorAll('.livello');
-            const quantitaElementi = document.querySelectorAll('.quantita');
-            const impulsiElementi = document.querySelectorAll('.contatore-valore');
-
-            livelliElementi.forEach((elemento, index) => {
-                elemento.style.height = livelli[index] + '%';
-                quantitaElementi[index].textContent = 'Attuale: ' + (livelli[index] / 100 * 10000).toFixed(0) + ' L';
-            });
-
-            impulsiElementi.forEach((elemento, index) => {
-                elemento.textContent = impulsi[index] + ' m3';
-            });
-        }
-
-        // Simula l'aggiornamento dei dati ogni 5 secondi
-        function simulaAggiornamento() {
-            const livelli = [Math.random() * 100, Math.random() * 100, Math.random() * 100];
-            const impulsi = [Math.floor(Math.random() * 10000), Math.floor(Math.random() * 10000), Math.floor(Math.random() * 10000)];
-
-            aggiornaLivelli(livelli, impulsi);
-        }
-
-        setInterval(simulaAggiornamento, 5000);
+        // Funzione per mostrare la data e l'ora attuale
+        setInterval(() => {
+            const datetime = new Date();
+            document.getElementById('datetime').textContent = datetime.toLocaleString('it-IT');
+        }, 1000);
     </script>
 </body>
 </html>
