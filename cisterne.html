@@ -248,6 +248,7 @@
         <!-- Sidebar / Menu a tendina -->
 <div id="sidebar" class="sidebar">
     <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
+    <a href="homepage.html">Dashboard</a>
     <a href="cisterne.html">Cisterne</a>
     <a href="elettrovalvole.html">Elettrovalvole</a>
     <a href="contatori.html">Contatori</a>
@@ -286,7 +287,58 @@
         </div>
     </div>
 
+    <div class="separator"></div>
 
+    <!-- Contatori Acqua -->
+    <h2>Contatori Acqua</h2>
+    <div class="contatori-container">
+        <div class="contatore-container">
+            <div class="titolo">Acqua di Rete</div>
+            <div class="contatore-box">
+                <div class="contatore-valore" id="contatore-rete">9231 m3</div>
+            </div>
+        </div>
+        <div class="contatore-container">
+            <div class="titolo">Acqua Osmosi</div>
+            <div class="contatore-box">
+                <div class="contatore-valore" id="contatore-osmosi">5123 m3</div>
+            </div>
+        </div>
+        <div class="contatore-container">
+            <div class="titolo">Acqua Addolcita</div>
+            <div class="contatore-box">
+                <div class="contatore-valore" id="contatore-addolcita">7800 m3</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <!-- Elettrovalvole -->
+    <h2>Elettrovalvole</h2>
+    <div class="elettrovalvola-container">
+        <div class="elettrovalvola">
+            <div class="titolo">Ricarica Rete</div>
+            <div class="switch">
+                <input type="checkbox" id="switch1">
+                <label for="switch1"></label>
+            </div>
+        </div>
+        <div class="elettrovalvola">
+            <div class="titolo">Prod. Osmosi</div>
+            <div class="switch">
+                <input type="checkbox" id="switch2">
+                <label for="switch2"></label>
+            </div>
+        </div>
+        <div class="elettrovalvola">
+            <div class="titolo">Prod. Addolcita</div>
+            <div class="switch">
+                <input type="checkbox" id="switch3">
+                <label for="switch3"></label>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Funzione per il logout
