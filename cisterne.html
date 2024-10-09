@@ -292,6 +292,15 @@
         function logout() {
             window.location.href = 'index.html';
         }
+                // Funzione per aprire il menu a tendina
+        function openMenu() {
+            document.getElementById('sidebar').style.width = '250px';
+        }
+        
+        // Funzione per chiudere il menu a tendina
+        function closeMenu() {
+            document.getElementById('sidebar').style.width = '0';
+        }
 
         // Aggiornamento data e ora
         function updateDateTime() {
