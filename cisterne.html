@@ -42,6 +42,54 @@
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
             z-index: 1000;
         }
+         /* Icona del menu a sandwich */
+        .menu-btn {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                font-size: 24px;
+                color: white;
+                margin-right: 20px;
+            }
+            
+            /* Stile della barra laterale */
+            .sidebar {
+                height: 100%;
+                width: 0;
+                position: fixed;
+                top: 0;
+                right: 0;
+                background-color: #333;
+                z-index: 1001;
+                overflow-x: hidden;
+                transition: 0.5s;
+                padding-top: 60px;
+            }
+            .sidebar a {
+                padding: 10px 20px;
+                text-decoration: none;
+                font-size: 20px;
+                color: white;
+                display: block;
+                transition: 0.3s;
+            }
+            .sidebar a:hover {
+                background-color: #575757;
+            }
+            .sidebar .close-btn {
+                position: absolute;
+                top: 20px;
+                right: 25px;
+                font-size: 36px;
+                cursor: pointer;
+            }
+
+        /* Responsività per schermi più piccoli */
+        @media (max-width: 768px) {
+            h1, h4 {
+                margin-left: 20px;
+                font-size: 18px;
+            }
         .logout-btn {
             display: flex;
             align-items: center;
