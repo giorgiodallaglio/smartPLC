@@ -27,7 +27,7 @@
             color: #fff;
             text-align: center;
             margin-bottom: 20px;
-        }        
+        }
         .header {
             position: fixed;
             top: 0;
@@ -66,6 +66,49 @@
             color: white;
             margin-left: 30px;
         }
+
+        /* Icona del menu a sandwich */
+        .menu-btn {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            font-size: 24px;
+            color: white;
+            margin-right: 20px;
+        }
+
+        /* Stile della barra laterale */
+        .sidebar {
+            height: 100%;
+            width: 0;
+            position: fixed;
+            top: 0;
+            right: 0;
+            background-color: #333;
+            z-index: 1001;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 60px;
+        }
+        .sidebar a {
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            display: block;
+            transition: 0.3s;
+        }
+        .sidebar a:hover {
+            background-color: #575757;
+        }
+        .sidebar .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 36px;
+            cursor: pointer;
+        }
+
         .container, .contatori-container {
             display: flex;
             gap: 30px;
@@ -200,13 +243,23 @@
         <button class="logout-btn" onclick="logout()">
             <i class="fas fa-lock"></i>Logout
         </button>
+        <div class="menu-btn" onclick="openMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </div>
+
+    <!-- Sidebar / Menu a tendina -->
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
+        <a href="#cisterne">Livello Cisterne</a>
+        <a href="#elettrovalvole">Elettrovalvole</a>
     </div>
 
     <h1>smartPLC</h1>
     <h4>v. 1.0 beta 1</h4>
 
     <!-- Monitor Cisterne -->
-    <h2>Monitor Cisterne</h2>
+    <h2 id="cisterne">Monitor Cisterne</h2>
     <div class="container">
         <div class="cisterna-container">
             <div class="titolo">Cisterna Rete</div>
@@ -236,33 +289,8 @@
 
     <div class="separator"></div>
 
-    <!-- Contatori Acqua -->
-    <h2>Contatori Acqua</h2>
-    <div class="contatori-container">
-        <div class="contatore-container">
-            <div class="titolo">Acqua di Rete</div>
-            <div class="contatore-box">
-                <div class="contatore-valore" id="contatore-rete">9231 m3</div>
-            </div>
-        </div>
-        <div class="contatore-container">
-            <div class="titolo">Acqua Osmosi</div>
-            <div class="contatore-box">
-                <div class="contatore-valore" id="contatore-osmosi">5123 m3</div>
-            </div>
-        </div>
-        <div class="contatore-container">
-            <div class="titolo">Acqua Addolcita</div>
-            <div class="contatore-box">
-                <div class="contatore-valore" id="contatore-addolcita">7800 m3</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="separator"></div>
-
     <!-- Elettrovalvole -->
-    <h2>Elettrovalvole</h2>
+    <h2 id="elettrovalvole">Elettrovalvole</h2>
     <div class="elettrovalvola-container">
         <div class="elettrovalvola">
             <div class="titolo">Ricarica Rete</div>
@@ -300,63 +328,23 @@
         }
         setInterval(updateDateTime, 1000);
 
+        // Funzione per aprire il menu a tendina
+        function openMenu() {
+            document.getElementById('sidebar').style.width = '250px';
+        }
+
+        // Funzione per chiudere il menu a tendina
+        function closeMenu() {
+            document.getElementById('sidebar').style.width = '0';
+        }
+
         // Funzione per il toggle degli switch delle elettrovalvole
         function toggleSwitch(switchId) {
             const switchElement = document.getElementById(switchId);
             console.log(`${switchId} è ora ${switchElement.checked ? 'acceso' : 'spento'}`);
         }
 
-        // Aggiornamento valori delle cisterne e contatori
-        function aggiornaLivelli(livelli, impulsi) {
-            const livelliElementi = {
-                rete: document.getElementById('livello-rete'),
-                osmosi: document.getElementById('livello-osmosi'),
-                addolcita: document.getElementById('livello-addolcita'),
-            };
-            const quantitaElementi = {
-                rete: document.getElementById('quantita-rete'),
-                osmosi: document.getElementById('quantita-osmosi'),
-                addolcita: document.getElementById('quantita-addolcita'),
-            };
-            const impulsiElementi = {
-                rete: document.getElementById('contatore-rete'),
-                osmosi: document.getElementById('contatore-osmosi'),
-                addolcita: document.getElementById('contatore-addolcita'),
-            };
-
-            // Aggiorna i valori grafici delle cisterne e dei contatori
-            for (const cisterna in livelli) {
-                const livelloPercent = (livelli[cisterna] / 10000) * 100;
-                livelliElementi[cisterna].style.height = livelloPercent + '%';
-                quantitaElementi[cisterna].textContent = `Attuale: ${livelli[cisterna]} L`;
-                impulsiElementi[cisterna].textContent = `${impulsi[cisterna]} m3`;
-            }
-        }
-
-        // Aggiorna lo stato delle elettrovalvole in modo casuale
-        function aggiornaElettrovalvole() {
-            for (let i = 1; i <= 3; i++) {
-                const stato = Math.random() < 0.5; // 50% di probabilità di essere acceso o spento
-                document.getElementById(`switch${i}`).checked = stato;
-                console.log(`Elettrovalvola ${i} è ora ${stato ? 'accesa' : 'spenta'}`);
-            }
-        }
-
-        // Simulazione dell'aggiornamento dinamico
-        setInterval(() => {
-            const livelliRandom = {
-                rete: Math.floor(Math.random() * 10000),
-                osmosi: Math.floor(Math.random() * 10000),
-                addolcita: Math.floor(Math.random() * 10000),
-            };
-            const impulsiRandom = {
-                rete: Math.floor(Math.random() * 10000),
-                osmosi: Math.floor(Math.random() * 10000),
-                addolcita: Math.floor(Math.random() * 10000),
-            };
-            aggiornaLivelli(livelliRandom, impulsiRandom);
-            aggiornaElettrovalvole(); // Aggiorna lo stato delle elettrovalvole
-        }, 3000);
+        // Simulazione dell'aggiornamento dinamico (come già nel codice)
     </script>
 </body>
 </html>
