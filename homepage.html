@@ -408,6 +408,15 @@
             aggiornaLivelli(livelliRandom, impulsiRandom);
             aggiornaElettrovalvole(); // Aggiorna lo stato delle elettrovalvole
         }, 3000);
+        // Funzione per aprire il menu a tendina
+        function openMenu() {
+            document.getElementById('sidebar').style.width = '250px';
+        }
+        
+        // Funzione per chiudere il menu a tendina
+        function closeMenu() {
+            document.getElementById('sidebar').style.width = '0';
+        }
     </script>
 </body>
 </html>
