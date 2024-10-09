@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Monitor Cisterne</title>
+    <title>Dashboard - Monitor Cisterne e Contatori</title>
     <link href="https://fonts.googleapis.com/css2?family=San+Francisco:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
@@ -27,7 +27,7 @@
             color: #fff;
             text-align: center;
             margin-bottom: 20px;
-        }
+        }        
         .header {
             position: fixed;
             top: 0;
@@ -66,12 +66,12 @@
             color: white;
             margin-left: 30px;
         }
-        .container {
+        .container, .contatori-container {
             display: flex;
             gap: 30px;
             justify-content: center;
         }
-        .cisterna-container {
+        .cisterna-container, .contatore-container {
             text-align: center;
         }
         .separator {
@@ -80,11 +80,13 @@
             width: 80%;
             margin: 30px auto;
         }
-        .cisterna {
+        .cisterna, .contatore-box {
             background-color: #333;
             border-radius: 12px;
             border: 1px solid #ccc;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .cisterna {
             width: 150px;
             height: 220px;
             position: relative;
@@ -96,7 +98,7 @@
             right: 0;
             background-color: #007bff;
             transition: height 0.5s ease;
-            border-radius: 12px;
+            border-radius: 12px; 
         }
         .titolo {
             font-weight: bold;
@@ -105,12 +107,130 @@
             color: white;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
         }
-        .quantita, .max {
+        .quantita, .max, .contatore-valore {
             font-weight: bold;
             font-size: 16px;
             margin-top: 5px;
             color: white;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+        }
+        .contatore-box {
+            width: 150px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 24px;
+            color: white;
+        }
+        .elettrovalvola-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .elettrovalvola {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .switch {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .switch input[type="checkbox"] {
+            display: none;
+        }
+        .switch label {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+            background-color: #ccc;
+            border-radius: 34px;
+            transition: background-color 0.3s;
+        }
+        .switch label:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        .switch input[type="checkbox"]:checked + label {
+            background-color: #007bff;
+        }
+        .switch input[type="checkbox"]:checked + label:before {
+            transform: translateX(26px);
+        }
+        /* Icona del menu a sandwich */
+        .menu-btn {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                font-size: 24px;
+                color: white;
+                margin-right: 20px;
+            }
+            
+            /* Stile della barra laterale */
+            .sidebar {
+                height: 100%;
+                width: 0;
+                position: fixed;
+                top: 0;
+                right: 0;
+                background-color: #333;
+                z-index: 1001;
+                overflow-x: hidden;
+                transition: 0.5s;
+                padding-top: 60px;
+            }
+            .sidebar a {
+                padding: 10px 20px;
+                text-decoration: none;
+                font-size: 20px;
+                color: white;
+                display: block;
+                transition: 0.3s;
+            }
+            .sidebar a:hover {
+                background-color: #575757;
+            }
+            .sidebar .close-btn {
+                position: absolute;
+                top: 20px;
+                right: 25px;
+                font-size: 36px;
+                cursor: pointer;
+            }
+
+        /* Responsività per schermi più piccoli */
+        @media (max-width: 768px) {
+            h1, h4 {
+                margin-left: 20px;
+                font-size: 18px;
+            }
+            .container, .contatori-container, .elettrovalvola-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            .cisterna-container, .contatore-container, .elettrovalvola {
+                margin-bottom: 20px;
+            }
+            .cisterna, .contatore-box {
+                width: 100%;
+                max-width: 300px;
+            }
+            .logout-btn {
+                margin-right: 30px;
+            }
         }
     </style>
 </head>
@@ -121,6 +241,18 @@
         <button class="logout-btn" onclick="logout()">
             <i class="fas fa-lock"></i>Logout
         </button>
+        <!-- Icona del menu a sandwich -->
+    <div class="menu-btn" onclick="openMenu()">
+    <i class="fas fa-bars"></i>
+    </div>
+        <!-- Sidebar / Menu a tendina -->
+<div id="sidebar" class="sidebar">
+    <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
+    <a href="homepage.html">Dashboard</a>
+    <a href="cisterne.html">Cisterne</a>
+    <a href="elettrovalvole.html">Elettrovalvole</a>
+    <a href="contatori.html">Contatori</a>
+</div>
     </div>
 
     <h1>smartPLC</h1>
