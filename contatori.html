@@ -264,19 +264,19 @@
         <div class="contatore-container">
             <div class="titolo">Acqua di Rete</div>
             <div class="contatore-box">
-                <div class="contatore-valore" id="contatore-rete">9231 m3</div>
+                <div class="contatore-valore" id="contatore-rete">0 m3</div>
             </div>
         </div>
         <div class="contatore-container">
             <div class="titolo">Acqua Osmosi</div>
             <div class="contatore-box">
-                <div class="contatore-valore" id="contatore-osmosi">5123 m3</div>
+                <div class="contatore-valore" id="contatore-osmosi">0 m3</div>
             </div>
         </div>
         <div class="contatore-container">
             <div class="titolo">Acqua Addolcita</div>
             <div class="contatore-box">
-                <div class="contatore-valore" id="contatore-addolcita">7800 m3</div>
+                <div class="contatore-valore" id="contatore-addolcita">0 m3</div>
             </div>
         </div>
     </div>
@@ -294,63 +294,29 @@
         }
         setInterval(updateDateTime, 1000);
 
-        // Funzione per il toggle degli switch delle elettrovalvole
-        function toggleSwitch(switchId) {
-            const switchElement = document.getElementById(switchId);
-            console.log(`${switchId} è ora ${switchElement.checked ? 'acceso' : 'spento'}`);
+        // Funzione per aggiornare i contatori con i dati reali provenienti dal server PHP
+        function fetchCounter() {
+            var xhr = new XMLHttpRequest();
+            xhr.open("GET", "http://192.168.0.134/data_receiver.php", true);  // Modifica l'IP con l'indirizzo del server
+            xhr.onload = function () {
+                if (xhr.status == 200) {
+                    var data = JSON.parse(xhr.responseText);
+                    if (data.counter) {
+                        // Aggiorna i contatori
+                        document.getElementById('contatore-rete').innerText = data.counter + " m3";
+                        document.getElementById('contatore-osmosi').innerText = data.counter + " m3"; // Puoi cambiare se i contatori sono separati
+                        document.getElementById('contatore-addolcita').innerText = data.counter + " m3"; // Cambia se necessario
+                    } else {
+                        console.error("Errore nel ricevere il dato dal server PHP.");
+                    }
+                }
+            };
+            xhr.send();
         }
 
-        // Aggiornamento valori delle cisterne e contatori
-        function aggiornaLivelli(livelli, impulsi) {
-            const livelliElementi = {
-                rete: document.getElementById('livello-rete'),
-                osmosi: document.getElementById('livello-osmosi'),
-                addolcita: document.getElementById('livello-addolcita'),
-            };
-            const quantitaElementi = {
-                rete: document.getElementById('quantita-rete'),
-                osmosi: document.getElementById('quantita-osmosi'),
-                addolcita: document.getElementById('quantita-addolcita'),
-            };
-            const impulsiElementi = {
-                rete: document.getElementById('contatore-rete'),
-                osmosi: document.getElementById('contatore-osmosi'),
-                addolcita: document.getElementById('contatore-addolcita'),
-            };
+        // Aggiorna i contatori ogni secondo
+        setInterval(fetchCounter, 1000);
 
-            // Aggiorna i valori grafici delle cisterne e dei contatori
-            for (const cisterna in livelli) {
-                const livelloPercent = (livelli[cisterna] / 10000) * 100;
-                livelliElementi[cisterna].style.height = livelloPercent + '%';
-                quantitaElementi[cisterna].textContent = `Attuale: ${livelli[cisterna]} L`;
-                impulsiElementi[cisterna].textContent = `${impulsi[cisterna]} m3`;
-            }
-        }
-
-        // Aggiorna lo stato delle elettrovalvole in modo casuale
-        function aggiornaElettrovalvole() {
-            for (let i = 1; i <= 3; i++) {
-                const stato = Math.random() < 0.5; // 50% di probabilità di essere acceso o spento
-                document.getElementById(`switch${i}`).checked = stato;
-                console.log(`Elettrovalvola ${i} è ora ${stato ? 'accesa' : 'spenta'}`);
-            }
-        }
-
-        // Simulazione dell'aggiornamento dinamico
-        setInterval(() => {
-            const livelliRandom = {
-                rete: Math.floor(Math.random() * 10000),
-                osmosi: Math.floor(Math.random() * 10000),
-                addolcita: Math.floor(Math.random() * 10000),
-            };
-            const impulsiRandom = {
-                rete: Math.floor(Math.random() * 10000),
-                osmosi: Math.floor(Math.random() * 10000),
-                addolcita: Math.floor(Math.random() * 10000),
-            };
-            aggiornaLivelli(livelliRandom, impulsiRandom);
-            aggiornaElettrovalvole(); // Aggiorna lo stato delle elettrovalvole
-        }, 3000);
         // Funzione per aprire il menu a tendina
         function openMenu() {
             document.getElementById('sidebar').style.width = '250px';
