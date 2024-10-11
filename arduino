@@ -1,80 +1,32 @@
-#include <WiFiNINA.h>
-#include <SPI.h>
+const int sensorePin = A0; // Assegna il sensore al pin analogico A0
+int valoreSensore = 0; // Variabile per memorizzare il valore del sensore
+float profondita = 0.0; // Variabile per memorizzare la profondità
 
-// Credenziali WiFi
-const char* ssid = "xlan";
-const char* password = "Pterodattilo57";
-
-// Indirizzo IP del server web (Raspberry Pi)
-const char* serverAddress = "192.168.1.100"; // Cambia con l'IP del tuo Raspberry Pi
-int serverPort = 80;
-
-// Pin del contaimpulsi
-const int pulsePin = 1; // Canale digitale 1
-volatile int pulseCount = 0;
-
-WiFiClient client;
-
-// Funzione di interrupt per contare gli impulsi
-void countPulse() {
-  pulseCount++;
-}
+const float maxVoltaggio = 5.0;
+const float maxProfondita = 240.0; // Profondità massima della cisterna in cm
+const float areaBase = 2.3 * 2.3; // Area della base in metri quadrati
 
 void setup() {
-  // Inizializzazione seriale e del WiFi
-  Serial.begin(9600);
-  while (!Serial);
-
-  // Connessione al WiFi
-  Serial.print("Connessione a ");
-  Serial.println(ssid);
-
-  WiFi.begin(ssid, password);
-  while (WiFi.status() != WL_CONNECTED) {
-    delay(1000);
-    Serial.print(".");
-  }
-
-  Serial.println("");
-  Serial.println("WiFi connesso!");
-  Serial.println("Indirizzo IP: ");
-  Serial.println(WiFi.localIP());
-
-  // Configurazione del pin di input per il contaimpulsi
-  pinMode(pulsePin, INPUT);
-  attachInterrupt(digitalPinToInterrupt(pulsePin), countPulse, RISING);
+  Serial.begin(9600); // Avvia la comunicazione seriale
+  pinMode(sensorePin, INPUT); // Imposta il pin del sensore come input
 }
 
 void loop() {
-  if (pulseCount > 0) {
-    if (client.connect(serverAddress, serverPort)) {
-      // Crea una richiesta HTTP per inviare il numero di impulsi al server
-      client.print("GET /update?impulses=");
-      client.print(pulseCount);
-      client.println(" HTTP/1.1");
-      client.print("Host: ");
-      client.println(serverAddress);
-      client.println("Connection: close");
-      client.println();
+  valoreSensore = analogRead(sensorePin); // Legge il valore del sensore
+  float voltaggio = valoreSensore * (maxVoltaggio / 1023.0); // Converte il valore in voltaggio
+  profondita = (voltaggio / maxVoltaggio) * maxProfondita; // Converte il voltaggio in profondità
 
-      // Attendi la risposta del server
-      while (client.connected() || client.available()) {
-        if (client.available()) {
-          String response = client.readString();
-          Serial.println("Risposta dal server: ");
-          Serial.println(response);
-        }
-      }
+  float percentuale = (profondita / maxProfondita) * 100; // Calcola la percentuale di riempimento
+  float litri = (profondita / 100.0) * areaBase * 1000; // Calcola i litri presenti
 
-      // Chiudi la connessione
-      client.stop();
-    } else {
-      Serial.println("Connessione al server fallita.");
-    }
+  // Stampa i valori nel monitor seriale
+  Serial.print("Profondità: ");
+  Serial.print(profondita);
+  Serial.print(" cm | Percentuale: ");
+  Serial.print(percentuale);
+  Serial.print(" % | Litri: ");
+  Serial.print(litri);
+  Serial.println(" L");
 
-    // Resetta il contatore di impulsi
-    pulseCount = 0;
-  }
-
-  delay(10000); // Invia i dati ogni 10 secondi
+  delay(1000); // Attende 1 secondo prima della prossima lettura
 }
