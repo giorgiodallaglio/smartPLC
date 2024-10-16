@@ -411,7 +411,7 @@
 
         // Aggiorna lo stato delle elettrovalvole in modo casuale
         function aggiornaElettrovalvole() {
-            for (let i = 1; i <= 3; i++) {
+            for (let i = 1; i <= 6; i++) {
                 const stato = Math.random() < 0.5; // 50% di probabilità di essere acceso o spento
                 document.getElementById(`switch${i}`).checked = stato;
                 console.log(`Elettrovalvola ${i} è ora ${stato ? 'accesa' : 'spenta'}`);
