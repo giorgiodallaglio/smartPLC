@@ -37,7 +37,7 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            padding: 5px 20px;
+            padding: 5px 20px; /* Riduzione del padding */
             background-color: #333;
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
             z-index: 1000;
@@ -48,9 +48,9 @@
             background-color: #f05454;
             color: white;
             border: none;
-            padding: 5px 10px;
+            padding: 5px 10px; /* Ridotto il padding per rendere più compatto */
             border-radius: 5px;
-            font-size: 12px;
+            font-size: 12px; /* Font ridotto */
             cursor: pointer;
             transition: background-color 0.3s ease;
             margin-right: 80px;
@@ -62,7 +62,7 @@
             margin-right: 8px;
         }
         .datetime {
-            font-size: 14px;
+            font-size: 14px; /* Font ridotto per adattarsi alla barra */
             color: white;
             margin-left: 30px;
         }
@@ -80,14 +80,16 @@
             width: 80%;
             margin: 30px auto;
         }
-        .cisterna {
-            width: 150px;
-            height: 220px;
-            position: relative;
+        .cisterna, .contatore-box {
             background-color: #333;
             border-radius: 12px;
             border: 1px solid #ccc;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .cisterna {
+            width: 150px;
+            height: 220px;
+            position: relative;
         }
         .livello {
             position: absolute;
@@ -96,7 +98,7 @@
             right: 0;
             background-color: #007bff;
             transition: height 0.5s ease;
-            border-radius: 12px;
+            border-radius: 12px; 
         }
         .titolo {
             font-weight: bold;
@@ -105,45 +107,22 @@
             color: white;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
         }
-        .quantita, .max {
+        .quantita, .max, .contatore-valore {
             font-weight: bold;
             font-size: 16px;
             margin-top: 5px;
             color: white;
             text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
         }
-        /* Stile per i contatori in stile Apple */
-        .contatore-apple {
+        .contatore-box {
+            width: 150px;
+            height: 100px;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            background-color: #ffffff;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            width: 150px;
-            margin: 20px;
-            transition: all 0.3s ease;
-        }
-        .contatore-apple:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-        }
-        .contatore-label {
-            font-size: 16px;
-            color: #6e6e73;
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
-        .contatore-valore {
-            font-size: 36px;
-            font-weight: 700;
-            color: #1e1e1e;
-        }
-        .contatore-valore span {
-            font-size: 18px;
-            color: #6e6e73;
+            font-weight: bold;
+            font-size: 24px;
+            color: white;
         }
         .elettrovalvola-container {
             display: flex;
@@ -192,6 +171,45 @@
         .switch input[type="checkbox"]:checked + label:before {
             transform: translateX(26px);
         }
+
+        /* Stile Apple per i contatori */
+        .contatore-apple {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 150px;
+            margin: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .contatore-apple:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .contatore-label {
+            font-size: 16px;
+            color: #6e6e73;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .contatore-valore {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1e1e1e;
+        }
+
+        .contatore-valore span {
+            font-size: 18px;
+            color: #6e6e73;
+        }
+
         /* Responsività per schermi più piccoli */
         @media (max-width: 768px) {
             h1, h4 {
@@ -205,7 +223,7 @@
             .cisterna-container, .contatore-container, .elettrovalvola {
                 margin-bottom: 20px;
             }
-            .cisterna, .contatore-apple {
+            .cisterna, .contatore-box, .contatore-apple {
                 width: 100%;
                 max-width: 300px;
             }
@@ -222,6 +240,7 @@
         <button class="logout-btn" onclick="logout()">
             <i class="fas fa-lock"></i>Logout
         </button>
+        <!-- Icona del menu a sandwich -->
         <div class="menu-btn" onclick="openMenu()">
             <i class="fas fa-bars"></i>
         </div>
@@ -300,26 +319,20 @@
 
     <div class="separator"></div>
 
-    <!-- Contatori Acqua -->
+    <!-- Contatori Acqua in stile Apple -->
     <h2>Contatori Acqua</h2>
     <div class="contatori-container">
-        <div class="contatore-container">
-            <div class="contatore-apple">
-                <div class="contatore-label">Acqua di Rete</div>
-                <div class="contatore-valore">9231 <span>m³</span></div>
-            </div>
+        <div class="contatore-apple">
+            <div class="contatore-label">Acqua di Rete</div>
+            <div class="contatore-valore">9231 <span>m³</span></div>
         </div>
-        <div class="contatore-container">
-            <div class="contatore-apple">
-                <div class="contatore-label">Acqua Osmosi</div>
-                <div class="contatore-valore">5123 <span>m³</span></div>
-            </div>
+        <div class="contatore-apple">
+            <div class="contatore-label">Acqua Osmosi</div>
+            <div class="contatore-valore">5123 <span>m³</span></div>
         </div>
-        <div class="contatore-container">
-            <div class="contatore-apple">
-                <div class="contatore-label">Acqua Addolcita</div>
-                <div class="contatore-valore">7800 <span>m³</span></div>
-            </div>
+        <div class="contatore-apple">
+            <div class="contatore-label">Acqua Addolcita</div>
+            <div class="contatore-valore">7800 <span>m³</span></div>
         </div>
     </div>
 
@@ -338,11 +351,25 @@
         }
         setInterval(updateDateTime, 1000);
 
+        // Simulazione dell'aggiornamento dinamico
+        setInterval(() => {
+            const livelliRandom = {
+                rete: Math.floor(Math.random() * 10000),
+                osmosi: Math.floor(Math.random() * 10000),
+                addolcita: Math.floor(Math.random() * 10000),
+            };
+            const impulsiRandom = {
+                rete: Math.floor(Math.random() * 10000),
+                osmosi: Math.floor(Math.random() * 10000),
+                addolcita: Math.floor(Math.random() * 10000),
+            };
+        }, 3000);
+
         // Funzione per aprire il menu a tendina
         function openMenu() {
             document.getElementById('sidebar').style.width = '250px';
         }
-        
+
         // Funzione per chiudere il menu a tendina
         function closeMenu() {
             document.getElementById('sidebar').style.width = '0';
