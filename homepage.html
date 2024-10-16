@@ -125,16 +125,19 @@
             color: white;
         }
         .elettrovalvola-container {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 20px;
-        }
-        .elettrovalvola {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap; /* Aggiunto per rendere responsive l'allineamento */
+    margin-top: 20px;
+}
+
+.elettrovalvola {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 150px; /* Imposta una larghezza fissa per garantire allineamento uniforme */
+}
         .switch {
             margin-top: 10px;
             display: flex;
