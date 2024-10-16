@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="it">
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -257,9 +258,7 @@
 </div>
     </div>
 
-<a href="/">
-    <img src="smartPLC.png" alt="Home" style="width:100px;height:100px;margin-left:20px;">
-</a>
+    <h1>smartPLC</h1>
     <h4>v. 1.0 beta 1</h4>
 
     <!-- Monitor Cisterne -->
@@ -383,7 +382,7 @@
         // Funzione per il toggle degli switch delle elettrovalvole
         function toggleSwitch(switchId) {
             const switchElement = document.getElementById(switchId);
-            console.log(${switchId} è ora ${switchElement.checked ? 'acceso' : 'spento'});
+            console.log(`${switchId} è ora ${switchElement.checked ? 'acceso' : 'spento'}`);
         }
 
         // Aggiornamento valori delle cisterne e contatori
@@ -408,8 +407,8 @@
             for (const cisterna in livelli) {
                 const livelloPercent = (livelli[cisterna] / 10000) * 100;
                 livelliElementi[cisterna].style.height = livelloPercent + '%';
-                quantitaElementi[cisterna].textContent = Attuale: ${livelli[cisterna]} L;
-                impulsiElementi[cisterna].textContent = ${impulsi[cisterna]} m3;
+                quantitaElementi[cisterna].textContent = `Attuale: ${livelli[cisterna]} L`;
+                impulsiElementi[cisterna].textContent = `${impulsi[cisterna]} m3`;
             }
         }
 
@@ -417,8 +416,8 @@
         function aggiornaElettrovalvole() {
             for (let i = 1; i <= 6; i++) {
                 const stato = Math.random() < 0.5; // 50% di probabilità di essere acceso o spento
-                document.getElementById(switch${i}).checked = stato;
-                console.log(Elettrovalvola ${i} è ora ${stato ? 'accesa' : 'spenta'});
+                document.getElementById(`switch${i}`).checked = stato;
+                console.log(`Elettrovalvola ${i} è ora ${stato ? 'accesa' : 'spenta'}`);
             }
         }
 
