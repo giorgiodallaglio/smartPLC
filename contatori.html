@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatore Stile Apple</title>
+    <style>
+        body {
+            font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f7;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .contatore-apple {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #ffffff; /* Sfondo bianco pulito */
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Ombra leggera */
+            padding: 20px;
+            width: 150px;
+            margin: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .contatore-apple:hover {
+            transform: translateY(-5px); /* Leggero sollevamento al passaggio del mouse */
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); /* Aumento ombra */
+        }
+
+        .contatore-label {
+            font-size: 16px;
+            color: #6e6e73;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .contatore-valore {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1e1e1e;
+            text-align: center;
+        }
+
+        .contatore-valore span {
+            font-size: 18px;
+            color: #6e6e73; /* Colore più tenue per l'unità di misura */
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Contatore Stile Apple -->
+    <div class="contatore-apple">
+        <div class="contatore-label">Acqua di Rete</div>
+        <div class="contatore-valore">9231 <span>m³</span></div>
+    </div>
+
+</body>
+</html>
