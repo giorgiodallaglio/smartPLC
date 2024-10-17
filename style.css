@@ -46,15 +46,30 @@ body {
 }
 
 .sidebar a {
+    position: relative;
     display: flex;
     align-items: center;
     padding: 15px 20px;
     text-decoration: none;
-    color: #ecf0f1;
+    color: #ecf0f1; /* Colore del testo */
     font-size: 16px;
     font-weight: 500;
+    z-index: 1;
 }
-
+/* Pseudo-elemento ::before per creare l'effetto hover */
+.sidebar a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10px; /* Margine sinistro per rendere l'hover più stretto */
+    right: 10px; /* Margine destro per rendere l'hover più stretto */
+    height: 100%;
+    background-color: rgba(247, 247, 247, 0.9); /* Colore bianco trasparente */
+    border-radius: 8px; /* Angoli smussati */
+    z-index: -1; /* Posiziona dietro il testo */
+    opacity: 0; /* Imposta l'opacità iniziale a 0 */
+    transition: opacity 0.3s ease; /* Transizione fluida */
+}
 .sidebar a i {
     margin-right: 15px;
     font-size: 18px;
@@ -62,11 +77,10 @@ body {
     text-align: center;
 }
 
-.sidebar a:hover, .sidebar a.active {
-    background-color: #F7F7F7;
-    color: black;
+/* Quando l'elemento è attivo o in hover, aumenta l'opacità */
+.sidebar a:hover::before, .sidebar a.active::before {
+    opacity: 1; /* Rende visibile l'hover */
 }
-
 .main {
     flex-grow: 1;
     margin-left: 250px;
