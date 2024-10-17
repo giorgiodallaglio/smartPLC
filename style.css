@@ -154,4 +154,33 @@ font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Robot
 
 .led.red {
     background-color: red;
+    .cisterna-container {
+    width: 100%; /* La cisterna occuperà tutta la larghezza del box */
+    height: 100px; /* Altezza della cisterna */
+    background-color: rgba(255, 255, 255, 0.2); /* Colore di sfondo per simulare il serbatoio vuoto */
+    border-radius: 5px;
+    position: relative;
+    overflow: hidden; /* Nasconde l'overflow del livello */
+    margin-top: 10px; /* Spazio sopra la cisterna */
+}
+
+.cisterna-livello {
+    background-color: rgba(0, 150, 255, 0.8); /* Colore del livello d'acqua */
+    position: absolute;
+    bottom: 0; /* Parte dal fondo della cisterna */
+    width: 100%;
+    height: 0; /* Altezza iniziale, da aggiornare con il valore del livello */
+    transition: height 0.5s ease; /* Transizione fluida per il cambiamento di livello */
+}
+
+.livello-valore {
+    position: absolute;
+    top: 5px; /* Posiziona il testo in alto nella cisterna */
+    left: 50%;
+    transform: translateX(-50%);
+    color: white; /* Colore del testo */
+    font-weight: bold;
+    font-size: 14px;
+}
+
 }
