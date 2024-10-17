@@ -12,7 +12,7 @@
             font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(to right, #f0f4f7, #d9e2ec); /* Sfondo sfumato */
+            background: linear-gradient(to right, #f0f4f7, #d9e2ec);
             color: white;
             padding-top: 70px; /* Spazio per il menu */
         }
@@ -27,7 +27,7 @@
             justify-content: space-between;
             align-items: center;
             width: 100%;
-            padding: 5px 20px;
+            padding: 10px 20px;
             background-color: rgba(255, 255, 255, 0.8); /* Traslucido */
             backdrop-filter: blur(10px); /* Effetto blur */
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
@@ -104,20 +104,20 @@
         }
 
         /* Container generale */
-        .container, .contatori-container, .elettrovalvola-container {
+        .container, .contatori-container {
             display: flex;
-            gap: 20px; /* Ridotto il gap per tile più piccoli */
+            gap: 30px;
             justify-content: center;
-            margin: 20px; /* Spaziatura generale */
+            margin-top: 40px;
         }
 
         /* Tile modificati */
-        .cisterna, .contatore-box, .elettrovalvola {
+        .cisterna, .contatore-box {
             background-color: #000; /* Sfondo nero */
             border-radius: 12px;
             padding: 15px;
             width: 120px; /* Tile più piccoli */
-            height: 80px;
+            height: 100px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -126,25 +126,25 @@
             transition: transform 0.3s ease;
         }
 
-        .cisterna:hover, .contatore-box:hover, .elettrovalvola:hover {
+        .cisterna:hover, .contatore-box:hover {
             transform: translateY(-5px); /* Effetto sollevamento al passaggio del mouse */
         }
 
         .titolo {
             font-weight: bold;
-            font-size: 14px;
+            font-size: 16px;
             color: #f1f1f1; /* Testi in contrasto */
         }
 
-        .quantita, .max, .contatore-valore {
+        .quantita, .contatore-valore {
             font-weight: bold;
-            font-size: 14px;
+            font-size: 16px;
             color: #f1f1f1;
         }
 
         /* Responsività */
         @media (max-width: 768px) {
-            .container, .contatori-container, .elettrovalvola-container {
+            .container, .contatori-container {
                 flex-direction: column;
                 align-items: center;
             }
@@ -179,43 +179,43 @@
     </div>
 
     <!-- Monitor Cisterne -->
-    <h2>Monitor Cisterne</h2>
+    <h2 style="text-align: center; color: #333;">Monitor Cisterne</h2>
     <div class="container">
         <div class="cisterna-container">
             <div class="titolo">Cisterna Rete</div>
-            <div class="quantita" id="quantita-rete">5000 L</div>
+            <div class="quantita" id="quantita-rete">7792 L</div>
         </div>
         <div class="cisterna-container">
             <div class="titolo">Cisterna Osmosi</div>
-            <div class="quantita" id="quantita-osmosi">2000 L</div>
+            <div class="quantita" id="quantita-osmosi">1091 L</div>
         </div>
         <div class="cisterna-container">
             <div class="titolo">Cisterna Addolcita</div>
-            <div class="quantita" id="quantita-addolcita">3500 L</div>
+            <div class="quantita" id="quantita-addolcita">9779 L</div>
         </div>
     </div>
 
     <div class="separator"></div>
 
     <!-- Contatori Acqua -->
-    <h2>Contatori Acqua</h2>
+    <h2 style="text-align: center; color: #333;">Contatori Acqua</h2>
     <div class="contatori-container">
         <div class="contatore-container">
             <div class="titolo">Acqua di Rete</div>
             <div class="contatore-box">
-                <div class="contatore-valore" id="contatore-rete">9231 m³</div>
+                <div class="contatore-valore" id="contatore-rete">9368 m³</div>
             </div>
         </div>
         <div class="contatore-container">
             <div class="titolo">Acqua Osmosi</div>
             <div class="contatore-box">
-                <div class="contatore-valore" id="contatore-osmosi">5123 m³</div>
+                <div class="contatore-valore" id="contatore-osmosi">3069 m³</div>
             </div>
         </div>
         <div class="contatore-container">
             <div class="titolo">Acqua Addolcita</div>
             <div class="contatore-box">
-                <div class="contatore-valore" id="contatore-addolcita">7800 m³</div>
+                <div class="contatore-valore" id="contatore-addolcita">4223 m³</div>
             </div>
         </div>
     </div>
@@ -231,8 +231,7 @@
         // Aggiornamento data e ora
         function updateDateTime() {
             const now = new Date();
-            document.getElementById('datetime').
-innerText = now.toLocaleString();
+            document.getElementById('datetime').innerText = now.toLocaleString();
         }
         setInterval(updateDateTime, 1000);
 
@@ -246,7 +245,7 @@ innerText = now.toLocaleString();
             document.getElementById('sidebar').style.width = '0';
         }
 
-        // Funzione per aggiornare i valori delle cisterne e dei contatori
+        // Aggiornamento dinamico dei livelli e dei contatori
         function aggiornaLivelli(livelli, impulsi) {
             const quantitaElementi = {
                 rete: document.getElementById('quantita-rete'),
