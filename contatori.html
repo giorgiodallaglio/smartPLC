@@ -150,16 +150,6 @@
             color: #333; /* Testi in colori neutri */
         }
 
-        .livello {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background-color: #007bff;
-            transition: height 0.5s ease;
-            border-radius: 12px; 
-        }
-
         .quantita, .max, .contatore-valore {
             font-weight: bold;
             font-size: 16px;
@@ -260,7 +250,8 @@
     </div>
 
     <a href="homepage.html">
-        <img src="smartPLC.png" alt="Home" style="width:100px;height:100px;margin-left:60px;">
+        <img src="smartPLC.png" alt="Home" style="width:100px;height:
+100px;margin-left:60px;">
     </a>
 
     <h4>v. 1.0 beta 1</h4>
@@ -270,25 +261,19 @@
     <div class="container">
         <div class="cisterna-container">
             <div class="titolo">Cisterna Rete</div>
-            <div class="cisterna">
-                <div class="livello" id="livello-rete" style="height: 50%;"></div>
-            </div>
+            <!-- Rimosso il riempimento grafico -->
             <div class="quantita" id="quantita-rete">Attuale: 5000 L</div>
             <div class="max">Massima: 10,000 L</div>
         </div>
         <div class="cisterna-container">
             <div class="titolo">Cisterna Osmosi</div>
-            <div class="cisterna">
-                <div class="livello" id="livello-osmosi" style="height: 20%;"></div>
-            </div>
+            <!-- Rimosso il riempimento grafico -->
             <div class="quantita" id="quantita-osmosi">Attuale: 2000 L</div>
             <div class="max">Massima: 10,000 L</div>
         </div>
         <div class="cisterna-container">
             <div class="titolo">Cisterna Addolcita</div>
-            <div class="cisterna">
-                <div class="livello" id="livello-addolcita" style="height: 35%;"></div>
-            </div>
+            <!-- Rimosso il riempimento grafico -->
             <div class="quantita" id="quantita-addolcita">Attuale: 3500 L</div>
             <div class="max">Massima: 10,000 L</div>
         </div>
@@ -370,11 +355,6 @@
 
         // Aggiornamento valori delle cisterne e contatori
         function aggiornaLivelli(livelli, impulsi) {
-            const livelliElementi = {
-                rete: document.getElementById('livello-rete'),
-                osmosi: document.getElementById('livello-osmosi'),
-                addolcita: document.getElementById('livello-addolcita'),
-            };
             const quantitaElementi = {
                 rete: document.getElementById('quantita-rete'),
                 osmosi: document.getElementById('quantita-osmosi'),
@@ -386,21 +366,10 @@
                 addolcita: document.getElementById('contatore-addolcita'),
             };
 
-            // Aggiorna i valori grafici delle cisterne e dei contatori
+            // Aggiorna solo i valori numerici delle cisterne e dei contatori
             for (const cisterna in livelli) {
-                const livelloPercent = (livelli[cisterna] / 10000) * 100;
-                livelliElementi[cisterna].style.height = livelloPercent + '%';
                 quantitaElementi[cisterna].textContent = `Attuale: ${livelli[cisterna]} L`;
                 impulsiElementi[cisterna].textContent = `${impulsi[cisterna]} m³`;
-            }
-        }
-
-        // Aggiorna lo stato delle elettrovalvole in modo casuale
-        function aggiornaElettrovalvole() {
-            for (let i = 1; i <= 6; i++) {
-                const stato = Math.random() < 0.5; // 50% di probabilità di essere acceso o spento
-                document.getElementById(`switch${i}`).checked = stato;
-                console.log(`Elettrovalvola ${i} è ora ${stato ? 'accesa' : 'spenta'}`);
             }
         }
 
@@ -417,7 +386,6 @@
                 addolcita: Math.floor(Math.random() * 10000),
             };
             aggiornaLivelli(livelliRandom, impulsiRandom);
-            aggiornaElettrovalvole(); // Aggiorna lo stato delle elettrovalvole
         }, 3000);
 
         // Funzione per aprire il menu a tendina
