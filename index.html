@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Replica</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            position: relative;
+            height: 100vh;
+            overflow: hidden; /* Previene lo scroll causato dal blur */
+        }
+
+        /* Sfondo con effetto blurry */
+        .background-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://static1.squarespace.com/static/5e949a92e17d55230cd1d44f/t/6463c36bafd20f271146e1a0/1684259712202/Rancho_Cucamonga_NoTree_16.png'); /* Assicurati che il file esista */
+            background-size: cover;
+            background-position: center;
+            filter: blur(10px); /* Effetto sfocato */
+            opacity: 0.7; /* Trasparenza al 70% */
+            z-index: -1; /* Posiziona dietro tutti gli altri elementi */
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: rgba(31, 31, 33, 0.8); /* Grigio scuro con 80% di trasparenza */
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            height: 100vh;
+            position: fixed;
+            padding-top: 20px;
+            border-right: 1px solid #ddd;
+            z-index: 1; /* Assicura che la sidebar sia sopra lo sfondo */
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #ecf0f1; /* Colore del testo a contrasto */
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        .sidebar a i {
+            margin-right: 15px;
+            font-size: 18px;
+            min-width: 20px; /* Assicura che le icone siano allineate */
+            text-align: center;
+        }
+
+        .sidebar a:hover, .sidebar a.active {
+            background-color: #F7F7F7;
+            color: black;
+        }
+
+        .main {
+            flex-grow: 1;
+            margin-left: 250px; /* Uniforma con la larghezza della sidebar */
+            padding: 20px;
+            overflow-y: auto; /* Permette lo scroll solo del contenuto principale */
+        }
+
+        .section {
+            margin-bottom: 30px;
+        }
+
+        .tile-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .box {
+            background-color: rgba(31, 31, 33, 0.8); /* Stessa trasparenza della sidebar */
+            border: 1px solid #ddd;
+            padding: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            height: 65px; /* Altezza tile */
+            width: 230px; /* Larghezza tile */
+            display: flex;
+            align-items: center;
+            justify-content: flex-start; /* Allinea il contenuto a sinistra */
+            color: white; /* Colore del testo bianco */
+        }
+
+        .box h3, .box p {
+            margin: 0;
+        }
+
+        .box-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start; /* Allinea il testo a sinistra */
+        }
+
+        /* Classe per distanziare le icone dal testo */
+        .tile-icon {
+            margin-right: 15px; /* Distanza icona dal testo */
+            font-size: 20px; /* Dimensione icona */
+        }
+
+        /* LED per gli stati delle elettrovalvole */
+        .led {
+            height: 15px;
+            width: 15px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .led.green {
+            background-color: green;
+        }
+
+        .led.red {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <!-- Immagine di sfondo con effetto blurry -->
+    <div class="background-image"></div>
+
+    <div class="sidebar">
+        <a href="#"><i class="fas fa-plug"></i>smartPLC</a> <!-- Corretto l'errore HTML -->
+        <a href="#" class="active"><i class="fas fa-home"></i>Home</a>
+        <a href="#"><i class="fas fa-tint"></i>Cisterne</a>
+        <a href="#"><i class="fas fa-tachometer-alt"></i>Contatori</a>
+        <a href="#"><i class="fas fa-water"></i>Elettrovalvole</a>
+        <a href="#"><i class="fas fa-wave-square"></i>Pressioni</a>
+    </div>
+
+    <div class="main">
+        <div class="section">
+            <h2>Cisterne</h2>
+            <div class="tile-container">
+                <div class="box">
+                    <i class="fas fa-tint tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Rete</h3>
+                        <p>9712 lt</p>
+                        <p>Livello massimo: 10000 lt</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <i class="fas fa-tint tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Osmosi</h3>
+                        <p>9712 lt</p>
+                        <p>Livello massimo: 10000 lt</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <i class="fas fa-tint tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Addolcita</h3>
+                        <p>9712 lt</p>
+                        <p>Livello massimo: 10000 lt</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Contatori</h2>
+            <div class="tile-container">
+                <div class="box">
+                    <i class="fas fa-tachometer-alt tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Rete 1</h3>
+                        <p>15971 m3</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <i class="fas fa-tachometer-alt tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Rete 2</h3>
+                        <p>15971 m3</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <i class="fas fa-tachometer-alt tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Produzione Osmosi</h3>
+                        <p>87488 m3</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <i class="fas fa-tachometer-alt tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Produzione Addolcita</h3>
+                        <p>18745 m3</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <i class="fas fa-tachometer-alt tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Scarto Addolcita</p>
+                        <p>15 m3</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <i class="fas fa-tachometer-alt tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Acqua Bar</h3>
+                        <p>564 m3</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <i class="fas fa-tachometer-alt tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Acqua Ristorante</h3>
+                        <p>564 m3</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Elettrovalvole</h2>
+            <div class="tile-container">
+                <div class="box">
+                    <div class="led green"></div>
+                    <div class="box-content">
+                        <h3>Chiamata Rete</h3>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="led red"></div>
+                    <div class="box-content">
+                        <h3>Produzione Osmosi</h3>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="led green"></div>
+                    <div class="box-content">
+                        <h3>Produzione Addolcita</h3>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="led red"></div>
+                    <div class="box-content">
+                        <h3>Scarto Addolcita</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Pressioni</h2>
+            <div class="tile-container">
+                <div class="box">
+                    <i class="fas fa-wave-square tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Rete</h3>
+                        <p>34 lt/m</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <i class="fas fa-wave-square tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Produzione Osmosi</h3>
+                        <p>21 lt/m</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <i class="fas fa-wave-square tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Produzione Addolcita</h3>
+                        <p>60 lt/m</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
