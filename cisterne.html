@@ -27,42 +27,41 @@
             <h2>Cisterne</h2>
             <div class="tile-container">
                 <div class="box-large">
-    <i class="fas fa-tint tile-icon"></i>
-    <div class="box-content">
-        <h3>Rete</h3>
-        <p id="rete-livello">Livello attuale: 0 lt</p>
-        <p>Livello massimo: 10000 lt</p>
-        <!-- Cisterna -->
-        <div class="cisterna-container">
-            <div class="cisterna-livello" id="rete-cisterna"></div>
-        </div>
-    </div>
-</div>
+                    <i class="fas fa-tint tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Rete</h3>
+                        <p id="rete-livello">Livello attuale: 0 lt</p>
+                        <p>Livello massimo: 10000 lt</p>
+                        <!-- Cisterna -->
+                        <div class="cisterna-container">
+                            <div class="cisterna-livello" id="cisterna-rete"></div>
+                        </div>
+                    </div>
+                </div>
                 <div class="box-large">
-    <i class="fas fa-tint tile-icon"></i>
-    <div class="box-content">
-        <h3>Osmosi</h3>
-        <p id="osmosi-livello">Livello attuale: 0 lt</p>
-        <p>Livello massimo: 10000 lt</p>
-        <!-- Cisterna -->
-        <div class="cisterna-container">
-            <div class="cisterna-livello" id="osmosi-cisterna"></div>
-        </div>
-    </div>
-</div>
-
-<div class="box-large">
-    <i class="fas fa-tint tile-icon"></i>
-    <div class="box-content">
-        <h3>Addolcita</h3>
-        <p id="addolcita-livello">Livello attuale: 0 lt</p>
-        <p>Livello massimo: 10000 lt</p>
-        <!-- Cisterna -->
-        <div class="cisterna-container">
-            <div class="cisterna-livello" id="addolcita-cisterna"></div>
-        </div>
-    </div>
-</div>
+                    <i class="fas fa-tint tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Osmosi</h3>
+                        <p id="osmosi-livello">Livello attuale: 0 lt</p>
+                        <p>Livello massimo: 10000 lt</p>
+                        <!-- Cisterna -->
+                        <div class="cisterna-container">
+                            <div class="cisterna-livello" id="cisterna-osmosi"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-large">
+                    <i class="fas fa-tint tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Addolcita</h3>
+                        <p id="addolcita-livello">Livello attuale: 0 lt</p>
+                        <p>Livello massimo: 10000 lt</p>
+                        <!-- Cisterna -->
+                        <div class="cisterna-container">
+                            <div class="cisterna-livello" id="cisterna-addolcita"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -73,34 +72,22 @@
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
-// Funzione per aggiornare i livelli delle cisterne
-function updateCisterne() {
-    var reteLivello = randomNumber(0, 10000);
-    var osmosiLivello = randomNumber(0, 10000);
-    var addolcitaLivello = randomNumber(0, 10000);
+        // Funzione per aggiornare i livelli delle cisterne
+        function updateCisterne() {
+            var reteLivello = randomNumber(0, 10000);
+            var osmosiLivello = randomNumber(0, 10000);
+            var addolcitaLivello = randomNumber(0, 10000);
 
-    // Aggiornamento dei testi con i livelli
-    document.getElementById('rete-livello').textContent = reteLivello + ' lt';
-    document.getElementById('osmosi-livello').textContent = osmosiLivello + ' lt';
-    document.getElementById('addolcita-livello').textContent = addolcitaLivello + ' lt';
-    
-    // Aggiornamento dell'altezza del livello nelle cisterne
-    document.getElementById('cisterna-rete').style.height = (reteLivello / 10000 * 100) + '%';
-    document.getElementById('cisterna-osmosi').style.height = (osmosiLivello / 10000 * 100) + '%';
-    document.getElementById('cisterna-addolcita').style.height = (addolcitaLivello / 10000 * 100) + '%';
-}
-
-    // Aggiornamento dei testi con i livelli
-    document.getElementById('rete-livello').textContent = reteLivello + ' lt';
-    document.getElementById('osmosi-livello').textContent = osmosiLivello + ' lt';
-    document.getElementById('addolcita-livello').textContent = addolcitaLivello + ' lt';
-    
-    // Aggiornamento dell'altezza della cisterna in base al livello
-    document.getElementById('rete-cisterna').style.height = (reteLivello / 10000 * 100) + '%';
-    document.getElementById('osmosi-cisterna').style.height = (osmosiLivello / 10000 * 100) + '%';
-    document.getElementById('addolcita-cisterna').style.height = (addolcitaLivello / 10000 * 100) + '%';
-}
-
+            // Aggiornamento dei testi con i livelli
+            document.getElementById('rete-livello').textContent = reteLivello + ' lt';
+            document.getElementById('osmosi-livello').textContent = osmosiLivello + ' lt';
+            document.getElementById('addolcita-livello').textContent = addolcitaLivello + ' lt';
+            
+            // Aggiornamento dell'altezza del livello nelle cisterne
+            document.getElementById('cisterna-rete').style.height = (reteLivello / 10000 * 100) + '%';
+            document.getElementById('cisterna-osmosi').style.height = (osmosiLivello / 10000 * 100) + '%';
+            document.getElementById('cisterna-addolcita').style.height = (addolcitaLivello / 10000 * 100) + '%';
+        }
 
         // Funzione per aggiornare i contatori
         function updateContatori() {
@@ -128,7 +115,7 @@ function updateCisterne() {
             document.getElementById('addolcita-pressione').textContent = randomNumber(0, 30) + ' lt/m';
         }
 
-        // Aggiorna i dati ogni 2 secondi
+        // Aggiorna i dati ogni 500ms
         setInterval(function() {
             updateCisterne();
             updateContatori();
