@@ -17,45 +17,6 @@
             padding-top: 70px; /* Spazio per il menu */
         }
 
-        /* Header */
-        .header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            padding: 10px 20px;
-            background-color: rgba(255, 255, 255, 0.8); /* Traslucido */
-            backdrop-filter: blur(10px); /* Effetto blur */
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
-            z-index: 1000;
-        }
-
-        .logout-btn {
-            display: flex;
-            align-items: center;
-            background-color: #f05454;
-            color: #333;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .logout-btn:hover {
-            background-color: #d94343;
-        }
-
-        .datetime {
-            font-size: 14px;
-            color: #333;
-        }
-
         /* Sidebar a sinistra chiudibile */
         .sidebar {
             height: 100%;
@@ -122,7 +83,7 @@
         .titolo {
             font-weight: bold;
             font-size: 16px;
-            color: #f1f1f1; /* Testi in contrasto */
+            color: #007bff; /* Colore blu per una migliore leggibilità */
         }
 
         .quantita, .contatore-valore {
@@ -145,14 +106,6 @@
     </style>
 </head>
 <body>
-
-    <!-- Header con logout e data/ora -->
-    <div class="header">
-        <div class="datetime" id="datetime"></div>
-        <button class="logout-btn" onclick="logout()">
-            <i class="fas fa-lock"></i>Logout
-        </button>
-    </div>
 
     <!-- Sidebar / Colonna sinistra chiudibile -->
     <div id="sidebar" class="sidebar">
@@ -201,18 +154,6 @@
     <div class="separator"></div>
 
     <script>
-        // Funzione per il logout
-        function logout() {
-            window.location.href = 'index.html';
-        }
-
-        // Aggiornamento data e ora
-        function updateDateTime() {
-            const now = new Date();
-            document.getElementById('datetime').innerText = now.toLocaleString();
-        }
-        setInterval(updateDateTime, 1000);
-
         // Aggiornamento dinamico dei livelli e dei contatori
         function aggiornaLivelli(livelli, impulsi) {
             const quantitaElementi = {
