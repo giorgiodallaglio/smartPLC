@@ -51,7 +51,7 @@ body {
     align-items: center;
     padding: 15px 20px;
     text-decoration: none;
-    color: #ecf0f1; /* Colore del testo */
+    color: #ffc200; /* Colore del testo */
     font-size: 16px;
     font-weight: 500;
     z-index: 1;
@@ -64,7 +64,7 @@ body {
     left: 10px; /* Margine sinistro per rendere l'hover più stretto */
     right: 10px; /* Margine destro per rendere l'hover più stretto */
     height: 100%;
-    background-color: rgba(247, 247, 247, 0.9); /* Colore bianco trasparente */
+    background-color: rgba(31, 31, 33, 0.8);
     border-radius: 8px; /* Angoli smussati */
     z-index: -1; /* Posiziona dietro il testo */
     opacity: 0; /* Imposta l'opacità iniziale a 0 */
