@@ -114,15 +114,15 @@ font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Robot
 .box-large {
     background-color: rgba(31, 31, 33, 0.8);
     border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 8px;
-    width: 250px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    color: white;
+    padding: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    height: 150px; /* Altezza maggiore solo per questi box */
+    width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    color: white;
 }
 
 
@@ -165,19 +165,28 @@ font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Robot
 }
 
 .cisterna-container {
-    width: 60px;
-    height: 100px;
-    border: 2px solid white;
-    border-radius: 10px;
     position: relative;
+    width: 100%;
+    height: 100px;
+    background-color: #e0e0e0;
+    border-radius: 8px;
     overflow: hidden;
-    background-color: #444;
 }
 
 .cisterna-livello {
-    background-color: blue;
-    width: 100%;
     position: absolute;
     bottom: 0;
+    width: 100%;
+    background-color: #0088CC;
+    transition: height 0.5s ease;
+}
+
+.livello-valore {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: white;
+    font-weight: bold;
+}
 
 }
