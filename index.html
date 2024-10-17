@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Replica</title>
+    <title>smartPLC | Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
@@ -292,9 +292,9 @@
 
         // Funzione per aggiornare i livelli delle cisterne
         function updateCisterne() {
-            document.getElementById('rete-livello').textContent = randomNumber(9000, 10000) + ' lt';
-            document.getElementById('osmosi-livello').textContent = randomNumber(9000, 10000) + ' lt';
-            document.getElementById('addolcita-livello').textContent = randomNumber(9000, 10000) + ' lt';
+            document.getElementById('rete-livello').textContent = randomNumber(0, 10000) + ' lt';
+            document.getElementById('osmosi-livello').textContent = randomNumber(0, 10000) + ' lt';
+            document.getElementById('addolcita-livello').textContent = randomNumber(0, 10000) + ' lt';
         }
 
         // Funzione per aggiornare i contatori
@@ -319,8 +319,8 @@
         // Funzione per aggiornare le pressioni
         function updatePressioni() {
             document.getElementById('rete-pressione').textContent = randomNumber(20, 40) + ' lt/m';
-            document.getElementById('osmosi-pressione').textContent = randomNumber(15, 30) + ' lt/m';
-            document.getElementById('addolcita-pressione').textContent = randomNumber(30, 70) + ' lt/m';
+            document.getElementById('osmosi-pressione').textContent = randomNumber(0, 30) + ' lt/m';
+            document.getElementById('addolcita-pressione').textContent = randomNumber(0, 30) + ' lt/m';
         }
 
         // Aggiorna i dati ogni 2 secondi
