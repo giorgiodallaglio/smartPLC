@@ -148,7 +148,7 @@
                     <i class="fas fa-tint tile-icon"></i>
                     <div class="box-content">
                         <h3>Rete</h3>
-                        <p>9712 lt</p>
+                        <p id="rete-livello">9712 lt</p>
                         <p>Livello massimo: 10000 lt</p>
                     </div>
                 </div>
@@ -156,7 +156,7 @@
                     <i class="fas fa-tint tile-icon"></i>
                     <div class="box-content">
                         <h3>Osmosi</h3>
-                        <p>9712 lt</p>
+                        <p id="osmosi-livello">9712 lt</p>
                         <p>Livello massimo: 10000 lt</p>
                     </div>
                 </div>
@@ -164,7 +164,7 @@
                     <i class="fas fa-tint tile-icon"></i>
                     <div class="box-content">
                         <h3>Addolcita</h3>
-                        <p>9712 lt</p>
+                        <p id="addolcita-livello">9712 lt</p>
                         <p>Livello massimo: 10000 lt</p>
                     </div>
                 </div>
@@ -178,49 +178,49 @@
                     <i class="fas fa-tachometer-alt tile-icon"></i>
                     <div class="box-content">
                         <h3>Rete 1</h3>
-                        <p>15971 m3</p>
+                        <p id="rete1-contatore">15971 m3</p>
                     </div>
                 </div>
                 <div class="box">
                     <i class="fas fa-tachometer-alt tile-icon"></i>
                     <div class="box-content">
                         <h3>Rete 2</h3>
-                        <p>15971 m3</p>
+                        <p id="rete2-contatore">15971 m3</p>
                     </div>
                 </div>
                 <div class="box">
                     <i class="fas fa-tachometer-alt tile-icon"></i>
                     <div class="box-content">
                         <h3>Produzione Osmosi</h3>
-                        <p>87488 m3</p>
+                        <p id="osmosi-contatore">87488 m3</p>
                     </div>
                 </div>
                 <div class="box">
                     <i class="fas fa-tachometer-alt tile-icon"></i>
                     <div class="box-content">
                         <h3>Produzione Addolcita</h3>
-                        <p>18745 m3</p>
+                        <p id="addolcita-contatore">18745 m3</p>
                     </div>
                 </div>
                 <div class="box">
                     <i class="fas fa-tachometer-alt tile-icon"></i>
                     <div class="box-content">
-                        <h3>Scarto Addolcita</p>
-                        <p>15 m3</p>
+                        <h3>Scarto Addolcita</h3>
+                        <p id="scarto-addolcita-contatore">15 m3</p>
                     </div>
                 </div>
                 <div class="box">
                     <i class="fas fa-tachometer-alt tile-icon"></i>
                     <div class="box-content">
                         <h3>Acqua Bar</h3>
-                        <p>564 m3</p>
+                        <p id="acqua-bar-contatore">564 m3</p>
                     </div>
                 </div>
                 <div class="box">
                     <i class="fas fa-tachometer-alt tile-icon"></i>
                     <div class="box-content">
                         <h3>Acqua Ristorante</h3>
-                        <p>564 m3</p>
+                        <p id="acqua-ristorante-contatore">564 m3</p>
                     </div>
                 </div>
             </div>
@@ -230,25 +230,25 @@
             <h2>Elettrovalvole</h2>
             <div class="tile-container">
                 <div class="box">
-                    <div class="led green"></div>
+                    <div id="valvola-rete" class="led green"></div>
                     <div class="box-content">
                         <h3>Chiamata Rete</h3>
                     </div>
                 </div>
                 <div class="box">
-                    <div class="led red"></div>
+                    <div id="valvola-osmosi" class="led red"></div>
                     <div class="box-content">
                         <h3>Produzione Osmosi</h3>
                     </div>
                 </div>
                 <div class="box">
-                    <div class="led green"></div>
+                    <div id="valvola-addolcita" class="led green"></div>
                     <div class="box-content">
                         <h3>Produzione Addolcita</h3>
                     </div>
                 </div>
                 <div class="box">
-                    <div class="led red"></div>
+                    <div id="valvola-scarto-addolcita" class="led red"></div>
                     <div class="box-content">
                         <h3>Scarto Addolcita</h3>
                     </div>
@@ -263,25 +263,73 @@
                     <i class="fas fa-wave-square tile-icon"></i>
                     <div class="box-content">
                         <h3>Rete</h3>
-                        <p>34 lt/m</p>
+                        <p id="rete-pressione">34 lt/m</p>
                     </div>
                 </div>
                 <div class="box">
                     <i class="fas fa-wave-square tile-icon"></i>
                     <div class="box-content">
                         <h3>Produzione Osmosi</h3>
-                        <p>21 lt/m</p>
+                        <p id="osmosi-pressione">21 lt/m</p>
                     </div>
                 </div>
                 <div class="box">
                     <i class="fas fa-wave-square tile-icon"></i>
                     <div class="box-content">
                         <h3>Produzione Addolcita</h3>
-                        <p>60 lt/m</p>
+                        <p id="addolcita-pressione">60 lt/m</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        // Funzione per generare un numero casuale tra due valori
+        function randomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Funzione per aggiornare i livelli delle cisterne
+        function updateCisterne() {
+            document.getElementById('rete-livello').textContent = randomNumber(9000, 10000) + ' lt';
+            document.getElementById('osmosi-livello').textContent = randomNumber(9000, 10000) + ' lt';
+            document.getElementById('addolcita-livello').textContent = randomNumber(9000, 10000) + ' lt';
+        }
+
+        // Funzione per aggiornare i contatori
+        function updateContatori() {
+            document.getElementById('rete1-contatore').textContent = (parseInt(document.getElementById('rete1-contatore').textContent) + randomNumber(1, 10)) + ' m3';
+            document.getElementById('rete2-contatore').textContent = (parseInt(document.getElementById('rete2-contatore').textContent) + randomNumber(1, 10)) + ' m3';
+            document.getElementById('osmosi-contatore').textContent = (parseInt(document.getElementById('osmosi-contatore').textContent) + randomNumber(1, 10)) + ' m3';
+            document.getElementById('addolcita-contatore').textContent = (parseInt(document.getElementById('addolcita-contatore').textContent) + randomNumber(1, 10)) + ' m3';
+            document.getElementById('scarto-addolcita-contatore').textContent = (parseInt(document.getElementById('scarto-addolcita-contatore').textContent) + randomNumber(1, 5)) + ' m3';
+            document.getElementById('acqua-bar-contatore').textContent = (parseInt(document.getElementById('acqua-bar-contatore').textContent) + randomNumber(1, 5)) + ' m3';
+            document.getElementById('acqua-ristorante-contatore').textContent = (parseInt(document.getElementById('acqua-ristorante-contatore').textContent) + randomNumber(1, 5)) + ' m3';
+        }
+
+        // Funzione per simulare l'accensione e lo spegnimento delle elettrovalvole
+        function updateValvole() {
+            document.getElementById('valvola-rete').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
+            document.getElementById('valvola-osmosi').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
+            document.getElementById('valvola-addolcita').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
+            document.getElementById('valvola-scarto-addolcita').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
+        }
+
+        // Funzione per aggiornare le pressioni
+        function updatePressioni() {
+            document.getElementById('rete-pressione').textContent = randomNumber(20, 40) + ' lt/m';
+            document.getElementById('osmosi-pressione').textContent = randomNumber(15, 30) + ' lt/m';
+            document.getElementById('addolcita-pressione').textContent = randomNumber(30, 70) + ' lt/m';
+        }
+
+        // Aggiorna i dati ogni 2 secondi
+        setInterval(function() {
+            updateCisterne();
+            updateContatori();
+            updateValvole();
+            updatePressioni();
+        }, 2000);
+    </script>
 </body>
 </html>
