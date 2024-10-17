@@ -45,7 +45,6 @@
             font-size: 12px;
             cursor: pointer;
             transition: background-color 0.3s ease;
-            margin-right: 80px;
         }
 
         .logout-btn:hover {
@@ -60,7 +59,7 @@
         /* Sidebar a sinistra chiudibile */
         .sidebar {
             height: 100%;
-            width: 0;
+            width: 250px;
             position: fixed;
             top: 0;
             left: 0;
@@ -91,16 +90,6 @@
             font-size: 36px;
             cursor: pointer;
             color: white;
-        }
-
-        /* Pulsante per aprire il menu */
-        .menu-btn {
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            font-size: 24px;
-            color: #333;
-            margin-right: 20px;
         }
 
         /* Container generale */
@@ -163,15 +152,10 @@
         <button class="logout-btn" onclick="logout()">
             <i class="fas fa-lock"></i>Logout
         </button>
-        <!-- Icona del menu a sandwich -->
-        <div class="menu-btn" onclick="openMenu()">
-            <i class="fas fa-bars"></i>
-        </div>
     </div>
 
     <!-- Sidebar / Colonna sinistra chiudibile -->
     <div id="sidebar" class="sidebar">
-        <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
         <a href="homepage.html">Dashboard</a>
         <a href="cisterne.html">Cisterne</a>
         <a href="elettrovalvole.html">Elettrovalvole</a>
@@ -183,15 +167,15 @@
     <div class="container">
         <div class="cisterna-container">
             <div class="titolo">Cisterna Rete</div>
-            <div class="quantita" id="quantita-rete">7792 L</div>
+            <div class="cisterna" id="quantita-rete">7792 L</div>
         </div>
         <div class="cisterna-container">
             <div class="titolo">Cisterna Osmosi</div>
-            <div class="quantita" id="quantita-osmosi">1091 L</div>
+            <div class="cisterna" id="quantita-osmosi">1091 L</div>
         </div>
         <div class="cisterna-container">
             <div class="titolo">Cisterna Addolcita</div>
-            <div class="quantita" id="quantita-addolcita">9779 L</div>
+            <div class="cisterna" id="quantita-addolcita">9779 L</div>
         </div>
     </div>
 
@@ -202,21 +186,15 @@
     <div class="contatori-container">
         <div class="contatore-container">
             <div class="titolo">Acqua di Rete</div>
-            <div class="contatore-box">
-                <div class="contatore-valore" id="contatore-rete">9368 m³</div>
-            </div>
+            <div class="contatore-box" id="contatore-rete">9368 m³</div>
         </div>
         <div class="contatore-container">
             <div class="titolo">Acqua Osmosi</div>
-            <div class="contatore-box">
-                <div class="contatore-valore" id="contatore-osmosi">3069 m³</div>
-            </div>
+            <div class="contatore-box" id="contatore-osmosi">3069 m³</div>
         </div>
         <div class="contatore-container">
             <div class="titolo">Acqua Addolcita</div>
-            <div class="contatore-box">
-                <div class="contatore-valore" id="contatore-addolcita">4223 m³</div>
-            </div>
+            <div class="contatore-box" id="contatore-addolcita">4223 m³</div>
         </div>
     </div>
 
@@ -234,16 +212,6 @@
             document.getElementById('datetime').innerText = now.toLocaleString();
         }
         setInterval(updateDateTime, 1000);
-
-        // Funzione per aprire la sidebar
-        function openMenu() {
-            document.getElementById('sidebar').style.width = '250px';
-        }
-
-        // Funzione per chiudere la sidebar
-        function closeMenu() {
-            document.getElementById('sidebar').style.width = '0';
-        }
 
         // Aggiornamento dinamico dei livelli e dei contatori
         function aggiornaLivelli(livelli, impulsi) {
