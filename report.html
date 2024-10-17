@@ -7,19 +7,37 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Log dei Cambiamenti di Stato</h1>
-    <div class="log-container">
-        <pre>
-        <?php
-            // Leggi e visualizza il contenuto del file di log
-            $logFile = 'log.txt';
-            if (file_exists($logFile)) {
-                echo htmlspecialchars(file_get_contents($logFile));
-            } else {
-                echo "Nessun log trovato.";
-            }
-        ?>
-        </pre>
+    <div class="background-image"></div>
+
+    <div class="sidebar">
+        <span class="title">smartPLC</span>
+        <a href="index.html" class="active"><i class="fas fa-home"></i>Home</a>
+        <a href="cisterne.html"><i class="fas fa-tint"></i>Cisterne</a>
+        <a href="contatori.html"><i class="fas fa-tachometer-alt"></i>Contatori</a>
+        <a href="elettrovalvole.html"><i class="fas fa-water"></i>Elettrovalvole</a>
+        <a href="pressioni.html"><i class="fas fa-wave-square"></i>Pressioni</a>
+        <a href="report.html"><i class="fas fa-file-alt"></i>Report</a>
     </div>
+    <div class="main">
+        <h1>Log dei Cambiamenti di Stato</h1>
+        <div class="log-container">
+            <ul id="log-list"></ul>
+        </div>
+    </div>
+
+    <script>
+        function loadLogs() {
+            let logs = JSON.parse(localStorage.getItem('logs')) || [];
+            const logList = document.getElementById('log-list');
+            logList.innerHTML = '';
+            logs.forEach(log => {
+                let listItem = document.createElement('li');
+                listItem.textContent = log;
+                logList.appendChild(listItem);
+            });
+        }
+
+        window.onload = loadLogs;
+    </script>
 </body>
 </html>
