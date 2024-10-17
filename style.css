@@ -1,5 +1,5 @@
 body {
-font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     margin: 0;
     display: flex;
     position: relative;
@@ -56,20 +56,7 @@ font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Robot
     font-weight: 500;
     z-index: 1;
 }
-/* Pseudo-elemento ::before per creare l'effetto hover */
-.sidebar a::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 10px; /* Margine sinistro per rendere l'hover più stretto */
-    right: 10px; /* Margine destro per rendere l'hover più stretto */
-    height: 100%;
-    background-color: rgba(31, 31, 33, 0.8);
-    border-radius: 8px; /* Angoli smussati */
-    z-index: -1; /* Posiziona dietro il testo */
-    opacity: 0; /* Imposta l'opacità iniziale a 0 */
-    transition: opacity 0.3s ease; /* Transizione fluida */
-}
+
 .sidebar a i {
     margin-right: 15px;
     font-size: 18px;
@@ -77,10 +64,6 @@ font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Robot
     text-align: center;
 }
 
-/* Quando l'elemento è attivo o in hover, aumenta l'opacità */
-.sidebar a:hover::before, .sidebar a.active::before {
-    opacity: 1; /* Rende visibile l'hover */
-}
 .main {
     flex-grow: 1;
     margin-left: 250px;
@@ -98,19 +81,6 @@ font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Robot
     gap: 10px;
 }
 
-.box {
-    background-color: rgba(31, 31, 33, 0.8);
-    border: 1px solid #ddd;
-    padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-radius: 8px;
-    height: 65px;
-    width: 230px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    color: white;
-}
 .box-large {
     background-color: rgba(31, 31, 33, 0.8);
     border: 1px solid #ddd;
@@ -125,68 +95,29 @@ font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Robot
     color: white;
 }
 
-
-.box h3, .box p {
-    margin: 0;
-}
-
 .box-content {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
 }
 
-.tile-icon {
-    margin-right: 15px;
-    font-size: 20px;
-}
-
-.led {
-    height: 15px;
-    width: 15px;
-    border-radius: 50%;
-    margin-right: 10px;
-}
-
-.led.green {
-    background-color: green;
-}
-
-.led.red {
-    background-color: red;
-    .cisterna-container {
-    width: 100%; /* La cisterna occuperà tutta la larghezza del box */
-    height: 100px; /* Altezza della cisterna */
-    background-color: rgba(255, 255, 255, 0.2); /* Colore di sfondo per simulare il serbatoio vuoto */
-    border-radius: 5px;
-    position: relative;
-    overflow: hidden; /* Nasconde l'overflow del livello */
-    margin-top: 10px; /* Spazio sopra la cisterna */
-}
-
+/* Contenitore della cisterna */
 .cisterna-container {
     position: relative;
-    width: 100%;
-    height: 100px;
-    background-color: #e0e0e0;
+    width: 100px; /* Larghezza della cisterna */
+    height: 100px; /* Altezza della cisterna */
+    background-color: #ddd; /* Sfondo per indicare la parte vuota della cisterna */
+    border: 2px solid white;
     border-radius: 8px;
-    overflow: hidden;
+    overflow: hidden; /* Nasconde l'overflow della cisterna */
+    margin-top: 10px;
 }
 
+/* Livello della cisterna */
 .cisterna-livello {
     position: absolute;
     bottom: 0;
     width: 100%;
-    background-color: #0088CC;
-    transition: height 0.5s ease;
-}
-
-.livello-valore {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    color: white;
-    font-weight: bold;
-}
-
+    background-color: #007bff;
+    transition: height 0.5s ease; /* Transizione per rendere l'animazione più fluida */
 }
