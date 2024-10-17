@@ -73,12 +73,22 @@
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
-        // Funzione per aggiornare i livelli delle cisterne
+// Funzione per aggiornare i livelli delle cisterne
 function updateCisterne() {
-    // Generazione dei livelli casuali
     var reteLivello = randomNumber(0, 10000);
     var osmosiLivello = randomNumber(0, 10000);
     var addolcitaLivello = randomNumber(0, 10000);
+
+    // Aggiornamento dei testi con i livelli
+    document.getElementById('rete-livello').textContent = reteLivello + ' lt';
+    document.getElementById('osmosi-livello').textContent = osmosiLivello + ' lt';
+    document.getElementById('addolcita-livello').textContent = addolcitaLivello + ' lt';
+    
+    // Aggiornamento dell'altezza del livello nelle cisterne
+    document.getElementById('cisterna-rete').style.height = (reteLivello / 10000 * 100) + '%';
+    document.getElementById('cisterna-osmosi').style.height = (osmosiLivello / 10000 * 100) + '%';
+    document.getElementById('cisterna-addolcita').style.height = (addolcitaLivello / 10000 * 100) + '%';
+}
 
     // Aggiornamento dei testi con i livelli
     document.getElementById('rete-livello').textContent = reteLivello + ' lt';
