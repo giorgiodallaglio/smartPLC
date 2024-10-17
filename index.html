@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>smartPLC | Home</title>
+    <title>Casa Replica</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         body {
@@ -50,6 +50,7 @@
             font-weight: bold;
             display: block;
             text-decoration: none;
+            cursor: default; /* Disabilita il puntatore "click" */
         }
 
         .sidebar .title:hover {
@@ -148,8 +149,8 @@
     <div class="background-image"></div>
 
     <div class="sidebar">
-        <!-- Rimosso l'hover e aumentata la dimensione di smartPLC -->
-        <a href="#" class="title"><i class="fas fa-plug"></i>smartPLC</a>
+        <!-- Titolo "smartPLC" senza effetto hover e senza icona -->
+        <span class="title">smartPLC</span>
         <a href="#" class="active"><i class="fas fa-home"></i>Home</a>
         <a href="#"><i class="fas fa-tint"></i>Cisterne</a>
         <a href="#"><i class="fas fa-tachometer-alt"></i>Contatori</a>
@@ -165,7 +166,7 @@
                     <i class="fas fa-tint tile-icon"></i>
                     <div class="box-content">
                         <h3>Rete</h3>
-                        <p id="rete-livello">0 lt</p>
+                        <p id="rete-livello">9712 lt</p>
                         <p>Livello massimo: 10000 lt</p>
                     </div>
                 </div>
@@ -173,7 +174,7 @@
                     <i class="fas fa-tint tile-icon"></i>
                     <div class="box-content">
                         <h3>Osmosi</h3>
-                        <p id="osmosi-livello">0 lt</p>
+                        <p id="osmosi-livello">9712 lt</p>
                         <p>Livello massimo: 10000 lt</p>
                     </div>
                 </div>
@@ -181,7 +182,7 @@
                     <i class="fas fa-tint tile-icon"></i>
                     <div class="box-content">
                         <h3>Addolcita</h3>
-                        <p id="addolcita-livello">0 lt</p>
+                        <p id="addolcita-livello">9712 lt</p>
                         <p>Livello massimo: 10000 lt</p>
                     </div>
                 </div>
@@ -195,35 +196,79 @@
                     <i class="fas fa-tachometer-alt tile-icon"></i>
                     <div class="box-content">
                         <h3>Rete 1</h3>
-                        <p id="rete1-contatore">0 m3</p>
+                        <p id="rete1-contatore">15971 m3</p>
                     </div>
                 </div>
                 <div class="box">
                     <i class="fas fa-tachometer-alt tile-icon"></i>
                     <div class="box-content">
                         <h3>Rete 2</h3>
-                        <p id="rete2-contatore">0 m3</p>
+                        <p id="rete2-contatore">15971 m3</p>
                     </div>
                 </div>
                 <div class="box">
                     <i class="fas fa-tachometer-alt tile-icon"></i>
                     <div class="box-content">
                         <h3>Produzione Osmosi</h3>
-                        <p id="osmosi-contatore">0 m3</p>
+                        <p id="osmosi-contatore">87488 m3</p>
                     </div>
                 </div>
                 <div class="box">
                     <i class="fas fa-tachometer-alt tile-icon"></i>
                     <div class="box-content">
                         <h3>Produzione Addolcita</h3>
-                        <p id="addolcita-contatore">0 m3</p>
+                        <p id="addolcita-contatore">18745 m3</p>
                     </div>
                 </div>
                 <div class="box">
                     <i class="fas fa-tachometer-alt tile-icon"></i>
                     <div class="box-content">
                         <h3>Scarto Addolcita</h3>
-                        <p id="scarto-addolcita-contatore">0 m3</p>
+                        <p id="scarto-addolcita-contatore">15 m3</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <i class="fas fa-tachometer-alt tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Acqua Bar</h3>
+                        <p id="acqua-bar-contatore">564 m3</p>
+                    </div>
+                </div>
+                <div class="box">
+                    <i class="fas fa-tachometer-alt tile-icon"></i>
+                    <div class="box-content">
+                        <h3>Acqua Ristorante</h3>
+                        <p id="acqua-ristorante-contatore">564 m3</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Elettrovalvole</h2>
+            <div class="tile-container">
+                <div class="box">
+                    <div class="led green"></div>
+                    <div class="box-content">
+                        <h3>Chiamata Rete</h3>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="led red"></div>
+                    <div class="box-content">
+                        <h3>Produzione Osmosi</h3>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="led green"></div>
+                    <div class="box-content">
+                        <h3>Produzione Addolcita</h3>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="led red"></div>
+                    <div class="box-content">
+                        <h3>Scarto Addolcita</h3>
                     </div>
                 </div>
             </div>
@@ -236,21 +281,21 @@
                     <i class="fas fa-wave-square tile-icon"></i>
                     <div class="box-content">
                         <h3>Rete</h3>
-                        <p id="rete-pressione">0 lt/m</p>
+                        <p id="rete-pressione">34 lt/m</p>
                     </div>
                 </div>
                 <div class="box">
                     <i class="fas fa-wave-square tile-icon"></i>
                     <div class="box-content">
                         <h3>Produzione Osmosi</h3>
-                        <p id="osmosi-pressione">0 lt/m</p>
+                        <p id="osmosi-pressione">21 lt/m</p>
                     </div>
                 </div>
                 <div class="box">
                     <i class="fas fa-wave-square tile-icon"></i>
                     <div class="box-content">
                         <h3>Produzione Addolcita</h3>
-                        <p id="addolcita-pressione">0 lt/m</p>
+                        <p id="addolcita-pressione">60 lt/m</p>
                     </div>
                 </div>
             </div>
