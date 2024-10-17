@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>smartPLC | Report</title>
+    <!-- Collegamento al file CSS esterno -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Immagine di sfondo con effetto blurry -->
+    <div class="background-image"></div>
+
+    <div class="sidebar">
+        <span class="title">smartPLC</span>
+        <a href="index.html"><i class="fas fa-home"></i>Home</a>
+        <a href="cisterne.html"><i class="fas fa-tint"></i>Cisterne</a>
+        <a href="contatori.html"><i class="fas fa-tachometer-alt"></i>Contatori</a>
+        <a href="elettrovalvole.html"><i class="fas fa-water"></i>Elettrovalvole</a>
+        <a href="pressioni.html"><i class="fas fa-wave-square"></i>Pressioni</a>
+        <a href="report.html" class="active"><i class="fas fa-file-alt"></i>Report</a>
+    </div>
+
+    <div class="main">
+        <div class="section">
+            <h2>Log dei Cambiamenti</h2>
+            <div class="log-container" id="log-container">
+                <!-- Qui verranno visualizzati i report di stato -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Simula la registrazione dei cambiamenti
+        let logContainer = document.getElementById('log-container');
+
+        function logCambioStato(valore, tipo) {
+            // Crea un nuovo elemento per il log
+            let logEntry = document.createElement('div');
+            logEntry.textContent = `Valore ${tipo}: ${valore} - Cambiato alle: ${new Date().toLocaleTimeString()}`;
+            logContainer.appendChild(logEntry);
+        }
+
+        // Simula dei cambiamenti
+        setInterval(function() {
+            let reteLivello = Math.floor(Math.random() * 10000);
+            let osmosiLivello = Math.floor(Math.random() * 10000);
+            logCambioStato(reteLivello, "Livello Rete");
+            logCambioStato(osmosiLivello, "Livello Osmosi");
+        }, 5000); // Esegui ogni 5 secondi
+    </script>
+</body>
+</html>
