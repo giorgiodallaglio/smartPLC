@@ -44,13 +44,10 @@
             background-color: #575757;
         }
 
-        .sidebar .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 25px;
-            font-size: 36px;
-            cursor: pointer;
-            color: white;
+        .sidebar a.selected {
+            background-color: #333; /* Colore indicatore per pagina selezionata */
+            border-left: 5px solid #007bff; /* Indicatore a sinistra */
+            padding-left: 15px;
         }
 
         /* Container generale */
@@ -63,33 +60,33 @@
 
         /* Tile modificati */
         .cisterna, .contatore-box {
-    background-color: rgba(0, 0, 0, 0.7); /* Nero con trasparenza al 70% */
-    border-radius: 12px;
-    padding: 15px;
-    width: 120px; /* Tile più piccoli */
-    height: 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white; /* Dati in contrasto */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    transition: transform 0.3s ease;
-}
-
+            background-color: rgba(0, 0, 0, 0.7); /* Nero trasparente */
+            border-radius: 15px;
+            padding: 20px;
+            width: 160px; /* Aumentato per seguire il layout della foto */
+            height: 120px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white; /* Dati in contrasto */
+            font-size: 18px; /* Dimensione font più grande per i numeri */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
 
         .cisterna:hover, .contatore-box:hover {
-            transform: translateY(-5px); /* Effetto sollevamento al passaggio del mouse */
+            transform: translateY(-5px); /* Effetto sollevamento */
         }
 
         .titolo {
             font-weight: bold;
             font-size: 16px;
-            color: #007bff; /* Colore blu per una migliore leggibilità */
+            color: #000; /* Nero per il testo */
         }
 
         .quantita, .contatore-valore {
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
             color: #f1f1f1;
         }
 
@@ -110,7 +107,7 @@
 
     <!-- Sidebar / Colonna sinistra chiudibile -->
     <div id="sidebar" class="sidebar">
-        <a href="homepage.html">Dashboard</a>
+        <a href="homepage.html" class="selected">Dashboard</a>
         <a href="cisterne.html">Cisterne</a>
         <a href="elettrovalvole.html">Elettrovalvole</a>
         <a href="contatori.html">Contatori</a>
