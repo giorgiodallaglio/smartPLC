@@ -20,6 +20,7 @@
         <a href="contatori.html"><i class="fas fa-tachometer-alt"></i>Contatori</a>
         <a href="elettrovalvole.html"><i class="fas fa-water"></i>Elettrovalvole</a>
         <a href="pressioni.html"><i class="fas fa-wave-square"></i>Pressioni</a>
+        <a href="report.html"><i class="fas fa-file-alt"></i>Report</a>
     </div>
 
     <div class="main">
@@ -91,20 +92,6 @@
                         <p id="scarto-addolcita-contatore">0 m3</p>
                     </div>
                 </div>
-                <div class="box">
-                    <i class="fas fa-tachometer-alt tile-icon"></i>
-                    <div class="box-content">
-                        <h3>Acqua Bar</h3>
-                        <p id="acqua-bar-contatore">0 m3</p>
-                    </div>
-                </div>
-                <div class="box">
-                    <i class="fas fa-tachometer-alt tile-icon"></i>
-                    <div class="box-content">
-                        <h3>Acqua Ristorante</h3>
-                        <p id="acqua-ristorante-contatore">0 m3</p>
-                    </div>
-                </div>
             </div>
         </div>
 
@@ -129,88 +116,40 @@
                         <h3>Produzione Addolcita</h3>
                     </div>
                 </div>
-                <div class="box">
-                    <div id="valvola-scarto-addolcita" class="led green"></div>
-                    <div class="box-content">
-                        <h3>Scarto Addolcita</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>Pressioni</h2>
-            <div class="tile-container">
-                <div class="box">
-                    <i class="fas fa-wave-square tile-icon"></i>
-                    <div class="box-content">
-                        <h3>Rete</h3>
-                        <p id="rete-pressione">0 lt/m</p>
-                    </div>
-                </div>
-                <div class="box">
-                    <i class="fas fa-wave-square tile-icon"></i>
-                    <div class="box-content">
-                        <h3>Produzione Osmosi</h3>
-                        <p id="osmosi-pressione">0 lt/m</p>
-                    </div>
-                </div>
-                <div class="box">
-                    <i class="fas fa-wave-square tile-icon"></i>
-                    <div class="box-content">
-                        <h3>Produzione Addolcita</h3>
-                        <p id="addolcita-pressione">0 lt/m</p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
     <script>
-        // Funzione per generare un numero casuale tra due valori
         function randomNumber(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
         }
 
+        // Funzione per loggare i cambiamenti
+        function logChange(message) {
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "log.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("logData=" + encodeURIComponent(message));
+        }
+
         // Funzione per aggiornare i livelli delle cisterne
         function updateCisterne() {
-            document.getElementById('rete-livello').textContent = randomNumber(0, 10000) + ' lt';
-            document.getElementById('osmosi-livello').textContent = randomNumber(0, 10000) + ' lt';
-            document.getElementById('addolcita-livello').textContent = randomNumber(0, 10000) + ' lt';
-        }
+            var reteLivello = randomNumber(0, 10000);
+            var osmosiLivello = randomNumber(0, 10000);
+            var addolcitaLivello = randomNumber(0, 10000);
 
-        // Funzione per aggiornare i contatori
-        function updateContatori() {
-            document.getElementById('rete1-contatore').textContent = (parseInt(document.getElementById('rete1-contatore').textContent) + randomNumber(1, 10)) + ' m3';
-            document.getElementById('rete2-contatore').textContent = (parseInt(document.getElementById('rete2-contatore').textContent) + randomNumber(1, 10)) + ' m3';
-            document.getElementById('osmosi-contatore').textContent = (parseInt(document.getElementById('osmosi-contatore').textContent) + randomNumber(1, 10)) + ' m3';
-            document.getElementById('addolcita-contatore').textContent = (parseInt(document.getElementById('addolcita-contatore').textContent) + randomNumber(1, 10)) + ' m3';
-            document.getElementById('scarto-addolcita-contatore').textContent = (parseInt(document.getElementById('scarto-addolcita-contatore').textContent) + randomNumber(1, 5)) + ' m3';
-            document.getElementById('acqua-bar-contatore').textContent = (parseInt(document.getElementById('acqua-bar-contatore').textContent) + randomNumber(1, 5)) + ' m3';
-            document.getElementById('acqua-ristorante-contatore').textContent = (parseInt(document.getElementById('acqua-ristorante-contatore').textContent) + randomNumber(1, 5)) + ' m3';
-        }
+            document.getElementById('rete-livello').textContent = "Livello attuale: " + reteLivello + " lt";
+            document.getElementById('osmosi-livello').textContent = "Livello attuale: " + osmosiLivello + " lt";
+            document.getElementById('addolcita-livello').textContent = "Livello attuale: " + addolcitaLivello + " lt";
 
-        // Funzione per simulare l'accensione e lo spegnimento delle elettrovalvole
-        function updateValvole() {
-            document.getElementById('valvola-rete').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
-            document.getElementById('valvola-osmosi').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
-            document.getElementById('valvola-addolcita').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
-            document.getElementById('valvola-scarto-addolcita').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
-        }
-
-        // Funzione per aggiornare le pressioni
-        function updatePressioni() {
-            document.getElementById('rete-pressione').textContent = randomNumber(20, 40) + ' lt/m';
-            document.getElementById('osmosi-pressione').textContent = randomNumber(0, 30) + ' lt/m';
-            document.getElementById('addolcita-pressione').textContent = randomNumber(0, 30) + ' lt/m';
+            // Logga i cambiamenti
+            logChange("Cisterna Rete: " + reteLivello + " lt, Osmosi: " + osmosiLivello + " lt, Addolcita: " + addolcitaLivello + " lt");
         }
 
         // Aggiorna i dati ogni 2 secondi
         setInterval(function() {
             updateCisterne();
-            updateContatori();
-            updateValvole();
-            updatePressioni();
         }, 2000);
     </script>
 </body>
