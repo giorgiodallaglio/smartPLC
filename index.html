@@ -41,16 +41,22 @@
             z-index: 1; /* Assicura che la sidebar sia sopra lo sfondo */
         }
         
-                .sidebar .title {
-            font-size: 20px;
+        /* Stile per il titolo "smartPLC" */
+        .sidebar .title {
+            font-size: 25px; /* Dimensione più grande */
             color: #ecf0f1;
             padding: 15px 20px;
             font-weight: bold;
             display: block;
-            cursor: default;
-            text-transform: none;
+            text-decoration: none;
+            cursor: default; /* Disabilita il puntatore "click" */
+            text-transform: none; /* Disabilita il maiuscolo */
         }
 
+        .sidebar .title:hover {
+            background-color: transparent; /* Rimuove l'effetto hover */
+            color: #ecf0f1; /* Mantiene il colore invariato */
+        }
 
         .sidebar a {
             display: flex;
@@ -143,7 +149,7 @@
     <div class="background-image"></div>
 
     <div class="sidebar">
-        <a href="#"><i class="fas fa-plug"></i>smartPLC</a> <!-- Corretto l'errore HTML -->
+        <span class="title">smartPLC</span>
         <a href="#" class="active"><i class="fas fa-home"></i>Home</a>
         <a href="#"><i class="fas fa-tint"></i>Cisterne</a>
         <a href="#"><i class="fas fa-tachometer-alt"></i>Contatori</a>
