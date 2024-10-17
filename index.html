@@ -175,20 +175,45 @@
             localStorage.setItem('logs', JSON.stringify(logs));
         }
 
+       // Funzione per aggiornare i livelli delle cisterne
         function updateCisterne() {
-            var reteLivello = randomNumber(0, 10000);
-            var osmosiLivello = randomNumber(0, 10000);
-            var addolcitaLivello = randomNumber(0, 10000);
-
-            document.getElementById('rete-livello').textContent = "Livello attuale: " + reteLivello + " lt";
-            document.getElementById('osmosi-livello').textContent = "Livello attuale: " + osmosiLivello + " lt";
-            document.getElementById('addolcita-livello').textContent = "Livello attuale: " + addolcitaLivello + " lt";
-
-            logChange(`Cisterna Rete: ${reteLivello} lt, Osmosi: ${osmosiLivello} lt, Addolcita: ${addolcitaLivello} lt`);
+            document.getElementById('rete-livello').textContent = randomNumber(0, 10000) + ' lt';
+            document.getElementById('osmosi-livello').textContent = randomNumber(0, 10000) + ' lt';
+            document.getElementById('addolcita-livello').textContent = randomNumber(0, 10000) + ' lt';
         }
 
+        // Funzione per aggiornare i contatori
+        function updateContatori() {
+            document.getElementById('rete1-contatore').textContent = (parseInt(document.getElementById('rete1-contatore').textContent) + randomNumber(1, 10)) + ' m3';
+            document.getElementById('rete2-contatore').textContent = (parseInt(document.getElementById('rete2-contatore').textContent) + randomNumber(1, 10)) + ' m3';
+            document.getElementById('osmosi-contatore').textContent = (parseInt(document.getElementById('osmosi-contatore').textContent) + randomNumber(1, 10)) + ' m3';
+            document.getElementById('addolcita-contatore').textContent = (parseInt(document.getElementById('addolcita-contatore').textContent) + randomNumber(1, 10)) + ' m3';
+            document.getElementById('scarto-addolcita-contatore').textContent = (parseInt(document.getElementById('scarto-addolcita-contatore').textContent) + randomNumber(1, 5)) + ' m3';
+            document.getElementById('acqua-bar-contatore').textContent = (parseInt(document.getElementById('acqua-bar-contatore').textContent) + randomNumber(1, 5)) + ' m3';
+            document.getElementById('acqua-ristorante-contatore').textContent = (parseInt(document.getElementById('acqua-ristorante-contatore').textContent) + randomNumber(1, 5)) + ' m3';
+        }
+
+        // Funzione per simulare l'accensione e lo spegnimento delle elettrovalvole
+        function updateValvole() {
+            document.getElementById('valvola-rete').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
+            document.getElementById('valvola-osmosi').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
+            document.getElementById('valvola-addolcita').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
+            document.getElementById('valvola-scarto-addolcita').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
+        }
+
+        // Funzione per aggiornare le pressioni
+        function updatePressioni() {
+            document.getElementById('rete-pressione').textContent = randomNumber(20, 40) + ' lt/m';
+            document.getElementById('osmosi-pressione').textContent = randomNumber(0, 30) + ' lt/m';
+            document.getElementById('addolcita-pressione').textContent = randomNumber(0, 30) + ' lt/m';
+        }
+
+        // Aggiorna i dati ogni 2 secondi
         setInterval(function() {
             updateCisterne();
+            updateContatori();
+            updateValvole();
+            updatePressioni();
         }, 2000);
     </script>
 </body>
