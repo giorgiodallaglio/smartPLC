@@ -12,7 +12,7 @@
             display: flex;
             position: relative;
             height: 100vh;
-            overflow: hidden; /* Previene lo scroll causato dal blur */
+            overflow: hidden;
         }
 
         /* Sfondo con effetto blurry */
@@ -22,41 +22,33 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://static1.squarespace.com/static/5e949a92e17d55230cd1d44f/t/6463c36bafd20f271146e1a0/1684259712202/Rancho_Cucamonga_NoTree_16.png'); /* Assicurati che il file esista */
+            background-image: url('https://static1.squarespace.com/static/5e949a92e17d55230cd1d44f/t/6463c36bafd20f271146e1a0/1684259712202/Rancho_Cucamonga_NoTree_16.png');
             background-size: cover;
             background-position: center;
-            filter: blur(10px); /* Effetto sfocato */
-            opacity: 0.7; /* Trasparenza al 70% */
-            z-index: -1; /* Posiziona dietro tutti gli altri elementi */
+            filter: blur(10px);
+            opacity: 0.7;
+            z-index: -1;
         }
 
         .sidebar {
             width: 250px;
-            background-color: rgba(31, 31, 33, 0.8); /* Grigio scuro con 80% di trasparenza */
+            background-color: rgba(31, 31, 33, 0.8);
             box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
             height: 100vh;
             position: fixed;
             padding-top: 20px;
             border-right: 1px solid #ddd;
-            z-index: 1; /* Assicura che la sidebar sia sopra lo sfondo */
+            z-index: 1;
         }
 
-        /* Stile per il titolo "smartPLC" */
         .sidebar .title {
-            font-size: 20px; /* Dimensione più grande */
+            font-size: 20px;
             color: #ecf0f1;
-            text-transform: uppercase;
             padding: 15px 20px;
             font-weight: bold;
             display: block;
-            text-decoration: none;
-            cursor: default; /* Disabilita il puntatore "click" */
-            text-transform: none; /* Disabilita il maiuscolo */
-        }
-
-        .sidebar .title:hover {
-            background-color: transparent; /* Rimuove l'effetto hover */
-            color: #ecf0f1; /* Mantiene il colore invariato */
+            cursor: default;
+            text-transform: none;
         }
 
         .sidebar a {
@@ -64,16 +56,9 @@
             align-items: center;
             padding: 15px 20px;
             text-decoration: none;
-            color: #ecf0f1; /* Colore del testo a contrasto */
+            color: #ecf0f1;
             font-size: 16px;
             font-weight: 500;
-        }
-
-        .sidebar a i {
-            margin-right: 15px;
-            font-size: 18px;
-            min-width: 20px; /* Assicura che le icone siano allineate */
-            text-align: center;
         }
 
         .sidebar a:hover, .sidebar a.active {
@@ -83,9 +68,9 @@
 
         .main {
             flex-grow: 1;
-            margin-left: 250px; /* Uniforma con la larghezza della sidebar */
+            margin-left: 250px;
             padding: 20px;
-            overflow-y: auto; /* Permette lo scroll solo del contenuto principale */
+            overflow-y: auto;
         }
 
         .section {
@@ -99,33 +84,28 @@
         }
 
         .box {
-            background-color: rgba(31, 31, 33, 0.8); /* Stessa trasparenza della sidebar */
+            background-color: rgba(31, 31, 33, 0.8);
             border: 1px solid #ddd;
             padding: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
-            height: 65px; /* Altezza tile */
-            width: 230px; /* Larghezza tile */
+            height: 65px;
+            width: 230px;
             display: flex;
             align-items: center;
-            justify-content: flex-start; /* Allinea il contenuto a sinistra */
-            color: white; /* Colore del testo bianco */
-        }
-
-        .box h3, .box p {
-            margin: 0;
+            justify-content: flex-start;
+            color: white;
         }
 
         .box-content {
             display: flex;
             flex-direction: column;
-            align-items: flex-start; /* Allinea il testo a sinistra */
+            align-items: flex-start;
         }
 
-        /* Classe per distanziare le icone dal testo */
         .tile-icon {
-            margin-right: 15px; /* Distanza icona dal testo */
-            font-size: 20px; /* Dimensione icona */
+            margin-right: 15px;
+            font-size: 20px;
         }
 
         /* LED per gli stati delle elettrovalvole */
@@ -146,11 +126,9 @@
     </style>
 </head>
 <body>
-    <!-- Immagine di sfondo con effetto blurry -->
     <div class="background-image"></div>
 
     <div class="sidebar">
-        <!-- Titolo "smartPLC" senza effetto hover e senza icona -->
         <span class="title">smartPLC</span>
         <a href="#" class="active"><i class="fas fa-home"></i>Home</a>
         <a href="#"><i class="fas fa-tint"></i>Cisterne</a>
@@ -249,25 +227,25 @@
             <h2>Elettrovalvole</h2>
             <div class="tile-container">
                 <div class="box">
-                    <div class="led green"></div>
+                    <div id="valvola-rete" class="led green"></div>
                     <div class="box-content">
                         <h3>Chiamata Rete</h3>
                     </div>
                 </div>
                 <div class="box">
-                    <div class="led red"></div>
+                    <div id="valvola-osmosi" class="led red"></div>
                     <div class="box-content">
                         <h3>Produzione Osmosi</h3>
                     </div>
                 </div>
                 <div class="box">
-                    <div class="led green"></div>
+                    <div id="valvola-addolcita" class="led green"></div>
                     <div class="box-content">
                         <h3>Produzione Addolcita</h3>
                     </div>
                 </div>
                 <div class="box">
-                    <div class="led red"></div>
+                    <div id="valvola-scarto-addolcita" class="led red"></div>
                     <div class="box-content">
                         <h3>Scarto Addolcita</h3>
                     </div>
@@ -302,7 +280,8 @@
             </div>
         </div>
     </div>
-        <script>
+
+    <script>
         // Funzione per generare un numero casuale tra due valori
         function randomNumber(min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -349,7 +328,5 @@
             updatePressioni();
         }, 1000);
     </script>
-</body>
-</html>
 </body>
 </html>
