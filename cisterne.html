@@ -34,7 +34,9 @@
                         <p>Livello massimo: 10000 lt</p>
                         <!-- Cisterna -->
                         <div class="cisterna-container">
-                            <div class="cisterna-livello" id="cisterna-rete"></div>
+                            <div class="cisterna-livello" id="cisterna-rete">
+                                <span class="livello-valore" id="livello-rete-valore">0 lt</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -46,7 +48,9 @@
                         <p>Livello massimo: 10000 lt</p>
                         <!-- Cisterna -->
                         <div class="cisterna-container">
-                            <div class="cisterna-livello" id="cisterna-osmosi"></div>
+                            <div class="cisterna-livello" id="cisterna-osmosi">
+                                <span class="livello-valore" id="livello-osmosi-valore">0 lt</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,7 +62,9 @@
                         <p>Livello massimo: 10000 lt</p>
                         <!-- Cisterna -->
                         <div class="cisterna-container">
-                            <div class="cisterna-livello" id="cisterna-addolcita"></div>
+                            <div class="cisterna-livello" id="cisterna-addolcita">
+                                <span class="livello-valore" id="livello-addolcita-valore">0 lt</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -87,40 +93,16 @@
             document.getElementById('cisterna-rete').style.height = (reteLivello / 10000 * 100) + '%';
             document.getElementById('cisterna-osmosi').style.height = (osmosiLivello / 10000 * 100) + '%';
             document.getElementById('cisterna-addolcita').style.height = (addolcitaLivello / 10000 * 100) + '%';
+            
+            // Aggiornamento dei valori all'interno delle cisterne
+            document.getElementById('livello-rete-valore').textContent = reteLivello + ' lt';
+            document.getElementById('livello-osmosi-valore').textContent = osmosiLivello + ' lt';
+            document.getElementById('livello-addolcita-valore').textContent = addolcitaLivello + ' lt';
         }
 
-        // Funzione per aggiornare i contatori
-        function updateContatori() {
-            document.getElementById('rete1-contatore').textContent = (parseInt(document.getElementById('rete1-contatore').textContent) + randomNumber(1, 10)) + ' m3';
-            document.getElementById('rete2-contatore').textContent = (parseInt(document.getElementById('rete2-contatore').textContent) + randomNumber(1, 10)) + ' m3';
-            document.getElementById('osmosi-contatore').textContent = (parseInt(document.getElementById('osmosi-contatore').textContent) + randomNumber(1, 10)) + ' m3';
-            document.getElementById('addolcita-contatore').textContent = (parseInt(document.getElementById('addolcita-contatore').textContent) + randomNumber(1, 10)) + ' m3';
-            document.getElementById('scarto-addolcita-contatore').textContent = (parseInt(document.getElementById('scarto-addolcita-contatore').textContent) + randomNumber(1, 5)) + ' m3';
-            document.getElementById('acqua-bar-contatore').textContent = (parseInt(document.getElementById('acqua-bar-contatore').textContent) + randomNumber(1, 5)) + ' m3';
-            document.getElementById('acqua-ristorante-contatore').textContent = (parseInt(document.getElementById('acqua-ristorante-contatore').textContent) + randomNumber(1, 5)) + ' m3';
-        }
-
-        // Funzione per simulare l'accensione e lo spegnimento delle elettrovalvole
-        function updateValvole() {
-            document.getElementById('valvola-rete').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
-            document.getElementById('valvola-osmosi').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
-            document.getElementById('valvola-addolcita').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
-            document.getElementById('valvola-scarto-addolcita').className = randomNumber(0, 1) === 0 ? 'led red' : 'led green';
-        }
-
-        // Funzione per aggiornare le pressioni
-        function updatePressioni() {
-            document.getElementById('rete-pressione').textContent = randomNumber(20, 40) + ' lt/m';
-            document.getElementById('osmosi-pressione').textContent = randomNumber(0, 30) + ' lt/m';
-            document.getElementById('addolcita-pressione').textContent = randomNumber(0, 30) + ' lt/m';
-        }
-
-        // Aggiorna i dati ogni 500ms
+        // Aggiorna i dati ogni 500 ms
         setInterval(function() {
             updateCisterne();
-            updateContatori();
-            updateValvole();
-            updatePressioni();
         }, 500);
     </script>
 </body>
