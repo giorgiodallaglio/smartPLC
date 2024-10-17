@@ -164,29 +164,37 @@ font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Robot
     margin-top: 10px; /* Spazio sopra la cisterna */
 }
 
+/* Contenitore della cisterna */
 .cisterna-container {
     position: relative;
-    width: 100%;
-    height: 100px;
-    background-color: #e0e0e0;
-    border-radius: 8px;
-    overflow: hidden;
+    width: 100%; /* Riempi il 100% della larghezza disponibile */
+    height: 150px; /* Altezza della cisterna */
+    background-color: #f0f0f0; /* Colore di sfondo della cisterna */
+    border: 1px solid #ccc; /* Bordo */
+    border-radius: 10px; /* Angoli arrotondati */
+    overflow: hidden; /* Nasconde il trabocco del contenuto */
+    margin-top: 10px;
 }
 
+/* Livello dell'acqua nella cisterna */
 .cisterna-livello {
     position: absolute;
-    bottom: 0;
-    width: 100%;
-    background-color: #0088CC;
-    transition: height 0.5s ease;
+    bottom: 0; /* Posiziona il livello partendo dal basso */
+    width: 100%; /* Larghezza al 100% */
+    background-color: #3498db; /* Colore blu che rappresenta l'acqua */
+    border-radius: 0 0 10px 10px; /* Angoli arrotondati solo in basso */
+    transition: height 0.5s ease; /* Transizione fluida per il cambiamento di livello */
 }
 
+/* Stile per il testo del livello dentro la cisterna */
 .livello-valore {
     position: absolute;
-    top: 5px;
-    right: 5px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: white;
     font-weight: bold;
 }
+
 
 }
