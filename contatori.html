@@ -18,19 +18,6 @@
         }
 
         /* Header */
-        h1, h4 {
-            font-weight: normal;
-            color: #333; /* Testi in colori neutri */
-            text-align: left;
-            margin-bottom: 20px;
-            margin-left: 60px;
-        }
-        h2 {
-            font-weight: normal;
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-        }        
         .header {
             position: fixed;
             top: 0;
@@ -46,11 +33,12 @@
             box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4);
             z-index: 1000;
         }
+
         .logout-btn {
             display: flex;
             align-items: center;
             background-color: #f05454;
-            color: #333; /* Colore delle icone */
+            color: #333;
             border: none;
             padding: 5px 10px;
             border-radius: 5px;
@@ -59,50 +47,53 @@
             transition: background-color 0.3s ease;
             margin-right: 80px;
         }
+
         .logout-btn:hover {
             background-color: #d94343;
         }
-        .logout-btn i {
-            margin-right: 8px;
-        }
+
         .datetime {
             font-size: 14px;
             color: #333;
-            margin-left: 30px;
         }
 
-        /* Sidebar */
+        /* Sidebar a sinistra chiudibile */
         .sidebar {
             height: 100%;
             width: 0;
             position: fixed;
             top: 0;
-            right: 0;
-            background-color: rgba(255, 255, 255, 0.8); /* Traslucido */
-            backdrop-filter: blur(10px); /* Effetto blur */
+            left: 0;
+            background-color: rgba(0, 0, 0, 0.9); /* Sfondo nero */
             z-index: 1001;
             overflow-x: hidden;
             transition: 0.5s;
             padding-top: 60px;
         }
+
         .sidebar a {
             padding: 10px 20px;
             text-decoration: none;
             font-size: 20px;
-            color: #333;
+            color: #f1f1f1;
             display: block;
             transition: 0.3s;
         }
+
         .sidebar a:hover {
-            background-color: rgba(0, 0, 0, 0.1);
+            background-color: #575757;
         }
+
         .sidebar .close-btn {
             position: absolute;
             top: 20px;
             right: 25px;
             font-size: 36px;
             cursor: pointer;
+            color: white;
         }
+
+        /* Pulsante per aprire il menu */
         .menu-btn {
             display: flex;
             align-items: center;
@@ -115,27 +106,23 @@
         /* Container generale */
         .container, .contatori-container, .elettrovalvola-container {
             display: flex;
-            gap: 30px;
+            gap: 20px; /* Ridotto il gap per tile più piccoli */
             justify-content: center;
+            margin: 20px; /* Spaziatura generale */
         }
 
-        .cisterna-container, .contatore-container, .elettrovalvola {
-            text-align: center;
-        }
-
-        .separator {
-            height: 2px;
-            background-color: #444;
-            width: 80%;
-            margin: 30px auto;
-        }
-
-        /* Box per cisterne, contatori ed elettrovalvole */
+        /* Tile modificati */
         .cisterna, .contatore-box, .elettrovalvola {
-            background-color: rgba(255, 255, 255, 0.9); /* Colore bianco con trasparenza */
+            background-color: #000; /* Sfondo nero */
             border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Ombra leggera */
-            padding: 20px;
+            padding: 15px;
+            width: 120px; /* Tile più piccoli */
+            height: 80px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white; /* Dati in contrasto */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             transition: transform 0.3s ease;
         }
 
@@ -145,91 +132,32 @@
 
         .titolo {
             font-weight: bold;
-            font-size: 16px;
-            margin-bottom: 5px;
-            color: #333; /* Testi in colori neutri */
+            font-size: 14px;
+            color: #f1f1f1; /* Testi in contrasto */
         }
 
         .quantita, .max, .contatore-valore {
             font-weight: bold;
-            font-size: 16px;
-            margin-top: 5px;
-            color: #333;
-        }
-
-        .contatore-box {
-            width: 150px;
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            font-size: 24px;
-            color: #333;
-        }
-
-        /* Interruttori switch */
-        .switch {
-            margin-top: 10px;
-            display: flex;
-            align-items: center;
-        }
-        .switch input[type="checkbox"] {
-            display: none;
-        }
-        .switch label {
-            position: relative;
-            display: inline-block;
-            width: 60px;
-            height: 34px;
-            background-color: #ccc;
-            border-radius: 34px;
-            transition: background-color 0.3s;
-        }
-        .switch label:before {
-            position: absolute;
-            content: "";
-            height: 26px;
-            width: 26px;
-            left: 4px;
-            bottom: 4px;
-            background-color: white;
-            border-radius: 50%;
-            transition: transform 0.3s;
-        }
-        .switch input[type="checkbox"]:checked + label {
-            background-color: #4CAF50;
-        }
-        .switch input[type="checkbox"]:checked + label:before {
-            transform: translateX(26px);
+            font-size: 14px;
+            color: #f1f1f1;
         }
 
         /* Responsività */
         @media (max-width: 768px) {
-            h1, h4 {
-                margin-left: 20px;
-                font-size: 18px;
-            }
             .container, .contatori-container, .elettrovalvola-container {
                 flex-direction: column;
                 align-items: center;
             }
-            .cisterna-container, .contatore-container, .elettrovalvola {
-                margin-bottom: 20px;
-            }
             .cisterna, .contatore-box {
                 width: 100%;
-                max-width: 300px;
-            }
-            .logout-btn {
-                margin-right: 30px;
+                max-width: 250px;
             }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header con logout, data e ora -->
+    <!-- Header con logout e data/ora -->
     <div class="header">
         <div class="datetime" id="datetime"></div>
         <button class="logout-btn" onclick="logout()">
@@ -239,71 +167,31 @@
         <div class="menu-btn" onclick="openMenu()">
             <i class="fas fa-bars"></i>
         </div>
-        <!-- Sidebar / Menu a tendina -->
-        <div id="sidebar" class="sidebar">
-            <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
-            <a href="homepage.html">Dashboard</a>
-            <a href="cisterne.html">Cisterne</a>
-            <a href="elettrovalvole.html">Elettrovalvole</a>
-            <a href="contatori.html">Contatori</a>
-        </div>
     </div>
 
-    <a href="homepage.html">
-        <img src="smartPLC.png" alt="Home" style="width:100px;height:
-100px;margin-left:60px;">
-    </a>
-
-    <h4>v. 1.0 beta 1</h4>
+    <!-- Sidebar / Colonna sinistra chiudibile -->
+    <div id="sidebar" class="sidebar">
+        <a href="javascript:void(0)" class="close-btn" onclick="closeMenu()">&times;</a>
+        <a href="homepage.html">Dashboard</a>
+        <a href="cisterne.html">Cisterne</a>
+        <a href="elettrovalvole.html">Elettrovalvole</a>
+        <a href="contatori.html">Contatori</a>
+    </div>
 
     <!-- Monitor Cisterne -->
     <h2>Monitor Cisterne</h2>
     <div class="container">
         <div class="cisterna-container">
             <div class="titolo">Cisterna Rete</div>
-            <!-- Rimosso il riempimento grafico -->
-            <div class="quantita" id="quantita-rete">Attuale: 5000 L</div>
-            <div class="max">Massima: 10,000 L</div>
+            <div class="quantita" id="quantita-rete">5000 L</div>
         </div>
         <div class="cisterna-container">
             <div class="titolo">Cisterna Osmosi</div>
-            <!-- Rimosso il riempimento grafico -->
-            <div class="quantita" id="quantita-osmosi">Attuale: 2000 L</div>
-            <div class="max">Massima: 10,000 L</div>
+            <div class="quantita" id="quantita-osmosi">2000 L</div>
         </div>
         <div class="cisterna-container">
             <div class="titolo">Cisterna Addolcita</div>
-            <!-- Rimosso il riempimento grafico -->
-            <div class="quantita" id="quantita-addolcita">Attuale: 3500 L</div>
-            <div class="max">Massima: 10,000 L</div>
-        </div>
-    </div>
-
-    <div class="separator"></div>
-
-    <!-- Elettrovalvole -->
-    <h2>Elettrovalvole</h2>
-    <div class="elettrovalvola-container">
-        <div class="elettrovalvola">
-            <div class="titolo">Ricarica Rete</div>
-            <div class="switch">
-                <input type="checkbox" id="switch1">
-                <label for="switch1"></label>
-            </div>
-        </div>
-        <div class="elettrovalvola">
-            <div class="titolo">Prod. Osmosi</div>
-            <div class="switch">
-                <input type="checkbox" id="switch2">
-                <label for="switch2"></label>
-            </div>
-        </div>
-        <div class="elettrovalvola">
-            <div class="titolo">Prod. Addolcita</div>
-            <div class="switch">
-                <input type="checkbox" id="switch3">
-                <label for="switch3"></label>
-            </div>
+            <div class="quantita" id="quantita-addolcita">3500 L</div>
         </div>
     </div>
 
@@ -343,17 +231,22 @@
         // Aggiornamento data e ora
         function updateDateTime() {
             const now = new Date();
-            document.getElementById('datetime').innerText = now.toLocaleString();
+            document.getElementById('datetime').
+innerText = now.toLocaleString();
         }
         setInterval(updateDateTime, 1000);
 
-        // Funzione per il toggle degli switch delle elettrovalvole
-        function toggleSwitch(switchId) {
-            const switchElement = document.getElementById(switchId);
-            console.log(`${switchId} è ora ${switchElement.checked ? 'acceso' : 'spento'}`);
+        // Funzione per aprire la sidebar
+        function openMenu() {
+            document.getElementById('sidebar').style.width = '250px';
         }
 
-        // Aggiornamento valori delle cisterne e contatori
+        // Funzione per chiudere la sidebar
+        function closeMenu() {
+            document.getElementById('sidebar').style.width = '0';
+        }
+
+        // Funzione per aggiornare i valori delle cisterne e dei contatori
         function aggiornaLivelli(livelli, impulsi) {
             const quantitaElementi = {
                 rete: document.getElementById('quantita-rete'),
@@ -368,7 +261,7 @@
 
             // Aggiorna solo i valori numerici delle cisterne e dei contatori
             for (const cisterna in livelli) {
-                quantitaElementi[cisterna].textContent = `Attuale: ${livelli[cisterna]} L`;
+                quantitaElementi[cisterna].textContent = `${livelli[cisterna]} L`;
                 impulsiElementi[cisterna].textContent = `${impulsi[cisterna]} m³`;
             }
         }
@@ -387,17 +280,6 @@
             };
             aggiornaLivelli(livelliRandom, impulsiRandom);
         }, 3000);
-
-        // Funzione per aprire il menu a tendina
-        function openMenu() {
-            document.getElementById('sidebar').style.width = '250px';
-        }
-
-        // Funzione per chiudere il menu a tendina
-        function closeMenu() {
-            document.getElementById('sidebar').style.width = '0';
-        }
     </script>
-
 </body>
 </html>
