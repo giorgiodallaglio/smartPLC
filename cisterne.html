@@ -3,16 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>smartPLC | Home</title>
-    <!-- Collegamento al file CSS esterno -->
+    <title>smartPLC | Cisterne</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Collegamento a Font Awesome per le icone -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <!-- Collega il file JavaScript esterno -->
-    <script src="script.js" defer></script>
 </head>
 <body>
-    <!-- Immagine di sfondo con effetto blurry -->
     <div class="background-image"></div>
 
     <div class="sidebar">
@@ -22,7 +17,6 @@
         <a href="contatori.html"><i class="fas fa-tachometer-alt"></i>Contatori</a>
         <a href="elettrovalvole.html"><i class="fas fa-water"></i>Elettrovalvole</a>
         <a href="pressioni.html"><i class="fas fa-wave-square"></i>Pressioni</a>
-        <a href="report.html"><i class="fas fa-file-alt"></i>Report</a>
     </div>
 
     <div class="main">
@@ -68,5 +62,29 @@
             </div>
         </div>
     </div>
+
+    <script>
+        function randomNumber(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function updateCisterne() {
+            var reteLivello = randomNumber(0, 10000);
+            var osmosiLivello = randomNumber(0, 10000);
+            var addolcitaLivello = randomNumber(0, 10000);
+
+            document.getElementById('rete-livello').textContent = "Livello attuale: " + reteLivello + " lt";
+            document.getElementById('osmosi-livello').textContent = "Livello attuale: " + osmosiLivello + " lt";
+            document.getElementById('addolcita-livello').textContent = "Livello attuale: " + addolcitaLivello + " lt";
+
+            document.getElementById('rete-cisterna').style.height = (reteLivello / 10000 * 100) + '%';
+            document.getElementById('osmosi-cisterna').style.height = (osmosiLivello / 10000 * 100) + '%';
+            document.getElementById('addolcita-cisterna').style.height = (addolcitaLivello / 10000 * 100) + '%';
+        }
+
+        setInterval(function() {
+            updateCisterne();
+        }, 500);
+    </script>
 </body>
 </html>
