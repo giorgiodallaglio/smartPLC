@@ -188,36 +188,29 @@ font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", Robot
     color: white;
     font-weight: bold;
 }
-/* Stile per la barra di ricerca */
-.search-bar {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-#search-input {
-    width: 300px !important;
-    padding: 10px 15px !important;
-    font-size: 16px !important;
-    border: 1px solid #ccc !important;
-    border-radius: 30px !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
-    outline: none !important;
-    transition: all 0.3s ease !important;
-    background-color: #f5f5f7 !important;
-    color: #333 !important;
-}
-
+/* Stile Apple per il tasto Cerca */
 button {
-    margin-left: 10px !important;
-    padding: 10px 20px !important;
-    font-size: 16px !important;
-    color: #fff !important;
-    background-color: #007aff !important;
-    border: none !important;
-    border-radius: 30px !important;
-    cursor: pointer !important;
-    box-shadow: 0 4px 6px rgba(0, 122, 255, 0.2) !important;
-    transition: all 0.3s ease !important;
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007aff; /* Colore blu Apple */
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 122, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #005bb5; /* Colore più scuro al passaggio del mouse */
+}
+
+button:focus {
+    outline: none;
+    box-shadow: 0 4px 6px rgba(0, 122, 255, 0.4);
+}
+
+button:active {
+    background-color: #004080;
 }
