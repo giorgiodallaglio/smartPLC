@@ -214,3 +214,16 @@ button:focus {
 button:active {
     background-color: #004080;
 }
+    #search-btn {
+    /* Stile Apple per il tasto Cerca */
+    margin-left: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #007aff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 122, 255, 0.2);
+    transition: all 0.3s ease;
+}
