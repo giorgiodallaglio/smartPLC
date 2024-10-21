@@ -6,7 +6,6 @@
     <title>smartPLC | Report</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 </head>
 <body>
     <div class="background-image"></div>
@@ -24,21 +23,10 @@
     <div class="main">
         <div class="section">
             <h2>Log Report</h2>
-
             <!-- Barra di ricerca con stile Apple -->
             <div class="search-bar">
                 <input type="text" id="search-input" placeholder="Cerca nei log...">
                 <button onclick="searchLogs()">Cerca</button>
-            </div>
-
-            <!-- Pulsante per cancellare tutti i log -->
-            <div class="clear-logs">
-                <button onclick="clearLogs()">Cancella tutti i report</button>
-            </div>
-
-            <!-- Pulsante per esportare in Excel -->
-            <div class="export-logs">
-                <button onclick="exportToExcel()">Esporta in Excel</button>
             </div>
 
             <!-- Area per visualizzare i log -->
@@ -58,65 +46,32 @@
             const logContainer = document.getElementById('log-container');
             logContainer.innerHTML = ''; // Pulisce l'area log
 
-            logs.forEach(log => {
-                const logEntry = document.createElement('p');
-                logEntry.textContent = `Data/Ora: ${log.data_ora}, Cisterna Rete: ${log.cisterna_rete}, Cisterna Osmosi: ${log.cisterna_osmosi}, Cisterna Addolcita: ${log.cisterna_addolcita}`;
-                logContainer.appendChild(logEntry);
-            });
+            if (logs.length === 0) {
+                logContainer.textContent = 'Nessun log trovato.';
+            } else {
+                logs.forEach(log => {
+                    const logEntry = document.createElement('p');
+                    logEntry.textContent = log;
+                    logContainer.appendChild(logEntry);
+                });
+            }
         }
 
         // Funzione di ricerca nei log
         function searchLogs() {
             const searchInput = document.getElementById('search-input').value.toLowerCase();
             let logs = JSON.parse(localStorage.getItem('logs')) || [];
-
+            
             // Filtra i log in base alla keyword cercata
-            const filteredLogs = logs.filter(log => JSON.stringify(log).toLowerCase().includes(searchInput));
-
+            const filteredLogs = logs.filter(log => log.toLowerCase().includes(searchInput));
+            
             displayLogs(filteredLogs); // Visualizza solo i log filtrati
-        }
 
-        // Funzione per cancellare tutti i log dal localStorage
-        function clearLogs() {
-            if (confirm("Sei sicuro di voler cancellare tutti i report?")) {
-                localStorage.removeItem('logs'); // Rimuove i log dal localStorage
-                loadLogs(); // Ricarica la pagina dei log vuota
+            // Se la ricerca non restituisce risultati
+            if (filteredLogs.length === 0) {
+                const logContainer = document.getElementById('log-container');
+                logContainer.textContent = 'Nessun risultato trovato per "' + searchInput + '"';
             }
-        }
-
-        // Funzione per esportare i log in un file Excel con colonne organizzate
-        function exportToExcel() {
-            let logs = JSON.parse(localStorage.getItem('logs')) || [];
-
-            if(logs.length === 0) {
-                alert('Nessun report da esportare');
-                return;
-            }
-
-            // Definisci i titoli delle colonne
-            const columnHeaders = ["Data/Ora", "Cisterna Rete", "Cisterna Osmosi", "Cisterna Addolcita", "Valvola Rete", "Valvola Osmosi", "Valvola Addolcita"];
-
-            // Trasforma i log in un array adatto per Excel
-            const dataForExcel = logs.map(log => [
-                log.data_ora, 
-                log.cisterna_rete, 
-                log.cisterna_osmosi, 
-                log.cisterna_addolcita,
-                log.valvola_rete,
-                log.valvola_osmosi,
-                log.valvola_addolcita
-            ]);
-
-            // Aggiungi i titoli delle colonne in cima ai dati
-            dataForExcel.unshift(columnHeaders);
-
-            // Crea un foglio di lavoro
-            const worksheet = XLSX.utils.aoa_to_sheet(dataForExcel);
-            const workbook = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(workbook, worksheet, "Logs");
-
-            // Esporta il file
-            XLSX.writeFile(workbook, "report_logs.xlsx");
         }
 
         // Carica i log quando la pagina viene caricata
