@@ -6,6 +6,7 @@
     <title>smartPLC | Report</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 </head>
 <body>
     <div class="background-image"></div>
@@ -30,17 +31,96 @@
                 <button onclick="searchLogs()">Cerca</button>
             </div>
 
-            <!-- Pulsante per esportare in CSV -->
-            <button onclick="exportToCSV()">Esporta in CSV</button>
-
             <!-- Pulsante per cancellare tutti i log -->
-            <button onclick="clearLogs()">Cancella tutti i log</button>
+            <div class="clear-logs">
+                <button onclick="clearLogs()">Cancella tutti i report</button>
+            </div>
+
+            <!-- Pulsante per esportare in Excel -->
+            <div class="export-logs">
+                <button onclick="exportToExcel()">Esporta in Excel</button>
+            </div>
 
             <!-- Area per visualizzare i log -->
             <div id="log-container"></div>
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Funzione per caricare i log salvati dal localStorage
+        function loadLogs() {
+            let logs = JSON.parse(localStorage.getItem('logs')) || [];
+            displayLogs(logs);
+        }
+
+        // Funzione per visualizzare i log
+        function displayLogs(logs) {
+            const logContainer = document.getElementById('log-container');
+            logContainer.innerHTML = ''; // Pulisce l'area log
+
+            logs.forEach(log => {
+                const logEntry = document.createElement('p');
+                logEntry.textContent = `Data/Ora: ${log.data_ora}, Cisterna Rete: ${log.cisterna_rete}, Cisterna Osmosi: ${log.cisterna_osmosi}, Cisterna Addolcita: ${log.cisterna_addolcita}`;
+                logContainer.appendChild(logEntry);
+            });
+        }
+
+        // Funzione di ricerca nei log
+        function searchLogs() {
+            const searchInput = document.getElementById('search-input').value.toLowerCase();
+            let logs = JSON.parse(localStorage.getItem('logs')) || [];
+
+            // Filtra i log in base alla keyword cercata
+            const filteredLogs = logs.filter(log => JSON.stringify(log).toLowerCase().includes(searchInput));
+
+            displayLogs(filteredLogs); // Visualizza solo i log filtrati
+        }
+
+        // Funzione per cancellare tutti i log dal localStorage
+        function clearLogs() {
+            if (confirm("Sei sicuro di voler cancellare tutti i report?")) {
+                localStorage.removeItem('logs'); // Rimuove i log dal localStorage
+                loadLogs(); // Ricarica la pagina dei log vuota
+            }
+        }
+
+        // Funzione per esportare i log in un file Excel con colonne organizzate
+        function exportToExcel() {
+            let logs = JSON.parse(localStorage.getItem('logs')) || [];
+
+            if(logs.length === 0) {
+                alert('Nessun report da esportare');
+                return;
+            }
+
+            // Definisci i titoli delle colonne
+            const columnHeaders = ["Data/Ora", "Cisterna Rete", "Cisterna Osmosi", "Cisterna Addolcita", "Valvola Rete", "Valvola Osmosi", "Valvola Addolcita"];
+
+            // Trasforma i log in un array adatto per Excel
+            const dataForExcel = logs.map(log => [
+                log.data_ora, 
+                log.cisterna_rete, 
+                log.cisterna_osmosi, 
+                log.cisterna_addolcita,
+                log.valvola_rete,
+                log.valvola_osmosi,
+                log.valvola_addolcita
+            ]);
+
+            // Aggiungi i titoli delle colonne in cima ai dati
+            dataForExcel.unshift(columnHeaders);
+
+            // Crea un foglio di lavoro
+            const worksheet = XLSX.utils.aoa_to_sheet(dataForExcel);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Logs");
+
+            // Esporta il file
+            XLSX.writeFile(workbook, "report_logs.xlsx");
+        }
+
+        // Carica i log quando la pagina viene caricata
+        window.onload = loadLogs;
+    </script>
 </body>
 </html>
