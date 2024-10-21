@@ -24,12 +24,11 @@
         <div class="section">
             <h2>Log Report</h2>
             <!-- Barra di ricerca con stile Apple -->
-           <div class="search-bar">
-    <input type="text" id="search-input" placeholder="Cerca nei log...">
-<button class="apple-button">Cerca</button>
-           </div>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Cerca nei log...">
+                <button onclick="searchLogs()">Cerca</button>
+            </div>
 
-            
             <!-- Area per visualizzare i log -->
             <div id="log-container"></div>
         </div>
@@ -47,11 +46,15 @@
             const logContainer = document.getElementById('log-container');
             logContainer.innerHTML = ''; // Pulisce l'area log
 
-            logs.forEach(log => {
-                const logEntry = document.createElement('p');
-                logEntry.textContent = log;
-                logContainer.appendChild(logEntry);
-            });
+            if (logs.length === 0) {
+                logContainer.textContent = 'Nessun log trovato.';
+            } else {
+                logs.forEach(log => {
+                    const logEntry = document.createElement('p');
+                    logEntry.textContent = log;
+                    logContainer.appendChild(logEntry);
+                });
+            }
         }
 
         // Funzione di ricerca nei log
@@ -63,6 +66,12 @@
             const filteredLogs = logs.filter(log => log.toLowerCase().includes(searchInput));
             
             displayLogs(filteredLogs); // Visualizza solo i log filtrati
+
+            // Se la ricerca non restituisce risultati
+            if (filteredLogs.length === 0) {
+                const logContainer = document.getElementById('log-container');
+                logContainer.textContent = 'Nessun risultato trovato per "' + searchInput + '"';
+            }
         }
 
         // Carica i log quando la pagina viene caricata
