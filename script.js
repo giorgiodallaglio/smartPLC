@@ -1,13 +1,27 @@
+// Funzione per generare un numero casuale tra due valori
 function randomNumber(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function logChange(message) {
+// Funzione per registrare i cambiamenti
+function logChange(cisternaRete, cisternaOsmosi, cisternaAddolcita, valvolaRete, valvolaOsmosi, valvolaAddolcita) {
     let logs = JSON.parse(localStorage.getItem('logs')) || [];
-    logs.push(`${new Date().toLocaleString()} - ${message}`);
+    
+    const newLog = {
+        data_ora: new Date().toLocaleString(),
+        cisterna_rete: cisternaRete,
+        cisterna_osmosi: cisternaOsmosi,
+        cisterna_addolcita: cisternaAddolcita,
+        valvola_rete: valvolaRete,
+        valvola_osmosi: valvolaOsmosi,
+        valvola_addolcita: valvolaAddolcita
+    };
+
+    logs.push(newLog);
     localStorage.setItem('logs', JSON.stringify(logs));
 }
 
+// Funzione per aggiornare i livelli delle cisterne
 function updateCisterne() {
     var reteLivello = randomNumber(0, 10000);
     var osmosiLivello = randomNumber(0, 10000);
@@ -17,58 +31,84 @@ function updateCisterne() {
     document.getElementById('osmosi-livello').textContent = "Livello attuale: " + osmosiLivello + " lt";
     document.getElementById('addolcita-livello').textContent = "Livello attuale: " + addolcitaLivello + " lt";
 
-    logChange(`Cisterna - Rete: ${reteLivello} lt, Osmosi: ${osmosiLivello} lt, Addolcita: ${addolcitaLivello} lt`);
+    logChange(reteLivello, osmosiLivello, addolcitaLivello, undefined, undefined, undefined);
 }
 
-function updateContatori() {
-    var rete1 = randomNumber(1, 100);
-    var rete2 = randomNumber(1, 100);
-    var osmosi = randomNumber(1, 100);
-    var addolcita = randomNumber(1, 100);
-    var scartoAddolcita = randomNumber(1, 100);
-    var acquaBar = randomNumber(1, 100);
-    var acquaRistorante = randomNumber(1, 100);
-
-    document.getElementById('rete1-contatore').textContent = rete1 + " m3";
-    document.getElementById('rete2-contatore').textContent = rete2 + " m3";
-    document.getElementById('osmosi-contatore').textContent = osmosi + " m3";
-    document.getElementById('addolcita-contatore').textContent = addolcita + " m3";
-    document.getElementById('scarto-addolcita-contatore').textContent = scartoAddolcita + " m3";
-    document.getElementById('acqua-bar-contatore').textContent = acquaBar + " m3";
-    document.getElementById('acqua-ristorante-contatore').textContent = acquaRistorante + " m3";
-
-    logChange(`Contatori - Rete1: ${rete1} m3, Rete2: ${rete2} m3, Osmosi: ${osmosi} m3, Addolcita: ${addolcita} m3, Scarto Addolcita: ${scartoAddolcita} m3, Acqua Bar: ${acquaBar} m3, Acqua Ristorante: ${acquaRistorante} m3`);
-}
-
+// Funzione per aggiornare le elettrovalvole
 function updateValvole() {
     var valvolaRete = randomNumber(0, 1) === 0 ? 'red' : 'green';
     var valvolaOsmosi = randomNumber(0, 1) === 0 ? 'red' : 'green';
     var valvolaAddolcita = randomNumber(0, 1) === 0 ? 'red' : 'green';
-    var valvolaScartoAddolcita = randomNumber(0, 1) === 0 ? 'red' : 'green';
 
     document.getElementById('valvola-rete').className = "led " + valvolaRete;
     document.getElementById('valvola-osmosi').className = "led " + valvolaOsmosi;
     document.getElementById('valvola-addolcita').className = "led " + valvolaAddolcita;
-    document.getElementById('valvola-scarto-addolcita').className = "led " + valvolaScartoAddolcita;
 
-    logChange(`Elettrovalvole - Rete: ${valvolaRete}, Osmosi: ${valvolaOsmosi}, Addolcita: ${valvolaAddolcita}, Scarto Addolcita: ${valvolaScartoAddolcita}`);
+    logChange(undefined, undefined, undefined, valvolaRete, valvolaOsmosi, valvolaAddolcita);
 }
 
-function updatePressioni() {
-    var retePressione = randomNumber(20, 40);
-    var osmosiPressione = randomNumber(10, 30);
-    var addolcitaPressione = randomNumber(10, 30);
-
-    document.getElementById('rete-pressione').textContent = retePressione + " lt/m";
-    document.getElementById('osmosi-pressione').textContent = osmosiPressione + " lt/m";
-    document.getElementById('addolcita-pressione').textContent = addolcitaPressione + " lt/m";
-
-    logChange(`Pressioni - Rete: ${retePressione} lt/m, Osmosi: ${osmosiPressione} lt/m, Addolcita: ${addolcitaPressione} lt/m`);
+// Funzione per cancellare tutti i log
+function clearLogs() {
+    localStorage.removeItem('logs');
+    loadLogs(); // Ricarica i log dopo averli cancellati
 }
 
+// Funzione per esportare i log in formato CSV
+function exportToCSV() {
+    let logs = JSON.parse(localStorage.getItem('logs')) || [];
+    let csvContent = "data_ora,cisterna_rete,cisterna_osmosi,cisterna_addolcita,valvola_rete,valvola_osmosi,valvola_addolcita\n";
+
+    logs.forEach(log => {
+        csvContent += `${log.data_ora},${log.cisterna_rete || ''},${log.cisterna_osmosi || ''},${log.cisterna_addolcita || ''},${log.valvola_rete || ''},${log.valvola_osmosi || ''},${log.valvola_addolcita || ''}\n`;
+    });
+
+    let blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    let link = document.createElement('a');
+    let url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'log_report.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// Funzione per caricare i log salvati dal localStorage
+function loadLogs() {
+    let logs = JSON.parse(localStorage.getItem('logs')) || [];
+    displayLogs(logs);
+}
+
+// Funzione per visualizzare i log
+function displayLogs(logs) {
+    const logContainer = document.getElementById('log-container');
+    logContainer.innerHTML = ''; // Pulisce l'area log
+
+    logs.forEach(log => {
+        const logEntry = document.createElement('p');
+        logEntry.textContent = `Data/Ora: ${log.data_ora}, Cisterna Rete: ${log.cisterna_rete || 'N/A'}, Cisterna Osmosi: ${log.cisterna_osmosi || 'N/A'}, Cisterna Addolcita: ${log.cisterna_addolcita || 'N/A'}, Valvola Rete: ${log.valvola_rete || 'N/A'}, Valvola Osmosi: ${log.valvola_osmosi || 'N/A'}, Valvola Addolcita: ${log.valvola_addolcita || 'N/A'}`;
+        logContainer.appendChild(logEntry);
+    });
+}
+
+// Funzione di ricerca nei log
+function searchLogs() {
+    const searchInput = document.getElementById('search-input').value.toLowerCase();
+    let logs = JSON.parse(localStorage.getItem('logs')) || [];
+    
+    // Filtra i log in base alla keyword cercata
+    const filteredLogs = logs.filter(log => {
+        return Object.values(log).some(value => value && value.toString().toLowerCase().includes(searchInput));
+    });
+    
+    displayLogs(filteredLogs); // Visualizza solo i log filtrati
+}
+
+// Esegui l'aggiornamento periodico
 setInterval(function() {
     updateCisterne();
-    updateContatori();
     updateValvole();
-    updatePressioni();
 }, 2000);
+
+// Carica i log quando la pagina viene caricata
+window.onload = loadLogs;
