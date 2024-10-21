@@ -23,90 +23,24 @@
     <div class="main">
         <div class="section">
             <h2>Log Report</h2>
+
+            <!-- Barra di ricerca con stile Apple -->
             <div class="search-bar">
                 <input type="text" id="search-input" placeholder="Cerca nei log...">
-                <button>Cerca</button>
+                <button onclick="searchLogs()">Cerca</button>
             </div>
-            
-            <!-- Aggiungi il pulsante per esportare i log in Excel -->
-            <button id="export-button">Esporta in Excel</button>
+
+            <!-- Pulsante per esportare in CSV -->
+            <button onclick="exportToCSV()">Esporta in CSV</button>
+
+            <!-- Pulsante per cancellare tutti i log -->
+            <button onclick="clearLogs()">Cancella tutti i log</button>
 
             <!-- Area per visualizzare i log -->
             <div id="log-container"></div>
         </div>
     </div>
 
-    <!-- Includi SheetJS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
-
-    <script>
-        // Funzione per caricare i log salvati dal localStorage
-        function loadLogs() {
-            let logs = JSON.parse(localStorage.getItem('logs')) || [];
-            displayLogs(logs);
-        }
-
-        // Funzione per visualizzare i log
-        function displayLogs(logs) {
-            const logContainer = document.getElementById('log-container');
-            logContainer.innerHTML = ''; // Pulisce l'area log
-
-            logs.forEach(log => {
-                const logEntry = document.createElement('p');
-                logEntry.textContent = `Data/Ora: ${log.data_ora}, Cisterna Rete: ${log.cisterna_rete}, Cisterna Osmosi: ${log.cisterna_osmosi}, Cisterna Addolcita: ${log.cisterna_addolcita}`;
-                logContainer.appendChild(logEntry);
-            });
-        }
-
-        // Funzione di ricerca nei log
-        function searchLogs() {
-            const searchInput = document.getElementById('search-input').value.toLowerCase();
-            let logs = JSON.parse(localStorage.getItem('logs')) || [];
-            
-            // Filtra i log in base alla keyword cercata
-            const filteredLogs = logs.filter(log => 
-                log.data_ora.toLowerCase().includes(searchInput) ||
-                log.cisterna_rete.toLowerCase().includes(searchInput) ||
-                log.cisterna_osmosi.toLowerCase().includes(searchInput) ||
-                log.cisterna_addolcita.toLowerCase().includes(searchInput)
-            );
-            
-            displayLogs(filteredLogs); // Visualizza solo i log filtrati
-        }
-
-        // Funzione per esportare i log in Excel
-        function exportToExcel() {
-            let logs = JSON.parse(localStorage.getItem('logs')) || [];
-            
-            // Converti i log in un formato accettabile per Excel
-            let worksheetData = logs.map(log => ({
-                "Data/Ora": log.data_ora,
-                "Cisterna Rete": log.cisterna_rete,
-                "Cisterna Osmosi": log.cisterna_osmosi,
-                "Cisterna Addolcita": log.cisterna_addolcita,
-                "Valvola Rete": log.valvola_rete,
-                "Valvola Osmosi": log.valvola_osmosi,
-                "Valvola Addolcita": log.valvola_addolcita
-            }));
-
-            // Crea un nuovo workbook
-            let wb = XLSX.utils.book_new();
-            
-            // Converte i dati in un foglio di lavoro
-            let ws = XLSX.utils.json_to_sheet(worksheetData);
-            
-            // Aggiunge il foglio di lavoro al workbook
-            XLSX.utils.book_append_sheet(wb, ws, "Report Log");
-            
-            // Esporta il workbook in un file Excel
-            XLSX.writeFile(wb, "report_log.xlsx");
-        }
-
-        // Aggiungi l'evento al pulsante per l'esportazione
-        document.getElementById('export-button').addEventListener('click', exportToExcel);
-
-        // Carica i log quando la pagina viene caricata
-        window.onload = loadLogs;
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
