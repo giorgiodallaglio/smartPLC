@@ -60,7 +60,7 @@
 
             logs.forEach(log => {
                 const logEntry = document.createElement('p');
-                logEntry.textContent = log;
+                logEntry.textContent = `Data/Ora: ${log.data_ora}, Cisterna Rete: ${log.cisterna_rete}, Cisterna Osmosi: ${log.cisterna_osmosi}, Cisterna Addolcita: ${log.cisterna_addolcita}`;
                 logContainer.appendChild(logEntry);
             });
         }
@@ -71,7 +71,7 @@
             let logs = JSON.parse(localStorage.getItem('logs')) || [];
 
             // Filtra i log in base alla keyword cercata
-            const filteredLogs = logs.filter(log => log.toLowerCase().includes(searchInput));
+            const filteredLogs = logs.filter(log => JSON.stringify(log).toLowerCase().includes(searchInput));
 
             displayLogs(filteredLogs); // Visualizza solo i log filtrati
         }
@@ -84,17 +84,34 @@
             }
         }
 
-        // Funzione per esportare i log in un file Excel
+        // Funzione per esportare i log in un file Excel con colonne organizzate
         function exportToExcel() {
             let logs = JSON.parse(localStorage.getItem('logs')) || [];
-            
+
             if(logs.length === 0) {
                 alert('Nessun report da esportare');
                 return;
             }
 
+            // Definisci i titoli delle colonne
+            const columnHeaders = ["Data/Ora", "Cisterna Rete", "Cisterna Osmosi", "Cisterna Addolcita", "Valvola Rete", "Valvola Osmosi", "Valvola Addolcita"];
+
+            // Trasforma i log in un array adatto per Excel
+            const dataForExcel = logs.map(log => [
+                log.data_ora, 
+                log.cisterna_rete, 
+                log.cisterna_osmosi, 
+                log.cisterna_addolcita,
+                log.valvola_rete,
+                log.valvola_osmosi,
+                log.valvola_addolcita
+            ]);
+
+            // Aggiungi i titoli delle colonne in cima ai dati
+            dataForExcel.unshift(columnHeaders);
+
             // Crea un foglio di lavoro
-            const worksheet = XLSX.utils.json_to_sheet(logs.map(log => ({ "Log": log })));
+            const worksheet = XLSX.utils.aoa_to_sheet(dataForExcel);
             const workbook = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(workbook, worksheet, "Logs");
 
