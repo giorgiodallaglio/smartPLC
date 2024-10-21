@@ -6,6 +6,7 @@
     <title>smartPLC | Report</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 </head>
 <body>
     <div class="background-image"></div>
@@ -33,6 +34,11 @@
             <!-- Pulsante per cancellare tutti i log -->
             <div class="clear-logs">
                 <button onclick="clearLogs()">Cancella tutti i report</button>
+            </div>
+
+            <!-- Pulsante per esportare in Excel -->
+            <div class="export-logs">
+                <button onclick="exportToExcel()">Esporta in Excel</button>
             </div>
 
             <!-- Area per visualizzare i log -->
@@ -76,6 +82,24 @@
                 localStorage.removeItem('logs'); // Rimuove i log dal localStorage
                 loadLogs(); // Ricarica la pagina dei log vuota
             }
+        }
+
+        // Funzione per esportare i log in un file Excel
+        function exportToExcel() {
+            let logs = JSON.parse(localStorage.getItem('logs')) || [];
+            
+            if(logs.length === 0) {
+                alert('Nessun report da esportare');
+                return;
+            }
+
+            // Crea un foglio di lavoro
+            const worksheet = XLSX.utils.json_to_sheet(logs.map(log => ({ "Log": log })));
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, "Logs");
+
+            // Esporta il file
+            XLSX.writeFile(workbook, "report_logs.xlsx");
         }
 
         // Carica i log quando la pagina viene caricata
