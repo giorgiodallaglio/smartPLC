@@ -221,3 +221,10 @@ button {
     box-shadow: 0 4px 6px rgba(0, 122, 255, 0.2) !important;
     transition: all 0.3s ease !important;
 }
+    
+#connessione-status {
+  text-align: center; /* Centra il testo all'interno dell'elemento */
+  margin-left: auto;  /* Centra l'elemento orizzontalmente */
+  margin-right: auto; /* Centra l'elemento orizzontalmente */
+  display: block;     /* Assicura che l'elemento si comporti come un blocco */
+}
